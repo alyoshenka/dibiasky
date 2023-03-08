@@ -1,0 +1,21 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dibiasky-dev-102519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::644349221010:role/amplify-dibiasky-dev-102519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::644349221010:role/amplify-dibiasky-dev-102519-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-dibiasky-dev-102519-deployment",
+      "UnauthRoleName": "amplify-dibiasky-dev-102519-unauthRole",
+      "StackName": "amplify-dibiasky-dev-102519",
+      "StackId": "arn:aws:cloudformation:us-west-2:644349221010:stack/amplify-dibiasky-dev-102519/6b68da30-bd15-11ed-a230-064f71383ac7",
+      "AmplifyAppId": "d2dqtorn0c8m4c"
+    },
+    "categories": {
+      "auth": {
+        "dibiasky3104df5c": {},
+        "userPoolGroups": {}
+      }
+    }
+  }
+}
