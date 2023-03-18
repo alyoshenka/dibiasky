@@ -19,7 +19,7 @@ function App({ signOut, user }) {
       <Heading level={1}>Hello {user.username}</Heading>
       <Button onClick={signOut}>Sign out</Button>
       <Button onClick={() => utils.publish(topics.publish, payloads.hello)}>Press</Button>
-      <Button onClick={() => utils.publish(topics.hubble_command_req, payloads.hubble_print_command)}>Print Command</Button>
+      <Button onClick={utils.sendCommand}>Print Command</Button>
     </div>
   );
 }

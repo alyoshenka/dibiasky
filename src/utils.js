@@ -1,6 +1,9 @@
 import { Amplify, PubSub, Hub, Auth } from 'aws-amplify';
 import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 
+import * as topics from './topics'
+import * as payloads from './payloads'
+
 // Apply plugin with configuration
 export const setupAmplify = () => {
     console.log('--- setting up Amplify')
@@ -44,4 +47,12 @@ export const subscribe = (topic) => {
 export const publish = async (topic, payload) => {
     console.log('* publishing to:', topic, payload)
     await PubSub.publish(topic, payload)
+}
+
+export const sendCommand = async() => {
+    const topic = topics.hubble_command_req;
+    const payload = payloads.hubble_print_command;
+    const subscription = payloads.hubble_print_command.topic;
+    subscribe(subscription);
+    publish(topic, payload);
 }
