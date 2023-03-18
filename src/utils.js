@@ -34,12 +34,18 @@ export const getCurrentCredentials = () => {
       });
 }
 
-// todo: callback
-export const subscribe = (topic) => {
+export const printData = (data) => {
+    console.log(data)
+}
+
+// todo: func that handles then unsubscribes
+
+export const subscribe = (topic, callback) => {
     console.log('* subscribing to:', topic)
+    console.log('callback:', callback)
     PubSub.subscribe(topic).subscribe( {
-        next: data => console.log('received:', data),
-        error: err => console.error(err),
+        next: data => callback(data),
+        error: console.error,
         complete: () => console.log('done')
       })
 }
@@ -53,6 +59,6 @@ export const sendCommand = async() => {
     const topic = topics.hubble_command_req;
     const payload = payloads.hubble_print_command;
     const subscription = payloads.hubble_print_command.topic;
-    subscribe(subscription);
+    subscribe(subscription, printData);
     publish(topic, payload);
 }

@@ -11,7 +11,7 @@ Amplify.configure(awsExports);
 utils.setupAmplify();
 utils.listenForConnectionStateChanges();
 utils.getCurrentCredentials();
-utils.subscribe(topics.subscribe);
+utils.subscribe(topics.subscribe, utils.printData);
 
 function App({ signOut, user }) {
   return (
