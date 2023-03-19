@@ -11,15 +11,15 @@ Amplify.configure(awsExports);
 utils.setupAmplify();
 utils.listenForConnectionStateChanges();
 utils.getCurrentCredentials();
-utils.subscribe(topics.subscribe, utils.printData);
+const printDataSub = utils.subscribe(topics.subscribe, (d,t) => utils.handleCommandResponse(d,t,printDataSub));
 
 function App({ signOut, user }) {
   return (
     <div style={styles.container}>
       <Heading level={1}>Hello {user.username}</Heading>
       <Button onClick={signOut}>Sign out</Button>
-      <Button onClick={() => utils.publish(topics.publish, payloads.hello)}>Press</Button>
-      <Button onClick={utils.sendCommand}>Print Command</Button>
+      <Button onClick={() => utils.publish(topics.publish, payloads.hello)}>Say Hello</Button>
+      <Button onClick={utils.sendCommand}>Send "print" command to Hubble</Button>
     </div>
   );
 }
