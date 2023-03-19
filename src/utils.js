@@ -67,3 +67,5 @@ export const sendCommand = async() => {
     const subscription = subscribe(sub_topic, (d,t) => handleCommandResponse(d,t,subscription));
     publish(topic, payload);
 }
+
+export const returnOne = () => { return 1 }
