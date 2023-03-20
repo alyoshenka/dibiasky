@@ -26,12 +26,20 @@ export const listenForConnectionStateChanges = () => {
       })
 }
 
-export const getCurrentCredentials = () => {
+export const getCurrentCredentials = async() => {
     Auth.currentCredentials().then((info) => {
         const cognitoIdentityId = info.identityId;
-        console.log('cognito: ' + cognitoIdentityId)
-        console.log('endpoint:', process.env.REACT_APP_AWS_PUBSUB_ENDPOINT)
+        return cognitoIdentityId
       });
+}
+
+export const getEndpoint = () => {
+    return process.env.REACT_APP_AWS_PUBSUB_ENDPOINT
+}
+
+export const displayCurrentCredentials = () => {
+    console.log('- Cognito:', getCurrentCredentials())
+    console.log('- Endpoint:', getEndpoint())
 }
 
 export const printData = (data, topic) => {

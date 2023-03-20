@@ -10,8 +10,8 @@ Amplify.configure(awsExports);
 
 utils.setupAmplify();
 utils.listenForConnectionStateChanges();
-utils.getCurrentCredentials();
-const printDataSub = utils.subscribe(topics.subscribe, (d,t) => utils.handleCommandResponse(d,t,printDataSub));
+utils.displayCurrentCredentials();
+// const printDataSub = utils.subscribe(topics.subscribe, (d,t) => utils.handleCommandResponse(d,t,printDataSub));
 
 function App({ signOut, user }) {
   return (
