@@ -1,4 +1,6 @@
-import {returnOne} from './utils'
+/* eslint-disable no-undef */
+import { returnOne } from './utils';
+
 test('Return One returns 1', () => {
-    expect(returnOne()).toBe(1);
+  expect(returnOne()).toBe(1);
 });
