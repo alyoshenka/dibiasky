@@ -28,21 +28,14 @@ test('Return One returns 1', () => {
     expect(returnOne()).toBe(1);
 });
 
-/*
-test('Can sign in', async () => {
-    const result = await Auth.signIn('secretemail', 'secretpassword')
-    console.log(result)
-})
-*/
-
 // https://stackoverflow.com/questions/64673996/testing-aws-cognito-from-jest-fails-but-the-same-code-in-a-component-works
-/*
+
 test('Valid cognito auth', async () => {
     const credential = await getCurrentCredentials()
     console.log('cred:', credential)
     expect(credential).not.toBe(undefined)
 })
-*/
+
 
 // test can connect
 
