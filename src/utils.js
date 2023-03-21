@@ -20,31 +20,29 @@ export const setupAmplify = () => {
 };
 
 export const listenForConnectionStateChanges = () => {
-    console.log('--- Listening for connection state changes')
-    Hub.listen('pubsub', (data) => {
-        const { payload } = data;
-        if (payload.event === CONNECTION_STATE_CHANGE) {
-          const connectionState = payload.data.connectionState;
-          console.log('--- Connection state:', connectionState);
-        }
-      })
-}
+  console.log('--- Listening for connection state changes');
+  Hub.listen('pubsub', (data) => {
+    const { payload } = data;
+    if (payload.event === CONNECTION_STATE_CHANGE) {
+      const { connectionState } = payload.data;
+      console.log('--- Connection state:', connectionState);
+    }
+  });
+};
 
-export const getCurrentCredentials = async() => {
-    Auth.currentCredentials().then((info) => {
-        const cognitoIdentityId = info.identityId;
-        return cognitoIdentityId
-      });
-}
+export const getCurrentCredentials = async () => {
+  Auth.currentCredentials().then((info) => {
+    const cognitoIdentityId = info.identityId;
+    return cognitoIdentityId;
+  });
+};
 
-export const getEndpoint = () => {
-    return process.env.REACT_APP_AWS_PUBSUB_ENDPOINT
-}
+export const getEndpoint = () => process.env.REACT_APP_AWS_PUBSUB_ENDPOINT;
 
 export const displayCurrentCredentials = () => {
-    console.log('- Cognito:', getCurrentCredentials())
-    console.log('- Endpoint:', getEndpoint())
-}
+  console.log('- Cognito:', getCurrentCredentials());
+  console.log('- Endpoint:', getEndpoint());
+};
 
 export const printData = (data, topic) => {
   console.log('- Received:', data.value, 'from', topic);
