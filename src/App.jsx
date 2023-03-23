@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './App.css';
@@ -9,6 +11,7 @@ import awsExports from './aws-exports';
 import * as utils from './utils';
 import * as topics from './topics';
 import * as payloads from './payloads';
+import Tester from './Tester';
 
 const styles = {
   container: {
@@ -39,7 +42,8 @@ function App({ signOut, user }) {
       </Heading>
       <Button onClick={signOut}>Sign out</Button>
       <Button onClick={() => utils.publish(topics.publish, payloads.hello)}>Say Hello</Button>
-      <Button onClick={utils.sendCommand}>Send `&quotprint`&quot  command to Hubble</Button>
+      <Button onClick={utils.sendCommand}>Send &quot;print&quot; command to Hubble</Button>
+      <Tester />
     </div>
   );
 }

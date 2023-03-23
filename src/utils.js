@@ -22,11 +22,14 @@ export const setupAmplify = () => {
 export const listenForConnectionStateChanges = () => {
   console.log('--- Listening for connection state changes');
   Hub.listen('pubsub', (data) => {
+    console.log('--- Data:', data);
     const { payload } = data;
     if (payload.event === CONNECTION_STATE_CHANGE) {
       const { connectionState } = payload.data;
       console.log('--- Connection state:', connectionState);
+      return connectionState;
     }
+    return null;
   });
 };
 

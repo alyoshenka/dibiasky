@@ -10,7 +10,7 @@ import {
 } from './utils';
 import awsExports from './aws-exports';
 
-// jest.setTimeout(10000) // 10s
+jest.setTimeout(10000); // 10s
 beforeAll(() => {
   Amplify.configure(awsExports);
   setupAmplify();
@@ -23,4 +23,9 @@ beforeAll(() => {
 
 test('Return One returns 1', () => {
   expect(returnOne()).toBe(1);
+});
+
+test('Cognito identity is defined', async () => {
+  const cognitoIdentityId = await getCurrentCredentials();
+  expect(cognitoIdentityId).not.toBe(undefined);
 });
