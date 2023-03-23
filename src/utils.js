@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable comma-dangle */
 import {
   Amplify, PubSub, Hub, Auth,
@@ -27,24 +28,17 @@ export const listenForConnectionStateChanges = () => {
     if (payload.event === CONNECTION_STATE_CHANGE) {
       const { connectionState } = payload.data;
       console.log('--- Connection state:', connectionState);
-      return connectionState;
     }
-    return null;
   });
 };
 
-export const getCurrentCredentials = async () => {
-  Auth.currentCredentials().then((info) => {
-    const cognitoIdentityId = info.identityId;
-    return cognitoIdentityId;
-  });
-};
+export const getCurrentCredentials = async () => (await Auth.currentCredentials()).identityId;
 
 export const getEndpoint = () => process.env.REACT_APP_AWS_PUBSUB_ENDPOINT;
 
-export const displayCurrentCredentials = () => {
-  console.log('- Cognito:', getCurrentCredentials());
+export const displayCurrentCredentials = async () => {
   console.log('- Endpoint:', getEndpoint());
+  console.log('- Cognito:', await getCurrentCredentials());
 };
 
 export const printData = (data, topic) => {

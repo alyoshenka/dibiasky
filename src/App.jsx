@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
@@ -6,7 +7,8 @@ import './App.css';
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // eslint-disable-next-line import/no-unresolved
 import '@aws-amplify/ui-react/styles.css';
-import { Amplify } from 'aws-amplify';
+import { Amplify, Hub } from 'aws-amplify';
+import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub'; // take out later
 import awsExports from './aws-exports';
 import * as utils from './utils';
 import * as topics from './topics';
@@ -25,8 +27,18 @@ const styles = {
 Amplify.configure(awsExports);
 
 utils.setupAmplify();
-utils.listenForConnectionStateChanges();
-utils.getCurrentCredentials();
+
+Hub.listen('pubsub', (data) => {
+  const { payload } = data;
+  console.log('Data:', data);
+  if (payload.event === CONNECTION_STATE_CHANGE) {
+    const { connectionState } = payload.data;
+    console.log('Connection state:', connectionState);
+  }
+});
+// utils.listenForConnectionStateChanges();
+utils.displayCurrentCredentials();
+
 const printDataSub = utils.subscribe(
   topics.subscribe,
   (d, t) => utils.handleCommandResponse(d, t, printDataSub),
