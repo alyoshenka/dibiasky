@@ -30,7 +30,7 @@ const styles = {
 
 utils.setupAmplify();
 utils.displayCurrentCredentials();
-utils.listenForConnectionStateChanges();
+utils.displayConnectionStateChanges();
 utils.listenForAuthStateChanges();
 
 function App({ signOut, user }) {

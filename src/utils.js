@@ -20,7 +20,7 @@ export const setupAmplify = () => {
   );
 };
 
-export const listenForConnectionStateChanges = () => {
+export const displayConnectionStateChanges = () => {
   Hub.listen('pubsub', (data) => {
     const { payload } = data;
     if (payload.event === CONNECTION_STATE_CHANGE) {
@@ -28,6 +28,19 @@ export const listenForConnectionStateChanges = () => {
       console.log('--- Connection state:', connectionState);
     }
   });
+};
+
+export const listenForConnectionStateChanges = async () => {
+  Hub.listen('pubsub')
+    .then((data) => {
+      const { payload } = data;
+      if (payload.event === CONNECTION_STATE_CHANGE) {
+        const { connectionState } = payload.data;
+        return connectionState;
+      }
+      return undefined;
+    })
+    .catch((error) => error);
 };
 
 export const listenForAuthStateChanges = () => {

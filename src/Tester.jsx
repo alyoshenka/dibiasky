@@ -4,7 +4,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Button } from '@aws-amplify/ui-react';
-import { listenForConnectionStateChanges } from './utils';
+import { Hub } from 'aws-amplify';
+import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 
 function Tester() {
   // eslint-disable-next-line no-unused-vars
@@ -12,12 +13,12 @@ function Tester() {
   const [connectionState, setConnectionState] = useState(undefined);
 
   useEffect(() => {
-    console.log('useEffect');
-    const thingy = async () => {
-      const currentConnectionState = await listenForConnectionStateChanges();
-      setConnectionState(currentConnectionState);
-    };
-    thingy();
+    Hub.listen('pubsub', (data) => {
+      const { payload } = data;
+      if (payload.event === CONNECTION_STATE_CHANGE) {
+        setConnectionState(payload.data.connectionState);
+      }
+    });    
   }, []);
 
   return (
