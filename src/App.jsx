@@ -7,13 +7,17 @@ import './App.css';
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // eslint-disable-next-line import/no-unresolved
 import '@aws-amplify/ui-react/styles.css';
-import { Amplify, Hub } from 'aws-amplify';
-import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub'; // take out later
+import {
+  Amplify, Hub, PubSub, Auth,
+} from 'aws-amplify';
+import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub'; // take out later
 import awsExports from './aws-exports';
 import * as utils from './utils';
 import * as topics from './topics';
 import * as payloads from './payloads';
 import Tester from './Tester';
+
+Amplify.configure(awsExports);
 
 const styles = {
   container: {
@@ -24,25 +28,10 @@ const styles = {
   },
 };
 
-Amplify.configure(awsExports);
-
 utils.setupAmplify();
-
-Hub.listen('pubsub', (data) => {
-  const { payload } = data;
-  console.log('Data:', data);
-  if (payload.event === CONNECTION_STATE_CHANGE) {
-    const { connectionState } = payload.data;
-    console.log('Connection state:', connectionState);
-  }
-});
-// utils.listenForConnectionStateChanges();
 utils.displayCurrentCredentials();
-
-const printDataSub = utils.subscribe(
-  topics.subscribe,
-  (d, t) => utils.handleCommandResponse(d, t, printDataSub),
-);
+utils.listenForConnectionStateChanges();
+utils.listenForAuthStateChanges();
 
 function App({ signOut, user }) {
   return (

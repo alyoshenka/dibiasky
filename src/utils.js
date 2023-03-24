@@ -21,13 +21,36 @@ export const setupAmplify = () => {
 };
 
 export const listenForConnectionStateChanges = () => {
-  console.log('--- Listening for connection state changes');
   Hub.listen('pubsub', (data) => {
-    console.log('--- Data:', data);
     const { payload } = data;
     if (payload.event === CONNECTION_STATE_CHANGE) {
       const { connectionState } = payload.data;
       console.log('--- Connection state:', connectionState);
+    }
+  });
+};
+
+export const listenForAuthStateChanges = () => {
+  Hub.listen('auth', (data) => {
+    console.log('Auth:', data);
+    switch (data.payload.event) {
+      case 'signIn':
+        console.log('user signed in');
+        break;
+      case 'signUp':
+        console.log('user signed up');
+        break;
+      case 'signOut':
+        console.log('user signed out');
+        break;
+      case 'signIn_failure':
+        console.log('user sign in failed');
+        break;
+      case 'configured':
+        console.log('the Auth module is configured');
+        break;
+      default:
+        break;
     }
   });
 };
@@ -66,7 +89,7 @@ export const subscribe = (topic, callback) => {
 
 export const publish = async (topic, payload) => {
   console.log('* Publishing to:', topic, JSON.stringify(payload));
-  await PubSub.publish(topic, payload);
+  await PubSub.publish(topic, payload).then(() => { console.log('Published'); });
 };
 
 // Sends "print" command to Hubble
