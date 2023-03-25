@@ -30,20 +30,7 @@ export const displayConnectionStateChanges = () => {
   });
 };
 
-export const listenForConnectionStateChanges = async () => {
-  Hub.listen('pubsub')
-    .then((data) => {
-      const { payload } = data;
-      if (payload.event === CONNECTION_STATE_CHANGE) {
-        const { connectionState } = payload.data;
-        return connectionState;
-      }
-      return undefined;
-    })
-    .catch((error) => error);
-};
-
-export const listenForAuthStateChanges = () => {
+export const displayAuthStateChanges = () => {
   Hub.listen('auth', (data) => {
     console.log('Auth:', data);
     switch (data.payload.event) {

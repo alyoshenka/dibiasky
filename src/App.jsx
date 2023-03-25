@@ -7,10 +7,7 @@ import './App.css';
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // eslint-disable-next-line import/no-unresolved
 import '@aws-amplify/ui-react/styles.css';
-import {
-  Amplify, Hub, PubSub, Auth,
-} from 'aws-amplify';
-import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub'; // take out later
+import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import * as utils from './utils';
 import * as topics from './topics';
@@ -31,7 +28,10 @@ const styles = {
 utils.setupAmplify();
 utils.displayCurrentCredentials();
 utils.displayConnectionStateChanges();
-utils.listenForAuthStateChanges();
+utils.displayAuthStateChanges();
+
+// need this to keep the connection open
+utils.subscribe('keepAlive', (d, t) => { console.log('keepAlive:', d); });
 
 function App({ signOut, user }) {
   return (
