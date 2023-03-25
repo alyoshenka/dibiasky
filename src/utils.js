@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable comma-dangle */
 import {
   Amplify, PubSub, Hub, Auth,
@@ -19,23 +20,48 @@ export const setupAmplify = () => {
   );
 };
 
-export const listenForConnectionStateChanges = () => {
-  console.log('--- listening for connection state changes');
+export const displayConnectionStateChanges = () => {
   Hub.listen('pubsub', (data) => {
     const { payload } = data;
     if (payload.event === CONNECTION_STATE_CHANGE) {
       const { connectionState } = payload.data;
-      console.log('connection state:', connectionState);
+      console.log('--- Connection state:', connectionState);
     }
   });
 };
 
-export const getCurrentCredentials = () => {
-  Auth.currentCredentials().then((info) => {
-    const cognitoIdentityId = info.identityId;
-    console.log(`cognito: ${cognitoIdentityId}`);
-    console.log('endpoint:', process.env.REACT_APP_AWS_PUBSUB_ENDPOINT);
+export const displayAuthStateChanges = () => {
+  Hub.listen('auth', (data) => {
+    console.log('Auth:', data);
+    switch (data.payload.event) {
+      case 'signIn':
+        console.log('user signed in');
+        break;
+      case 'signUp':
+        console.log('user signed up');
+        break;
+      case 'signOut':
+        console.log('user signed out');
+        break;
+      case 'signIn_failure':
+        console.log('user sign in failed');
+        break;
+      case 'configured':
+        console.log('the Auth module is configured');
+        break;
+      default:
+        break;
+    }
   });
+};
+
+export const getCurrentCredentials = async () => (await Auth.currentCredentials()).identityId;
+
+export const getEndpoint = () => process.env.REACT_APP_AWS_PUBSUB_ENDPOINT;
+
+export const displayCurrentCredentials = async () => {
+  console.log('- Endpoint:', getEndpoint());
+  console.log('- Cognito:', await getCurrentCredentials());
 };
 
 export const printData = (data, topic) => {
@@ -63,7 +89,7 @@ export const subscribe = (topic, callback) => {
 
 export const publish = async (topic, payload) => {
   console.log('* Publishing to:', topic, JSON.stringify(payload));
-  await PubSub.publish(topic, payload);
+  await PubSub.publish(topic, payload).then(() => { console.log('Published'); });
 };
 
 // Sends "print" command to Hubble

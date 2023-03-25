@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './App.css';
@@ -9,6 +12,9 @@ import awsExports from './aws-exports';
 import * as utils from './utils';
 import * as topics from './topics';
 import * as payloads from './payloads';
+import Tester from './Tester';
+
+Amplify.configure(awsExports);
 
 const styles = {
   container: {
@@ -19,15 +25,13 @@ const styles = {
   },
 };
 
-Amplify.configure(awsExports);
-
 utils.setupAmplify();
-utils.listenForConnectionStateChanges();
-utils.getCurrentCredentials();
-const printDataSub = utils.subscribe(
-  topics.subscribe,
-  (d, t) => utils.handleCommandResponse(d, t, printDataSub),
-);
+utils.displayCurrentCredentials();
+utils.displayConnectionStateChanges();
+utils.displayAuthStateChanges();
+
+// need this to keep the connection open
+utils.subscribe('keepAlive', (d, t) => { console.log('keepAlive:', d); });
 
 function App({ signOut, user }) {
   return (
@@ -39,7 +43,8 @@ function App({ signOut, user }) {
       </Heading>
       <Button onClick={signOut}>Sign out</Button>
       <Button onClick={() => utils.publish(topics.publish, payloads.hello)}>Say Hello</Button>
-      <Button onClick={utils.sendCommand}>Send `&quotprint`&quot  command to Hubble</Button>
+      <Button onClick={utils.sendCommand}>Send &quot;print&quot; command to Hubble</Button>
+      <Tester />
     </div>
   );
 }
