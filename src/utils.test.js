@@ -10,8 +10,9 @@ import {
   getEndpoint,
   // displayConnectionStateChanges,
 } from './utils';
-import awsExports from './aws-exports';
+// import awsExports from './aws-exports';
 
+/*
 jest.setTimeout(10000); // 10s
 beforeAll(() => {
   Amplify.configure(awsExports);
@@ -19,6 +20,7 @@ beforeAll(() => {
   // displayConnectionStateChanges();
   // subscribe('test', (d, t) => { console.log('idk'); });
 });
+*/
 
 // https://legacy.reactjs.org/docs/testing-recipes.html
 
