@@ -92,8 +92,17 @@ export const publish = async (topic, payload) => {
   await PubSub.publish(topic, payload).then(() => { console.log('Published'); });
 };
 
+export const sendNeopixeltestCommand = async () => {
+  const topic = topics.hubblCommandReq;
+  const payload = payloads.hubbleRunNeopixeltest;
+  // no subscription (yet)
+  // const subTopic = payloads.hubblePrintCommand.topic;
+  // const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
+  publish(topic, payload);
+};
+
 // Sends "print" command to Hubble
-export const sendCommand = async () => {
+export const sendPrintCommand = async () => {
   const topic = topics.hubblCommandReq;
   const payload = payloads.hubblePrintCommand;
   const subTopic = payloads.hubblePrintCommand.topic;

@@ -43,7 +43,8 @@ function App({ signOut, user }) {
       </Heading>
       <Button onClick={signOut}>Sign out</Button>
       <Button onClick={() => utils.publish(topics.publish, payloads.hello)}>Say Hello</Button>
-      <Button onClick={utils.sendCommand}>Send &quot;print&quot; command to Hubble</Button>
+      <Button onClick={utils.sendPrintCommand}>Send &quot;print&quot; command to Hubble</Button>
+      <Button onClick={utils.sendNeopixeltestCommand}>Run Neopixel Test</Button>
       <Tester />
     </div>
   );
