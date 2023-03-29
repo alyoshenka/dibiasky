@@ -93,7 +93,7 @@ export const publish = async (topic, payload) => {
 };
 
 export const sendNeopixeltestCommand = async () => {
-  const topic = topics.hubblCommandReq;
+  const topic = topics.hubbleCommandReq;
   const payload = payloads.hubbleRunNeopixeltest;
   // no subscription (yet)
   // const subTopic = payloads.hubblePrintCommand.topic;
@@ -103,11 +103,15 @@ export const sendNeopixeltestCommand = async () => {
 
 // Sends "print" command to Hubble
 export const sendPrintCommand = async () => {
-  const topic = topics.hubblCommandReq;
+  const topic = topics.hubbleCommandReq;
   const payload = payloads.hubblePrintCommand;
   const subTopic = payloads.hubblePrintCommand.topic;
   const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
   publish(topic, payload);
+};
+
+export const requestHubbleOperations = async () => {
+  publish(topics.reqHubbleOperations, null);
 };
 
 export const returnOne = () => 1;

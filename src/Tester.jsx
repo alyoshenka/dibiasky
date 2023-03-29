@@ -13,6 +13,7 @@ function Tester() {
   const [connectionState, setConnectionState] = useState(undefined);
 
   useEffect(() => {
+    // todo: abstract into a function
     Hub.listen('pubsub', (data) => {
       const { payload } = data;
       if (payload.event === CONNECTION_STATE_CHANGE) {
