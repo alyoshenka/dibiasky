@@ -12,7 +12,7 @@ import awsExports from './aws-exports';
 import * as utils from './utils';
 import * as topics from './topics';
 import * as payloads from './payloads';
-import Tester from './Tester';
+import ConnectionStatus from './ConnectionStatus';
 import AvailableOperations from './AvailableOperations';
 import gear from './images/gear.png';
 
@@ -25,8 +25,6 @@ const styles = {
   button: {
     color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px',
   },
-  black: { outline: 'black' },
-  red: { outline: 'red' },
 };
 
 utils.setupAmplify();
@@ -52,6 +50,7 @@ function App({ signOut, user }) {
           id="auth"
           style={{
             flexDirection: 'column',
+            backgroundColor: 'green',
           }}
         >
           <Heading level={1}>
@@ -59,7 +58,9 @@ function App({ signOut, user }) {
             {' '}
             {user.username}
           </Heading>
-          <Button style={styles.button} onClick={signOut}>Sign out</Button>
+          <div id="signout-button" style={{ flex: 'flex-grow' }}>
+            <Button style={styles.button} onClick={signOut}>Sign out</Button>
+          </div>
         </div>
       </div>
       <div id="work">
@@ -91,8 +92,7 @@ function App({ signOut, user }) {
               <Button style={styles.button} onClick={utils.sendPrintCommand}>
                 Send &quot;print&quot; command to Hubble
               </Button>
-              {/* eslint-disable-next-line max-len */}
-              { /*<Button onClick={utils.sendNeopixeltestCommand} disabled="true">Run Neopixel Test</Button>*/ }
+              <Button onClick={utils.sendNeopixeltestCommand}>Run Neopixel Test</Button>
             </div>
             <div
               id="board-display"
@@ -105,7 +105,7 @@ function App({ signOut, user }) {
           </div>
           <div id="right" style={{ outline: '1px solid black', flexDirection: 'row' }}>
             <div id="connection-status" style={{ outline: '1px solid black' }}>
-              <Tester />
+              <ConnectionStatus />
             </div>
             <div id="log" style={{ outline: '1px solid black', flex: 'flex-grow' }}>
               <p>Log</p>
