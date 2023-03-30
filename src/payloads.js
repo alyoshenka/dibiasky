@@ -10,3 +10,11 @@ export const hubblePrintCommand = {
     data: 'hello from an MQTT topic'
   }
 };
+
+export const hubbleRunNeopixeltest = {
+  topic: topics.hubbleCommandRes,
+  action: {
+    cmd: 'run',
+    data: 'neopixeltest'
+  }
+};

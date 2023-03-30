@@ -7,12 +7,13 @@ import { Button } from '@aws-amplify/ui-react';
 import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 
-function Tester() {
+function ConnectionStatus() {
   // eslint-disable-next-line no-unused-vars
   const [incr, setIncr] = useState(0);
   const [connectionState, setConnectionState] = useState(undefined);
 
   useEffect(() => {
+    // todo: abstract into a function
     Hub.listen('pubsub', (data) => {
       const { payload } = data;
       if (payload.event === CONNECTION_STATE_CHANGE) {
@@ -29,4 +30,4 @@ function Tester() {
   );
 }
 
-export default Tester;
+export default ConnectionStatus;
