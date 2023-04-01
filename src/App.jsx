@@ -9,11 +9,13 @@ import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
-import * as utils from './utils';
-import * as topics from './topics';
-import * as payloads from './payloads';
-import ConnectionStatus from './ConnectionStatus';
-import AvailableOperations from './AvailableOperations';
+import * as utils from './app/utils/utils';
+import * as topics from './app/utils/topics';
+import * as payloads from './app/utils/payloads';
+import ConnectionStatus from './app/ConnectionStatus';
+import AvailableOperations from './app/AvailableOperations';
+import Log from './app/Log';
+import AddLogForm from './app/AddLogForm';
 import gear from './images/gear.png';
 
 Amplify.configure(awsExports);
@@ -107,9 +109,8 @@ function App({ signOut, user }) {
             <div id="connection-status" style={{ outline: '1px solid black' }}>
               <ConnectionStatus />
             </div>
-            <div id="log" style={{ outline: '1px solid black', flex: 'flex-grow' }}>
-              <p>Log</p>
-            </div>
+            <Log />
+            <AddLogForm />
           </div>
         </div>
       </div>
