@@ -14,7 +14,6 @@ function AvailableOperations() {
       const obj = JSON.parse(d.value).res;
       setOperations(obj);
     });
-    console.log('Subscribing to', resHubbleOperations, 'from AvailableOperations');
   }, []);
   return (
     <div>

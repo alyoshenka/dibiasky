@@ -7,15 +7,13 @@ function Log() {
   const renderedLog = log.map((entry, idx) => (
     // eslint-disable-next-line react/no-array-index-key
     <li key={idx}>
-      {entry.route}
-      {': '}
-      {entry.msg}
+      {entry}
     </li>
   ));
 
   return (
     <div id="log">
-      <p>Log (actual)</p>
+      <h3>MQTT Log:</h3>
       <ul>
         {renderedLog}
       </ul>

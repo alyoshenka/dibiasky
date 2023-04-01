@@ -7,13 +7,22 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 import { subAdded, subRemoved } from './subsSlice';
+import { logAdded } from '../logSlice';
 import store from '../store';
 import * as topics from './topics';
 import * as payloads from './payloads';
 
+const addEntryToLog = (entry) => {
+  // only if all the fields filled
+  // todo: error checking
+  if (entry) {
+    store.dispatch(logAdded(entry));
+  }
+};
+
 // Apply plugin with configuration
 export const setupAmplify = () => {
-  console.log('--- setting up Amplify');
+  addEntryToLog('Setting up Amplify');
   Amplify.addPluggable(
     new AWSIoTProvider({
       aws_pubsub_region: 'us-west-2',
@@ -27,7 +36,7 @@ export const displayConnectionStateChanges = () => {
     const { payload } = data;
     if (payload.event === CONNECTION_STATE_CHANGE) {
       const { connectionState } = payload.data;
-      console.log('--- Connection state:', connectionState);
+      addEntryToLog(`Connection state: ${connectionState}`);
     }
   });
 };
@@ -37,19 +46,19 @@ export const displayAuthStateChanges = () => {
     console.log('Auth:', data);
     switch (data.payload.event) {
       case 'signIn':
-        console.log('user signed in');
+        addEntryToLog('user signed in');
         break;
       case 'signUp':
-        console.log('user signed up');
+        addEntryToLog('user signed up');
         break;
       case 'signOut':
-        console.log('user signed out');
+        addEntryToLog('user signed out');
         break;
       case 'signIn_failure':
-        console.log('user sign in failed');
+        addEntryToLog('user sign in failed');
         break;
       case 'configured':
-        console.log('the Auth module is configured');
+        addEntryToLog('the Auth module is configured');
         break;
       default:
         break;
@@ -62,8 +71,8 @@ export const getCurrentCredentials = async () => (await Auth.currentCredentials(
 export const getEndpoint = () => process.env.REACT_APP_AWS_PUBSUB_ENDPOINT;
 
 export const displayCurrentCredentials = async () => {
-  console.log('- Endpoint:', getEndpoint());
-  console.log('- Cognito:', await getCurrentCredentials());
+  addEntryToLog(`Endpoint: ${getEndpoint()}`);
+  addEntryToLog(`Cognito: ${await getCurrentCredentials()}`);
 };
 
 export const printData = (data, topic) => {
@@ -73,7 +82,7 @@ export const printData = (data, topic) => {
 // todo: func that handles then unsubscribes
 export const handleCommandResponse = (data, topic, subscription) => {
   printData(data, topic);
-  console.log('* Unsubscribing from', topic);
+  console.log(`Unsubscribing from ${topic}`);
   const payload = { route: topic };
   store.dispatch(subRemoved(payload));
   subscription.unsubscribe();
@@ -83,24 +92,24 @@ export const handleCommandResponse = (data, topic, subscription) => {
 export const subscribe = (topic, callback) => {
   const payload = { route: topic };
   if (store.getState().subs.some((item) => item.route === payload.route)) {
-    console.log('Already subscribed to:', topic);
+    addEntryToLog(`Already subscribed to: ${topic}`);
   } else {
     store.dispatch(subAdded(payload));
 
-    console.log('* Subscribing to:', topic);
+    addEntryToLog(`Subscribing to: ${topic}`);
     return PubSub.subscribe(topic).subscribe({
       // Triggered every time a message is successfully received for the topic
       next: (data) => callback(data, topic),
       // Triggered when subscription attempt fails
       error: console.error,
       // Triggered when you unsubscribe from the topic
-      complete: () => console.log('* Unsubscribed')
+      complete: () => addEntryToLog(`Unsubscribed from ${topic}`)
     });
   }
 };
 
 export const publish = async (topic, payload) => {
-  console.log('* Publishing to:', topic, JSON.stringify(payload));
+  addEntryToLog(`Publishing to: ${topic}; data: ${JSON.stringify(payload)}`);
   await PubSub.publish(topic, payload).then(() => { console.log('Published'); });
 };
 
