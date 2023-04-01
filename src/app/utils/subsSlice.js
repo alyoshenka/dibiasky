@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [
-  { route: 'first/route' },
-  { route: 'second/route' },
+  // { route: 'first/route' },
+  // { route: 'second/route' },
 ];
 
 const subsSlice = createSlice({
-  name: 'subscription',
+  name: 'subs',
   initialState,
   reducers: {
     subAdded(state, action) {
