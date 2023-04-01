@@ -12,7 +12,7 @@ import store from '../store';
 import * as topics from './topics';
 import * as payloads from './payloads';
 
-const addEntryToLog = (entry) => {
+export const addEntryToLog = (entry) => {
   // only if all the fields filled
   // todo: error checking
   if (entry) {

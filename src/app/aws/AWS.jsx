@@ -6,6 +6,7 @@ import * as topics from '../utils/topics';
 import ConnectionStatus from './ConnectionStatus';
 import ActiveSubscriptions from './ActiveSubscriptions';
 import HubbleStatus from './HubbleStatus';
+import Log from '../Log';
 
 Amplify.configure(awsExports);
 
@@ -24,6 +25,7 @@ function AWS() {
       <h2>AWS Stuff</h2>
       <ActiveSubscriptions />
       <HubbleStatus />
+      <Log />
     </>
   );
 }
