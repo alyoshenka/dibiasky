@@ -10,11 +10,9 @@ import '@aws-amplify/ui-react/styles.css';
 import * as utils from './app/utils/utils';
 import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
-import ConnectionStatus from './app/ConnectionStatus';
-import AvailableOperations from './app/AvailableOperations';
-import AWS from './app/AWS';
+import AWS from './app/aws/AWS';
+import AvailableOperations from './app/aws/AvailableOperations';
 import Log from './app/Log';
-import AddLogForm from './app/AddLogForm';
 import gear from './images/gear.png';
 
 const styles = {
@@ -95,12 +93,7 @@ function App({ signOut, user }) {
             </div>
           </div>
           <div id="right" style={{ outline: '1px solid black', flexDirection: 'row' }}>
-            <div id="connection-status" style={{ outline: '1px solid black' }}>
-              <ConnectionStatus />
-            </div>
             <AWS />
-            <Log />
-            <AddLogForm />
           </div>
         </div>
       </div>

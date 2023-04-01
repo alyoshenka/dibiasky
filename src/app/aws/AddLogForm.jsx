@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logAdded } from './logSlice';
+import { logAdded } from '../logSlice';
 
 function AddLogForm() {
   const [route, setRoute] = useState('');

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@aws-amplify/ui-react';
-import { subscribe, requestHubbleOperations } from './utils/utils';
-import { resHubbleOperations } from './utils/topics';
+import { subscribe, requestHubbleOperations } from '../utils/utils';
+import { resHubbleOperations } from '../utils/topics';
 
 function AvailableOperations() {
   const [operations, setOperations] = useState([]);
