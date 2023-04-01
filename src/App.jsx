@@ -7,18 +7,15 @@ import './App.css';
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // eslint-disable-next-line import/no-unresolved
 import '@aws-amplify/ui-react/styles.css';
-import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
 import * as utils from './app/utils/utils';
 import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import ConnectionStatus from './app/ConnectionStatus';
 import AvailableOperations from './app/AvailableOperations';
+import AWS from './app/AWS';
 import Log from './app/Log';
 import AddLogForm from './app/AddLogForm';
 import gear from './images/gear.png';
-
-Amplify.configure(awsExports);
 
 const styles = {
   container: {
@@ -28,14 +25,6 @@ const styles = {
     color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px',
   },
 };
-
-utils.setupAmplify();
-utils.displayCurrentCredentials();
-utils.displayConnectionStateChanges();
-utils.displayAuthStateChanges();
-
-// need this to keep the connection open
-utils.subscribe('cmd/neo/res', utils.printData);
 
 function App({ signOut, user }) {
   return (
@@ -109,6 +98,7 @@ function App({ signOut, user }) {
             <div id="connection-status" style={{ outline: '1px solid black' }}>
               <ConnectionStatus />
             </div>
+            <AWS />
             <Log />
             <AddLogForm />
           </div>

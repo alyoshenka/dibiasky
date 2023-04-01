@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable comma-dangle */
 import {
@@ -5,7 +6,9 @@ import {
 } from 'aws-amplify';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
-
+import { useDispatch } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { subAdded } from './subsSlice';
 import * as topics from './topics';
 import * as payloads from './payloads';
 
@@ -76,6 +79,17 @@ export const handleCommandResponse = (data, topic, subscription) => {
 };
 
 export const subscribe = (topic, callback) => {
+  /*
+  const dispatch = useDispatch();
+  if (topic) {
+    dispatch(
+      subscriptionAdded({
+        id: nanoid(),
+        topic
+      }),
+    );
+  }
+  */
   console.log('* Subscribing to:', topic);
   return PubSub.subscribe(topic).subscribe({
     // Triggered every time a message is successfully received for the topic
