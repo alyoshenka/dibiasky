@@ -8,7 +8,6 @@ import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 
 function ConnectionStatus() {
-  // eslint-disable-next-line no-unused-vars
   const [incr, setIncr] = useState(0);
   const [connectionState, setConnectionState] = useState(undefined);
 
@@ -19,7 +18,7 @@ function ConnectionStatus() {
       if (payload.event === CONNECTION_STATE_CHANGE) {
         setConnectionState(payload.data.connectionState);
       }
-    });    
+    });   
   }, []);
 
   return (
