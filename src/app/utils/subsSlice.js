@@ -12,9 +12,13 @@ const subsSlice = createSlice({
     subAdded(state, action) {
       state.push(action.payload);
     },
+    subRemoved(state, action) {
+      const { route } = action.payload;
+      return state.filter((item) => item.route !== route);
+    },
   },
 });
 
-export const { subAdded } = subsSlice.actions;
+export const { subAdded, subRemoved } = subsSlice.actions;
 
 export default subsSlice.reducer;

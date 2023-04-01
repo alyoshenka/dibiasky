@@ -6,7 +6,7 @@ import {
 } from 'aws-amplify';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
-import { subAdded } from './subsSlice';
+import { subAdded, subRemoved } from './subsSlice';
 import store from '../store';
 import * as topics from './topics';
 import * as payloads from './payloads';
@@ -74,6 +74,8 @@ export const printData = (data, topic) => {
 export const handleCommandResponse = (data, topic, subscription) => {
   printData(data, topic);
   console.log('* Unsubscribing from', topic);
+  const payload = { route: topic };
+  store.dispatch(subRemoved(payload));
   subscription.unsubscribe();
 };
 
