@@ -79,19 +79,25 @@ export const handleCommandResponse = (data, topic, subscription) => {
   subscription.unsubscribe();
 };
 
+// eslint-disable-next-line consistent-return
 export const subscribe = (topic, callback) => {
   const payload = { route: topic };
-  store.dispatch(subAdded(payload));
+  console.log(store.getState().subs);
+  if (store.getState().subs.includes(payload)) {
+    console.log('Already subscribed to:', topic);
+  } else {
+    store.dispatch(subAdded(payload));
 
-  console.log('* Subscribing to:', topic);
-  return PubSub.subscribe(topic).subscribe({
-    // Triggered every time a message is successfully received for the topic
-    next: (data) => callback(data, topic),
-    // Triggered when subscription attempt fails
-    error: console.error,
-    // Triggered when you unsubscribe from the topic
-    complete: () => console.log('* Unsubscribed')
-  });
+    console.log('* Subscribing to:', topic);
+    return PubSub.subscribe(topic).subscribe({
+      // Triggered every time a message is successfully received for the topic
+      next: (data) => callback(data, topic),
+      // Triggered when subscription attempt fails
+      error: console.error,
+      // Triggered when you unsubscribe from the topic
+      complete: () => console.log('* Unsubscribed')
+    });
+  }
 };
 
 export const publish = async (topic, payload) => {
