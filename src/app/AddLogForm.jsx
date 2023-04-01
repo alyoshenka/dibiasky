@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import { logAdded } from './logSlice';
 
 function AddLogForm() {
@@ -15,12 +14,8 @@ function AddLogForm() {
 
   const onSaveLogClicked = () => {
     if (route && msg) {
-      dispatch(
-        logAdded({
-          id: nanoid(),
-          route,
-          msg,
-        }),
+      dispatch( // nice to have unique id; todo later
+        logAdded(`${route}: ${msg}`),
       );
       setRoute('');
       setMsg('');
