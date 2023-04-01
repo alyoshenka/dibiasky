@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@aws-amplify/ui-react';
 import { subscribe, requestHubbleOperations } from './utils/utils';
-import { hubbleOperations } from './utils/topics';
+import { resHubbleOperations } from './utils/topics';
 
 function AvailableOperations() {
   const [operations, setOperations] = useState([]);
@@ -10,10 +10,11 @@ function AvailableOperations() {
     // 1. Subscribe to operations channel
     setOperations([]);
     // eslint-disable-next-line no-unused-vars
-    subscribe(hubbleOperations, (d, t) => {
+    subscribe(resHubbleOperations, (d, t) => {
       const obj = JSON.parse(d.value).res;
       setOperations(obj);
     });
+    console.log('Subscribing to', resHubbleOperations, 'from AvailableOperations');
   }, []);
   return (
     <div>

@@ -82,8 +82,7 @@ export const handleCommandResponse = (data, topic, subscription) => {
 // eslint-disable-next-line consistent-return
 export const subscribe = (topic, callback) => {
   const payload = { route: topic };
-  console.log(store.getState().subs);
-  if (store.getState().subs.includes(payload)) {
+  if (store.getState().subs.some((item) => item.route === payload.route)) {
     console.log('Already subscribed to:', topic);
   } else {
     store.dispatch(subAdded(payload));
