@@ -4,7 +4,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { Abc } from '@mui/icons-material';
+import Chip from '@mui/material/Chip';
 import { 
   green, 
   yellow, 
@@ -47,7 +47,7 @@ function ConnectionStatus() {
   return (
     <div>
       <p>ConnectionState: {connectionState === undefined ? 'undefined' : connectionState}</p>
-      <Abc sx={{ color: connectionColor[500] }} />
+      <Chip label={connectionState} style={{ backgroundColor: connectionColor[500] }} />
     </div>
   );
 }
