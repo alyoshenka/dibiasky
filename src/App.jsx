@@ -12,6 +12,7 @@ import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import AWS from './app/aws/AWS';
 import AvailableOperations from './app/aws/AvailableOperations';
+import Log from './app/Log';
 import gear from './images/gear.png';
 
 const styles = {
