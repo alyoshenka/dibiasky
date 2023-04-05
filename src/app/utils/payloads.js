@@ -18,3 +18,11 @@ export const hubbleRunNeopixeltest = {
     data: 'neopixeltest'
   }
 };
+
+export const hubbleEchoCommand = {
+  topic: topics.hubbleCommandRes,
+  action: {
+    cmd: 'say',
+    data: 'hello'
+  }
+};

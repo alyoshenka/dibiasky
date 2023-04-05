@@ -1,3 +1,14 @@
+# Dibiasky
+
+A way to interact with IoT Devices
+
+## Description
+This webpage allows users to interact with various IoT devices through AWS IoTCore via MQTT. It utilizes AWS Amplify to handle secure authentication and PubSub capabilities. This is intended to be the front-facing display for [Project Neo](https://github.com/alyoshenka/neo).
+
+From this page, users are able to view available IoT operations (for example, running a [stock ticker](https://github.com/alyoshenka/stockticker) on an LED board) as well as see current device status and connection logs.
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

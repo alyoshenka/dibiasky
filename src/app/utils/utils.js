@@ -12,7 +12,7 @@ import store from '../store';
 import * as topics from './topics';
 import * as payloads from './payloads';
 
-const addEntryToLog = (entry) => {
+export const addEntryToLog = (entry) => {
   // only if all the fields filled
   // todo: error checking
   if (entry) {
@@ -43,7 +43,7 @@ export const displayConnectionStateChanges = () => {
 
 export const displayAuthStateChanges = () => {
   Hub.listen('auth', (data) => {
-    console.log('Auth:', data);
+    addEntryToLog(`Auth: ${data}`);
     switch (data.payload.event) {
       case 'signIn':
         addEntryToLog('user signed in');
@@ -76,13 +76,13 @@ export const displayCurrentCredentials = async () => {
 };
 
 export const printData = (data, topic) => {
-  console.log('- Received:', data.value, 'from', topic);
+  addEntryToLog(`Received ${data.value} from ${topic}`);
 };
 
 // todo: func that handles then unsubscribes
 export const handleCommandResponse = (data, topic, subscription) => {
   printData(data, topic);
-  console.log(`Unsubscribing from ${topic}`);
+  addEntryToLog(`Unsubscribing from ${topic}`);
   const payload = { route: topic };
   store.dispatch(subRemoved(payload));
   subscription.unsubscribe();
@@ -110,7 +110,7 @@ export const subscribe = (topic, callback) => {
 
 export const publish = async (topic, payload) => {
   addEntryToLog(`Publishing to: ${topic}; data: ${JSON.stringify(payload)}`);
-  await PubSub.publish(topic, payload).then(() => { console.log('Published'); });
+  await PubSub.publish(topic, payload).then(() => { addEntryToLog(`Successfully published to ${topic}`); });
 };
 
 export const sendNeopixeltestCommand = async () => {
