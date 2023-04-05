@@ -93,6 +93,7 @@ function App({ signOut, user }) {
           </div>
           <div id="right" style={{ outline: '1px solid black', flexDirection: 'row' }}>
             <AWS />
+            <button type="button" onClick={() => utils.publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</button>
           </div>
         </div>
       </div>
