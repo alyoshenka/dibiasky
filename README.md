@@ -7,6 +7,9 @@ This webpage allows users to interact with various IoT devices through AWS IoTCo
 
 From this page, users are able to view available IoT operations (for example, running a [stock ticker](https://github.com/alyoshenka/stockticker) on an LED board) as well as see current device status and connection logs.
 
+### What's in a name?
+A while ago, I was trying to write code for my Raspberry Pi to have it be an IoT "hub" of sorts, querying and displaying some local state (internet speed, temperature/humidity, etc). I decided to name the device "Hubble" (like the Hubble Space Telescope). I thought it would be cool to have some naming cohesion by having everything somewhat related to astronomy. When this project was first created, the big thing going on was a comet that hasn't been seen since the time of the Neanderthals. I thought it would be neat to name this after that, however that comet didn't have a very fun name. I started thinking about what comets I knew the name of and the first thing that popped into mind was the movie Don't Look Up, which centers around Comet Dibiasky.
+
 ---
 
 # Getting Started with Create React App
