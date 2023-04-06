@@ -29,7 +29,7 @@ function ConnectionStatus() {
     Disconnected: red, // Connection has no active subscriptions and is disconnecting.
   };
 
-  const [connectionState, setConnectionState] = useState(undefined);
+  const [connectionState, setConnectionState] = useState('undefined');
   const [connectionColor, setConnectionColor] = useState(colorDefault);
 
   useEffect(() => {
@@ -44,10 +44,11 @@ function ConnectionStatus() {
     });   
   }, [connectionState, connectionColor]);
 
+  // todo: add connectionstate padding
   return (
-    <div>
-      <p>ConnectionState: {connectionState === undefined ? 'undefined' : connectionState}</p>
-      <Chip label={connectionState} style={{ backgroundColor: connectionColor[500] }} />
+    <div style={{ display: 'flex', flexDirection: 'row' }}> 
+      <p>ConnectionState: </p>
+      <Chip label={connectionState} style={{ backgroundColor: connectionColor[500], alignSelf: 'center' }} />
     </div>
   );
 }

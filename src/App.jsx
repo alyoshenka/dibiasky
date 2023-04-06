@@ -39,7 +39,7 @@ function App({ signOut, user }) {
           id="auth"
           style={{
             flexDirection: 'column',
-            backgroundColor: 'green',
+            backgroundColor: 'turquoise',
           }}
         >
           <Heading level={1}>
