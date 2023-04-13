@@ -132,7 +132,7 @@ export const sendPrintCommand = async () => {
 };
 
 export const requestHubbleOperations = async () => {
-  publish(topics.reqHubbleOperations, null);
+  publish(topics.reqHubbleOperations, null); // todo: should have res payload
 };
 
 export const returnOne = () => 1;

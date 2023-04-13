@@ -5,7 +5,7 @@ import * as utils from '../utils/utils';
 import * as topics from '../utils/topics';
 import ConnectionStatus from './ConnectionStatus';
 import ActiveSubscriptions from './ActiveSubscriptions';
-import HubbleStatus from './HubbleStatus';
+import DeviceStatus from './DeviceStatus';
 import Log from '../Log';
 
 Amplify.configure(awsExports);
@@ -19,12 +19,20 @@ utils.displayAuthStateChanges();
 utils.subscribe(topics.hubbleCommandRes, utils.printData);
 
 function AWS() {
+  const deviceStatuses = [
+    { deviceId: 'Hubble', deviceName: 'Hubble' },
+    { deviceId: 'Krib', deviceName: 'Krib' },
+  ];
+
   return (
     <>
       <ConnectionStatus />
       <h2>AWS Stuff</h2>
       <ActiveSubscriptions />
-      <HubbleStatus />
+      <h3>IoT Devices:</h3>
+      {deviceStatuses.map(
+        (device) => <DeviceStatus deviceId={device.deviceId} deviceName={device.deviceName} />,
+      )}
       <Log />
     </>
   );
