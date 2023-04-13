@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { subscribe, addEntryToLog } from '../utils/utils';
-import { hubbleConnected, hubbleDisconnected } from '../utils/topics';
+import { deviceConnected, deviceDisconnected } from '../utils/topics';
 
 function HubbleStatus() {
   const [isConnected, setIsConnected] = useState(false);
@@ -16,8 +16,8 @@ function HubbleStatus() {
   };
 
   useEffect(() => {
-    subscribe(hubbleConnected, onConnected);
-    subscribe(hubbleDisconnected, onDisconnected);
+    subscribe(`${deviceConnected}/Hubble`, onConnected);
+    subscribe(`${deviceConnected}/Hubble`, onDisconnected);
   }, []);
 
   return (
