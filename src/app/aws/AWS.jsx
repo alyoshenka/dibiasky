@@ -31,7 +31,13 @@ function AWS() {
       <ActiveSubscriptions />
       <h3>IoT Devices:</h3>
       {deviceStatuses.map(
-        (device) => <DeviceStatus deviceId={device.deviceId} deviceName={device.deviceName} />,
+        (device) => (
+          <DeviceStatus
+            key={device.deviceId}
+            deviceId={device.deviceId}
+            deviceName={device.deviceName}
+          />
+        ),
       )}
       <Log />
     </>
