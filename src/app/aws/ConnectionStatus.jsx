@@ -4,6 +4,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Chip from '@mui/material/Chip';
 import { 
   green, 
@@ -14,9 +15,9 @@ import {
 } from '@mui/material/colors';
 import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
-import { SvgIcon } from '@mui/material';
+import { addEntryToLog } from '../utils/utils';
 
-function ConnectionStatus() {
+function ConnectionStatus({ setIsConnected }) {
   const colorDefault = blueGrey;
   const colorMap = {
     Connected: green, // Connected and working with no issues.
@@ -40,6 +41,8 @@ function ConnectionStatus() {
         const newState = payload.data.connectionState;
         setConnectionState(newState);
         setConnectionColor(colorMap[newState]);
+        addEntryToLog('ConnectionState:', newState);
+        setIsConnected(newState === 'Connected');
       }
     });   
   }, [connectionState, connectionColor]);
@@ -52,5 +55,9 @@ function ConnectionStatus() {
     </div>
   );
 }
+
+ConnectionStatus.propTypes = {
+  setIsConnected: PropTypes.func.isRequired,
+};
 
 export default ConnectionStatus;
