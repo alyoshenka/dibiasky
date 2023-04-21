@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { subscribe, addEntryToLog, requestHubbleOperations } from '../utils/utils';
 import { resHubbleOperations } from '../utils/topics';
 
@@ -10,7 +11,7 @@ When to get available operations?
       That's way easier
 */
 
-function AvailableOperations() {
+function AvailableOperations({ isConnected }) {
   const [operations, setOperations] = useState([]);
 
   // subscribe to operations response
@@ -25,11 +26,9 @@ function AvailableOperations() {
   }, []);
   // publish to request operations
   useEffect(() => {
-    // set timeout because connection status??
-    setTimeout(() => {
-      requestHubbleOperations();
-    }, 2000); // todo: wait for active connection
-  }, []);
+    addEntryToLog('Connected: Requesting Hubble Operations');
+    if (isConnected) { requestHubbleOperations(); }
+  }, [isConnected]);
 
   return (
     <div>
@@ -47,5 +46,9 @@ function AvailableOperations() {
     </div>
   );
 }
+
+AvailableOperations.propTypes = {
+  isConnected: PropTypes.bool.isRequired,
+};
 
 export default AvailableOperations;

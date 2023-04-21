@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // eslint-disable-next-line import/no-unresolved
@@ -25,6 +25,9 @@ const styles = {
 };
 
 function App({ signOut, user }) {
+  // todo: is this the correct place for this? where to put it??
+  const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
+
   return (
     <div id="page" style={{ outline: '1px solid black', display: 'flex', flexDirection: 'column' }}>
       <div
@@ -70,7 +73,7 @@ function App({ signOut, user }) {
                 outline: '1px solid black', backgroundColor: 'lightblue', display: 'flex', flexDirection: 'column',
               }}
             >
-              <AvailableOperations />
+              <AvailableOperations isConnected={isConnectedToAWS} />
               <p>Select an action</p>
               <Button
                 style={styles.button}
@@ -93,7 +96,7 @@ function App({ signOut, user }) {
             </div>
           </div>
           <div id="right" style={{ outline: '1px solid black', flexDirection: 'row' }}>
-            <AWS />
+            <AWS setIsConnected={setIsConnectedToAWS} />
             <button type="button" onClick={() => utils.publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</button>
           </div>
         </div>
