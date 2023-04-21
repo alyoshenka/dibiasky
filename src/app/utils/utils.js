@@ -10,7 +10,6 @@ import { subAdded, subRemoved } from './subsSlice';
 import { logAdded } from '../logSlice';
 import store from '../store';
 import * as topics from './topics';
-import * as payloads from './payloads';
 
 export const addEntryToLog = (entry) => {
   // only if all the fields filled
@@ -111,24 +110,6 @@ export const subscribe = (topic, callback) => {
 export const publish = async (topic, payload) => {
   addEntryToLog(`Publishing to: ${topic}; data: ${JSON.stringify(payload)}`);
   await PubSub.publish(topic, payload).then(() => { addEntryToLog(`Successfully published to ${topic}`); });
-};
-
-export const sendNeopixeltestCommand = async () => {
-  const topic = topics.hubbleCommandReq;
-  const payload = payloads.hubbleRunNeopixeltest;
-  // no subscription (yet)
-  // const subTopic = payloads.hubblePrintCommand.topic;
-  // const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
-  publish(topic, payload);
-};
-
-// Sends "print" command to Hubble
-export const sendPrintCommand = async () => {
-  const topic = topics.hubbleCommandReq;
-  const payload = payloads.hubblePrintCommand;
-  const subTopic = payloads.hubblePrintCommand.topic;
-  const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
-  publish(topic, payload);
 };
 
 export const requestHubbleOperations = async () => {

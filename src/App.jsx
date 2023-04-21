@@ -12,7 +12,7 @@ import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import AWS from './app/aws/AWS';
 import AvailableOperations from './app/aws/AvailableOperations';
-import Log from './app/Log';
+import { sendPrintCommand, sendNeopixeltestCommand } from './app/utils/commandOperations';
 import gear from './images/gear.png';
 
 const styles = {
@@ -74,17 +74,17 @@ function App({ signOut, user }) {
               }}
             >
               <AvailableOperations isConnected={isConnectedToAWS} />
-              <p>Select an action</p>
+              <p>Select an action (todo: get rid of me)</p>
               <Button
                 style={styles.button}
                 onClick={() => utils.publish(topics.publish, payloads.hello)}
               >
                 Say Hello
               </Button>
-              <Button style={styles.button} onClick={utils.sendPrintCommand}>
+              <Button style={styles.button} onClick={sendPrintCommand}>
                 Send &quot;print&quot; command to Hubble
               </Button>
-              <Button onClick={utils.sendNeopixeltestCommand}>Run Neopixel Test</Button>
+              <Button onClick={sendNeopixeltestCommand}>Run Neopixel Test</Button>
             </div>
             <div
               id="board-display"
