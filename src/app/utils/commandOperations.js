@@ -32,5 +32,11 @@ export const unsupportedCommand = () => {
 };
 
 // todo: make this better
-// eslint-disable-next-line no-unused-vars
-export const mapCommandToFunction = (cmdStr) => unsupportedCommand;
+export const mapCommandToFunction = (opr) => {
+  if (opr.cmd === 'run') {
+    if (opr.data === 'neopixeltest') { return sendNeopixeltestCommand; }
+  } else if (opr.cmd === 'print') {
+    if (opr.data === 'hello') { return sendPrintCommand; }
+  }
+  return unsupportedCommand;
+};

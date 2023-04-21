@@ -44,7 +44,7 @@ function AvailableOperations({ isConnected }) {
         {operations.map((opr) => (
           <Button
             key={`${opr.cmd}${opr.data}`}
-            onClick={() => { mapCommandToFunction(`${opr.cmd} ${opr.data}`)(); }}
+            onClick={() => { mapCommandToFunction(opr)(); }}
           >
             {opr.friendlyName ? opr.friendlyName : `${opr.cmd}: ${opr.data}` }
           </Button>
