@@ -1,42 +1,46 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import { subscribe } from '../utils/utils';
 import { deviceConnected, deviceDisconnected } from '../utils/topics';
 import DeviceStatus from './DeviceStatus';
 
-// todo: Array.from
 function ConnectedDevices() {
   const [connectedDevices, setConnectedDevices] = useState([]);
+  let alreadySubscribed = false; // useState doesn't work, don't know why
 
   const getClientId = (payload) => payload.value.clientId;
 
   const addConnection = (clientId) => {
-    // todo: validation
     if (!connectedDevices.includes(clientId)) {
-      console.log(clientId, 'not in', connectedDevices);
       setConnectedDevices((prevConnected) => [
         ...prevConnected, clientId,
       ]);
-      console.log('devices:', connectedDevices);
     }
   };
+  // eslint-disable-next-line no-unused-vars
   const removeConnection = (clientId) => setConnectedDevices(
     connectedDevices.filter((id) => id !== clientId),
   );
 
-  // todo: timeout??
-  // subscribe
-  // eslint-disable-next-line no-unused-vars
-  subscribe(`${deviceConnected}/+`, (d, t) => addConnection(getClientId(d)));
-  // eslint-disable-next-line no-unused-vars
-  subscribe(`${deviceDisconnected}/+`, (d, t) => removeConnection(getClientId(d)));
+  useEffect(() => {
+    // todo: timeout??
+    if (!alreadySubscribed) {
+      alreadySubscribed = true;
+      // eslint-disable-next-line no-unused-vars
+      subscribe(`${deviceConnected}/+`, (d, t) => addConnection(getClientId(d)));
+      // eslint-disable-next-line no-unused-vars
+      subscribe(`${deviceDisconnected}/+`, (d, t) => removeConnection(getClientId(d)));
+    }
+  }, []);
 
   return (
     <>
       <h3>IoT Devices:</h3>
       {connectedDevices.map(
-        (device) => (
+        (device, idx) => (
           <DeviceStatus
-            key={device}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${device}${idx}`} // change when devices are actually unique(?)
             deviceId={device}
           />
         ),
