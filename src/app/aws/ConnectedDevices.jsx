@@ -1,25 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { subscribe } from '../utils/utils';
+import React, { useEffect, useState, useRef } from 'react';
+import { addEntryToLog, subscribe } from '../utils/utils';
 import { deviceConnected, deviceDisconnected } from '../utils/topics';
 import DeviceStatus from './DeviceStatus';
 
 function ConnectedDevices() {
   const [connectedDevices, setConnectedDevices] = useState([]);
   let alreadySubscribed = false; // useState doesn't work, don't know why
+  const devicesRef = useRef();
+  devicesRef.current = connectedDevices;
 
   const getClientId = (payload) => payload.value.clientId;
 
   const addConnection = (clientId) => {
-    if (!connectedDevices.includes(clientId)) {
+    console.log(devicesRef, 'includes', clientId, ':', devicesRef.current.includes(clientId));
+    if (!devicesRef.current.includes(clientId)) {
       setConnectedDevices((prevConnected) => [
         ...prevConnected, clientId,
       ]);
+    } else {
+      addEntryToLog('Unable to add connected device:', clientId);
     }
   };
-  // eslint-disable-next-line no-unused-vars
   const removeConnection = (clientId) => setConnectedDevices(
-    connectedDevices.filter((id) => id !== clientId),
+    devicesRef.current.filter((id) => id !== clientId),
   );
 
   useEffect(() => {
@@ -32,6 +36,10 @@ function ConnectedDevices() {
       subscribe(`${deviceDisconnected}/+`, (d, t) => removeConnection(getClientId(d)));
     }
   }, []);
+
+  useEffect(() => {
+    console.log(connectedDevices);
+  }, [connectedDevices]);
 
   return (
     <>
