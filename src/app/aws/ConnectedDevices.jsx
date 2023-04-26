@@ -13,7 +13,6 @@ function ConnectedDevices() {
   const getClientId = (payload) => payload.value.clientId;
 
   const addConnection = (clientId) => {
-    console.log(devicesRef, 'includes', clientId, ':', devicesRef.current.includes(clientId));
     if (!devicesRef.current.includes(clientId)) {
       setConnectedDevices((prevConnected) => [
         ...prevConnected, clientId,
@@ -36,10 +35,6 @@ function ConnectedDevices() {
       subscribe(`${deviceDisconnected}/+`, (d, t) => removeConnection(getClientId(d)));
     }
   }, []);
-
-  useEffect(() => {
-    console.log(connectedDevices);
-  }, [connectedDevices]);
 
   return (
     <>
