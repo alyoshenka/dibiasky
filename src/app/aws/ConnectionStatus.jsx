@@ -41,8 +41,8 @@ function ConnectionStatus({ setIsConnected }) {
         const newState = payload.data.connectionState;
         setConnectionState(newState);
         setConnectionColor(colorMap[newState]);
-        addEntryToLog('ConnectionState:', newState);
         setIsConnected(newState === 'Connected');
+        addEntryToLog('ConnectionState:', newState);
       }
     });   
   }, [connectionState, connectionColor]);
