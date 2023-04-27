@@ -22,6 +22,33 @@ const styles = {
   button: {
     color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px',
   },
+  page: { outline: '1px solid black', display: 'flex', flexDirection: 'column' },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'paleturquoise',
+    alignItems: 'flex-end',
+  },
+  gear: { height: 100, width: 100 },
+  auth: { flexDirection: 'column', backgroundColor: 'turquoise' },
+  signoutButton: { flex: 'flex-grow' },
+  nav: { outline: '1px solid black', display: 'flex' },
+  work2: {
+    outline: '1px solid black',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  left: { outline: '1px solid black', flexDirection: 'column', justifyContent: 'space-between' },
+  selectActions: {
+    outline: '1px solid black',
+    backgroundColor: 'lightblue',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  boardDisplay: { outline: '1px solid black', width: 800, height: 200 },
+  right: { outline: '1px solid black', flexDirection: 'row' },
 };
 
 function App({ signOut, user }) {
@@ -29,49 +56,40 @@ function App({ signOut, user }) {
   const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
 
   return (
-    <div id="page" style={{ outline: '1px solid black', display: 'flex', flexDirection: 'column' }}>
+    <div id="page" style={styles.page}>
       <div
         id="header"
-        style={{
-          display: 'flex', flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'paleturquoise', alignItems: 'flex-end',
-        }}
+        style={styles.header}
       >
-        <img src={gear} alt="gear" style={{ height: 100, width: 100 }} />
+        <img src={gear} alt="gear" style={styles.gear} />
         <h2>Neo</h2>
         <div
           id="auth"
-          style={{
-            flexDirection: 'column',
-            backgroundColor: 'turquoise',
-          }}
+          style={styles.auth}
         >
           <Heading level={1}>
             Hello
             {' '}
             {user.username}
           </Heading>
-          <div id="signout-button" style={{ flex: 'flex-grow' }}>
+          <div id="signout-button" style={styles.signoutButton}>
             <Button style={styles.button} onClick={signOut}>Sign out</Button>
           </div>
         </div>
       </div>
       <div id="work">
-        <div id="nav" style={{ outline: '1px solid black', display: 'flex' }}>
+        <div id="nav" style={styles.nav}>
           <p>Home</p>
           <p>About</p>
         </div>
         <div
           id="work-2"
-          style={{
-            outline: '1px solid black', display: 'flex', flexDirection: 'row', justifyContent: 'space-around',
-          }}
+          style={styles.work2}
         >
-          <div id="left" style={{ outline: '1px solid black', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div id="left" style={styles.left}>
             <div
               id="select-actions"
-              style={{
-                outline: '1px solid black', backgroundColor: 'lightblue', display: 'flex', flexDirection: 'column',
-              }}
+              style={styles.selectActions}
             >
               <AvailableOperations isConnected={isConnectedToAWS} />
               <p>Select an action (todo: get rid of me)</p>
@@ -88,14 +106,12 @@ function App({ signOut, user }) {
             </div>
             <div
               id="board-display"
-              style={{
-                outline: '1px solid black', width: 800, height: 200,
-              }}
+              style={styles.boardDisplay}
             >
               <p>Board Display</p>
             </div>
           </div>
-          <div id="right" style={{ outline: '1px solid black', flexDirection: 'row' }}>
+          <div id="right" style={styles.right}>
             <AWS setIsConnected={setIsConnectedToAWS} />
             <button type="button" onClick={() => utils.publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</button>
           </div>
