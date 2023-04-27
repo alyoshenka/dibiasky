@@ -7,7 +7,7 @@ import * as topics from '../utils/topics';
 import ConnectionStatus from './ConnectionStatus';
 import ActiveSubscriptions from './ActiveSubscriptions';
 import ConnectedDevices from './ConnectedDevices';
-import Log from '../Log';
+import Log from './Log';
 
 Amplify.configure(awsExports);
 
@@ -21,13 +21,13 @@ utils.subscribe(topics.hubbleCommandRes, utils.printData);
 
 function AWS({ setIsConnected }) {
   return (
-    <>
+    <div>
       <ConnectionStatus setIsConnected={setIsConnected} />
       <h2>AWS Stuff</h2>
       <ActiveSubscriptions />
       <ConnectedDevices />
       <Log />
-    </>
+    </div>
   );
 }
 
