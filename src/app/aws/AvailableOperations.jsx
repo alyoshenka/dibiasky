@@ -13,7 +13,7 @@ import {
   requestHubbleOperations,
 } from '../utils/utils';
 import { mapCommandToFunction } from '../utils/commandOperations';
-import { resHubbleOperations } from '../utils/topics';
+import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
 
 function AvailableOperations({ isConnected }) {
   const dummyOperations = [
@@ -37,12 +37,20 @@ function AvailableOperations({ isConnected }) {
       setOperations(obj);
       addEntryToLog('Received Hubble Operations');
     });
+    // todo: issue #47; no wildcard disconnection subscription
+    // subscribe to disconnection to know when to clear operations
+    // eslint-disable-next-line no-unused-vars
+    subscribe(`${deviceDisconnected}/+`, (d, t) => {
+      setOperations(dummyOperations);
+    });
   }, []);
   // publish to request operations
   useEffect(() => {
     // todo: document how this works/pubsub "flow"
-    addEntryToLog('Connected: Requesting Hubble Operations');
-    if (isConnected) { requestHubbleOperations(); }
+    if (isConnected) {
+      addEntryToLog('Connected: Requesting Hubble Operations');
+      requestHubbleOperations();
+    }
   }, [isConnected]);
   // clear selection when new operations are fetched
   useEffect(() => {
