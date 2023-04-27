@@ -44,6 +44,11 @@ function AvailableOperations({ isConnected }) {
     addEntryToLog('Connected: Requesting Hubble Operations');
     if (isConnected) { requestHubbleOperations(); }
   }, [isConnected]);
+  // clear selection when new operations are fetched
+  useEffect(() => {
+    setSelectedOperationIdx('');
+    setSelectedOperation(null);
+  }, [operations]);
 
   return (
     <div>
