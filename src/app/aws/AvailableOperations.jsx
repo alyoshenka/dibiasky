@@ -15,12 +15,6 @@ import {
 import { mapCommandToFunction } from '../utils/commandOperations';
 import { resHubbleOperations } from '../utils/topics';
 
-const styles = {
-  operationsButtons: {
-    display: 'flex', flexDirection: 'column',
-  },
-};
-
 function AvailableOperations({ isConnected }) {
   const dummyOperations = [
     { friendlyName: 'do a thing', cmd: 'run', data: 'no data necessary' },
@@ -56,8 +50,13 @@ function AvailableOperations({ isConnected }) {
       <h3>Available Operations</h3>
       <div>
         <FormControl style={{ minWidth: 200 }}>
-          <InputLabel>Select an Operation</InputLabel>
-          <Select value={selectedOperationIdx} onChange={onOperationChanged}>
+          <InputLabel id="select-label">Select an Operation</InputLabel>
+          <Select
+            value={selectedOperationIdx}
+            onChange={onOperationChanged}
+            labelId="select-label"
+            label="Label" // make it so it doesn't cross border line. in theory.
+          >
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
