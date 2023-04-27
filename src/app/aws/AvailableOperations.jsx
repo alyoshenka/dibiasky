@@ -16,9 +16,10 @@ import { mapCommandToFunction } from '../utils/commandOperations';
 import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
 
 function AvailableOperations({ isConnected }) {
+  // todo: take out
   const dummyOperations = [
-    { friendlyName: 'do a thing', cmd: 'run', data: 'no data necessary' },
-    { friendlyName: 'do a different thing', cmd: 'print', data: 'beepboop' },
+    { friendlyName: 'do a thing (test)', cmd: 'run', data: 'no data necessary' },
+    { friendlyName: 'do a different thing (test)', cmd: 'print', data: 'beepboop' },
   ];
   const [operations, setOperations] = useState(dummyOperations);
   const [selectedOperationIdx, setSelectedOperationIdx] = useState('');
