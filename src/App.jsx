@@ -57,16 +57,10 @@ function App({ signOut, user }) {
 
   return (
     <div id="page" style={styles.page}>
-      <div
-        id="header"
-        style={styles.header}
-      >
+      <div id="header" style={styles.header}>
         <img src={gear} alt="gear" style={styles.gear} />
         <h2>Neo</h2>
-        <div
-          id="auth"
-          style={styles.auth}
-        >
+        <div id="auth" style={styles.auth}>
           <Heading level={1}>
             Hello
             {' '}
@@ -82,32 +76,12 @@ function App({ signOut, user }) {
           <p>Home</p>
           <p>About</p>
         </div>
-        <div
-          id="work-2"
-          style={styles.work2}
-        >
+        <div id="work-2" style={styles.work2}>
           <div id="left" style={styles.left}>
-            <div
-              id="select-actions"
-              style={styles.selectActions}
-            >
+            <div id="select-actions" style={styles.selectActions}>
               <AvailableOperations isConnected={isConnectedToAWS} />
-              <p>Select an action (todo: get rid of me)</p>
-              <Button
-                style={styles.button}
-                onClick={() => utils.publish(topics.publish, payloads.hello)}
-              >
-                Say Hello
-              </Button>
-              <Button style={styles.button} onClick={sendPrintCommand}>
-                Send &quot;print&quot; command to Hubble
-              </Button>
-              <Button onClick={sendNeopixeltestCommand}>Run Neopixel Test</Button>
             </div>
-            <div
-              id="board-display"
-              style={styles.boardDisplay}
-            >
+            <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>
           </div>
