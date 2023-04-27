@@ -6,7 +6,7 @@ function Log() {
 
   const renderedLog = log.slice(-9).map((entry, idx) => (
     // eslint-disable-next-line react/no-array-index-key
-    <li key={idx}>
+    <li key={idx} style={{ width: 500 }}>
       {entry}
     </li>
   ));
