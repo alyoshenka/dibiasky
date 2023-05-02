@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, // todo: amplify button?
   InputLabel,
   MenuItem,
   FormControl,
@@ -12,8 +11,8 @@ import {
   addEntryToLog,
   requestHubbleOperations,
 } from '../utils/utils';
-import { mapCommandToFunction } from '../utils/commandOperations';
 import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
+import Operation from './Operation';
 
 function AvailableOperations({ isConnected }) {
   // todo: take out
@@ -79,14 +78,7 @@ function AvailableOperations({ isConnected }) {
             ))}
           </Select>
         </FormControl>
-        {selectedOperation
-          ? (
-            <Button
-              onClick={() => { mapCommandToFunction(selectedOperation)(); }}
-            >
-              {selectedOperation.friendlyName}
-            </Button>
-          ) : null }
+        {selectedOperation ? <Operation opr={selectedOperation} /> : null}
       </div>
     </div>
   );

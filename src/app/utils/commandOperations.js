@@ -9,9 +9,25 @@ import {
 import * as topics from './topics';
 import * as payloads from './payloads';
 
-export const sendNeopixeltestCommand = async () => {
+// todo: this is a stupid function. design code better
+const getNeopolitanCommandPayload = (data) => {
+  switch (data) {
+    case 'test':
+      return payloads.neopolitanTest;
+    case 'open':
+      return payloads.neopolitanOpen;
+    case 'close':
+      return payloads.neopolitanClose;
+    case 'update':
+      return null; // not supported yet
+    default:
+      return null;
+  }
+};
+
+export const sendNeopolitanCommand = async (data) => {
   const topic = topics.hubbleCommandReq;
-  const payload = payloads.hubbleRunNeopixeltest;
+  const payload = getNeopolitanCommandPayload(data);
   // no subscription (yet)
   // const subTopic = payloads.hubblePrintCommand.topic;
   // const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
@@ -33,9 +49,10 @@ export const unsupportedCommand = () => {
 
 // todo: make this better
 export const mapCommandToFunction = (opr) => {
-  if (opr.cmd === 'run') {
-    if (opr.data === 'neopixeltest') { return sendNeopixeltestCommand; }
-  } else if (opr.cmd === 'print') {
+  if (opr.cmd === 'neopolitan') {
+    return () => sendNeopolitanCommand(opr.data);
+  }
+  if (opr.cmd === 'print') {
     if (opr.data === 'hello') { return sendPrintCommand; }
   }
   return unsupportedCommand;
