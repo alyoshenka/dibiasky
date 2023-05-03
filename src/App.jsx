@@ -11,8 +11,7 @@ import * as utils from './app/utils/utils';
 import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import AWS from './app/aws/AWS';
-import AvailableOperations from './app/aws/AvailableOperations';
-import { sendPrintCommand, sendNeopixeltestCommand } from './app/utils/commandOperations';
+import AvailableOperations from './app/operations/AvailableOperations';
 import gear from './images/gear.png';
 
 const styles = {
