@@ -10,8 +10,12 @@ import * as topics from './topics';
 import * as payloads from './payloads';
 
 // todo: this is a stupid function. design code better
-const getNeopolitanCommandPayload = (data) => {
-  switch (data) {
+const getNeopolitanCommandPayload = (opr) => {
+  if (!(opr && opr.data)) {
+    addEntryToLog(`No operation passed: ${opr}`);
+    return null;
+  }
+  switch (opr.data) {
     case 'test':
       return payloads.neopolitanTest;
     case 'open':
@@ -19,15 +23,20 @@ const getNeopolitanCommandPayload = (data) => {
     case 'close':
       return payloads.neopolitanClose;
     case 'update':
-      return null; // not supported yet
+      if (!opr.options) {
+        addEntryToLog(`No options passed for update operation: ${opr}`);
+        return null;
+      }
+      return payloads.neopolitanUpdate(opr.options);
     default:
+      addEntryToLog(`Unable to get neopolitan command payload: ${opr}`);
       return null;
   }
 };
 
-export const sendNeopolitanCommand = async (data) => {
+export const sendNeopolitanCommand = async (opr) => {
   const topic = topics.hubbleCommandReq;
-  const payload = getNeopolitanCommandPayload(data);
+  const payload = getNeopolitanCommandPayload(opr);
   // no subscription (yet)
   // const subTopic = payloads.hubblePrintCommand.topic;
   // const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
@@ -50,7 +59,7 @@ export const unsupportedCommand = () => {
 // todo: make this better
 export const mapCommandToFunction = (opr) => {
   if (opr.cmd === 'neopolitan') {
-    return () => sendNeopolitanCommand(opr.data);
+    return () => sendNeopolitanCommand(opr);
   }
   if (opr.cmd === 'print') {
     if (opr.data === 'hello') { return sendPrintCommand; }

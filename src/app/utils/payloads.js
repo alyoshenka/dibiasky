@@ -30,16 +30,16 @@ const neopolitanOperation = (action) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const neopolitanUpdateOperation = (args) => {
+const neopolitanUpdateOperation = (options) => {
   const ogOp = neopolitanOperation('update');
-  ogOp.action.options = args; // todo: better way to do this?
+  ogOp.action.options = options; // todo: better way to do this?
   return ogOp;
 };
 
 export const neopolitanTest = neopolitanOperation('test');
 export const neopolitanOpen = neopolitanOperation('open');
 export const neopolitanClose = neopolitanOperation('close');
-export const neopolitanUpdate = (args) => neopolitanUpdateOperation(args);
+export const neopolitanUpdate = (options) => neopolitanUpdateOperation(options);
 
 export const hubbleEchoCommand = {
   topic: topics.hubbleCommandRes,

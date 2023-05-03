@@ -14,6 +14,8 @@ import {
 import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
 import Operation from './Operation';
 
+import UpdateOperation from './UpdateOperation';
+
 function AvailableOperations({ isConnected }) {
   // todo: take out
   const dummyOperations = [
@@ -79,6 +81,7 @@ function AvailableOperations({ isConnected }) {
           </Select>
         </FormControl>
         {selectedOperation ? <Operation opr={selectedOperation} /> : null}
+        <UpdateOperation options={['one', 'two', 'three']} />
       </div>
     </div>
   );
