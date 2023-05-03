@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
 import { mapCommandToFunction } from '../utils/commandOperations';
 
 function Operation({ opr }) {
+  const [options, setOptions] = useState({});
+  const optionsRef = useRef();
+  optionsRef.current = options;
+
+  const operationWithOptions = () => {
+    // todo: this seems like bad code. fix
+    const withOps = {};
+    Object.assign(withOps, opr);
+    withOps.options = optionsRef.current;
+    return () => mapCommandToFunction(withOps)();
+  };
+
   return (
     <div>
-      <Button onClick={() => { mapCommandToFunction(opr)(); }}>{opr.friendlyName}</Button>
-      {opr.options ? <UpdateOperation options={opr.options} /> : null}
+      <Button onClick={() => { operationWithOptions()(); }}>
+        {opr.friendlyName}
+      </Button>
+      {opr.options ? <UpdateOperation options={opr.options} setOptionsParent={setOptions} /> : null}
     </div>
   );
 }

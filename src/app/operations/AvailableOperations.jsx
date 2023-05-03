@@ -14,13 +14,11 @@ import {
 import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
 import Operation from './Operation';
 
-import UpdateOperation from './UpdateOperation';
-
 function AvailableOperations({ isConnected }) {
   // todo: take out
   const dummyOperations = [
     { friendlyName: 'do a thing (test)', cmd: 'run', data: 'no data necessary' },
-    { friendlyName: 'do a different thing (test)', cmd: 'print', data: 'beepboop' },
+    { friendlyName: 'do a different thing (test)', cmd: 'print', data: 'beepboop' }, // todo: dummy opr with opts?
   ];
   const [operations, setOperations] = useState(dummyOperations);
   const [selectedOperationIdx, setSelectedOperationIdx] = useState('');
@@ -76,12 +74,12 @@ function AvailableOperations({ isConnected }) {
               <em>None</em>
             </MenuItem>
             {operations?.map((opr, idx) => (
-              <MenuItem value={idx} key={`${opr.cmd}${opr.data}`}>{opr.friendlyName}</MenuItem>
+              <MenuItem value={idx} key={`${opr.cmd}-${opr.data}`}>{opr.friendlyName}</MenuItem>
             ))}
           </Select>
         </FormControl>
-        {selectedOperation ? <Operation opr={selectedOperation} /> : null}
-        <UpdateOperation options={['one', 'two', 'three']} />
+        {selectedOperation
+          ? <Operation opr={selectedOperation} /> : null}
       </div>
     </div>
   );

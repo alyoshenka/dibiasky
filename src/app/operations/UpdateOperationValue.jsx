@@ -4,7 +4,6 @@ import { TextField } from '@mui/material';
 
 function UpdateOperationValue({ op, updateOptionsDict }) {
   const onChange = (event) => {
-    // todo: op
     updateOptionsDict(op, event.target.value);
   };
 
