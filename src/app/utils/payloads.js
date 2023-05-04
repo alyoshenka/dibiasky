@@ -10,6 +10,7 @@ import * as topics from './topics';
 
 export const hello = { msg: 'hello' };
 
+/** Payload to print a string to the console */
 export const hubblePrintCommand = {
   topic: topics.hubbleCommandRes,
   action: {
@@ -18,6 +19,10 @@ export const hubblePrintCommand = {
   }
 };
 
+/**
+ * @param {string} action the neopolitan action to perform
+ * @returns the generated neopolitan operation payload
+ */
 const neopolitanOperation = (action) => {
   const obj = {
     topic: topics.hubbleCommandRes,
@@ -29,7 +34,10 @@ const neopolitanOperation = (action) => {
   return obj;
 };
 
-// eslint-disable-next-line no-unused-vars
+/**
+ * @param {object} options values to send to neopolitan update operation
+ * @returns the full neopolitan update command payload
+ */
 const neopolitanUpdateOperation = (options) => {
   const ogOp = neopolitanOperation('update');
   ogOp.action.options = options; // todo: better way to do this?
