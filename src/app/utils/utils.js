@@ -11,6 +11,10 @@ import { logAdded } from '../logSlice';
 import store from '../store';
 import * as topics from './topics';
 
+// todo: is this a stupid doc comment?
+/**
+ * @param {string} entry entry to add to log
+ */
 export const addEntryToLog = (entry) => {
   // only if all the fields filled
   // todo: error checking
@@ -19,7 +23,7 @@ export const addEntryToLog = (entry) => {
   }
 };
 
-// Apply plugin with configuration
+/** Apply plugin with configuration */
 export const setupAmplify = () => {
   addEntryToLog('Setting up Amplify');
   Amplify.addPluggable(
@@ -30,6 +34,7 @@ export const setupAmplify = () => {
   );
 };
 
+/** Add entries to log when App<->AWS connection state changes */
 export const displayConnectionStateChanges = () => {
   Hub.listen('pubsub', (data) => {
     const { payload } = data;
@@ -40,6 +45,7 @@ export const displayConnectionStateChanges = () => {
   });
 };
 
+/** Add entries to log when AWS Authentication state changes */
 export const displayAuthStateChanges = () => {
   Hub.listen('auth', (data) => {
     addEntryToLog(`Auth: ${data}`);
@@ -74,11 +80,22 @@ export const displayCurrentCredentials = async () => {
   addEntryToLog(`Cognito: ${await getCurrentCredentials()}`);
 };
 
+/**
+ * Dummy callback function to display data on subscription received
+ * @param {object} data payload from subscription
+ * @param {string} topic topic it was sent from
+ */
 export const printData = (data, topic) => {
   addEntryToLog(`Received ${data.value} from ${topic}`);
 };
 
 // todo: func that handles then unsubscribes
+/**
+ * Handles an operation (previous subscription) then unsubscribes from the topic that sent it
+ * @param {object} data payload
+ * @param {string} topic sender
+ * @param {*} subscription subscription object (used to unsubscribe)
+ */
 export const handleCommandResponse = (data, topic, subscription) => {
   printData(data, topic);
   addEntryToLog(`Unsubscribing from ${topic}`);
@@ -87,7 +104,11 @@ export const handleCommandResponse = (data, topic, subscription) => {
   subscription.unsubscribe();
 };
 
-// eslint-disable-next-line consistent-return
+/**
+ * @param {*} topic topic to subscribe to
+ * @param {*} callback function to call when topic is published to
+ * @returns the created subscription
+ */
 export const subscribe = (topic, callback) => {
   const payload = { route: topic };
   if (store.getState().subs.some((item) => item.route === payload.route)) {
@@ -107,13 +128,20 @@ export const subscribe = (topic, callback) => {
   });
 };
 
+/**
+ * @param {*} topic topic to publish to
+ * @param {*} payload data to send
+ */
 export const publish = async (topic, payload) => {
   addEntryToLog(`Publishing to: ${topic}; data: ${JSON.stringify(payload)}`);
   await PubSub.publish(topic, payload).then(() => { addEntryToLog(`Successfully published to ${topic}`); });
 };
 
+/** Publish to topic such that available `neo` operations are published */
 export const requestHubbleOperations = async () => {
   publish(topics.reqHubbleOperations, null); // todo: should have res payload
 };
 
+// todo: take out
+/** Dummy function to set up tests */
 export const returnOne = () => 1;

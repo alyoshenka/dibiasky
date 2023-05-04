@@ -10,6 +10,11 @@ import * as topics from './topics';
 import * as payloads from './payloads';
 
 // todo: this is a stupid function. design code better
+/**
+ * Generate a command payload based on an operation object
+ * @param {object} opr operation
+ * @returns payload to publish
+ */
 const getNeopolitanCommandPayload = (opr) => {
   if (!(opr && opr.data)) {
     addEntryToLog(`No operation passed: ${opr}`);
@@ -34,6 +39,11 @@ const getNeopolitanCommandPayload = (opr) => {
   }
 };
 
+// todo: don't need to specify neopolitan
+/**
+ * Publishes to a topic such that the Neopolitan drawing library is utilized
+ * @param {object} opr operation payload
+ */
 export const sendNeopolitanCommand = async (opr) => {
   const topic = topics.hubbleCommandReq;
   const payload = getNeopolitanCommandPayload(opr);
@@ -43,7 +53,7 @@ export const sendNeopolitanCommand = async (opr) => {
   publish(topic, payload);
 };
 
-// Sends "print" command to Hubble
+/** Publish to topic with payload specifying printing to console */
 export const sendPrintCommand = async () => {
   const topic = topics.hubbleCommandReq;
   const payload = payloads.hubblePrintCommand;
@@ -57,12 +67,16 @@ export const unsupportedCommand = () => {
 };
 
 // todo: make this better
+/**
+ * @param {object} opr given operation
+ * @returns appropriate function operation
+ */
 export const mapCommandToFunction = (opr) => {
   if (opr.cmd === 'neopolitan') {
-    return () => sendNeopolitanCommand(opr);
+    return () => sendNeopolitanCommand(opr); // todo: func call discrepance
   }
   if (opr.cmd === 'print') {
-    if (opr.data === 'hello') { return sendPrintCommand; }
+    if (opr.data === 'hello') { return sendPrintCommand; } // todo: here
   }
   return unsupportedCommand;
 };

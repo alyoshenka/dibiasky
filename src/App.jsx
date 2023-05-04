@@ -14,6 +14,7 @@ import AWS from './app/aws/AWS';
 import AvailableOperations from './app/operations/AvailableOperations';
 import gear from './images/gear.png';
 
+// todo: put these all into their own file
 const styles = {
   container: {
     backgroundColor: 'blue', width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20,
@@ -50,10 +51,12 @@ const styles = {
   right: { outline: '1px solid black', flexDirection: 'row' },
 };
 
+/**  Homepage of the application */
 function App({ signOut, user }) {
   // todo: is this the correct place for this? where to put it??
   const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
 
+  // todo: put into individual components
   return (
     <div id="page" style={styles.page}>
       <div id="header" style={styles.header}>
