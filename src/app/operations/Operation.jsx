@@ -22,6 +22,7 @@ function Operation({ opr }) {
       <Button onClick={() => { operationWithOptions()(); }}>
         {opr.friendlyName}
       </Button>
+      {/* todo: this is bad */}
       {opr.options ? <UpdateOperation options={opr.options} setOptionsParent={setOptions} /> : null}
     </div>
   );
