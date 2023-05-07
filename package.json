@@ -1,6 +1,6 @@
 {
   "name": "dibiasky",
-  "homepage": "http://www.alyoshenka.com",
+  "homepage": "https://www.alyoshenka.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -31,7 +31,8 @@
     "eject": "react-scripts eject",
     "lint": "npx eslint src/",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run add-domain && gh-pages -d build",
+    "add-domain": "echo alyoshenka.com > build/CNAME"
   },
   "eslintConfig": {
     "extends": [
