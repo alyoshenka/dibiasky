@@ -31,7 +31,8 @@
     "eject": "react-scripts eject",
     "lint": "npx eslint src/",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run add-domain && gh-pages -d build",
+    "add-domain": "echo alyoshenka.com > build/CNAME"
   },
   "eslintConfig": {
     "extends": [
