@@ -1,5 +1,6 @@
 {
   "name": "dibiasky",
+  "homepage": "https://www.alyoshenka.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,6 +16,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^5.0.17",
+    "gh-pages": "^5.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -28,7 +30,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx eslint src/"
+    "lint": "npx eslint src/",
+    "predeploy": "npm run build",
+    "deploy": "npm run add-domain && gh-pages -d build",
+    "add-domain": "echo alyoshenka.com > build/CNAME"
   },
   "eslintConfig": {
     "extends": [

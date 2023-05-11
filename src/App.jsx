@@ -12,12 +12,12 @@ import * as utils from './app/utils/utils';
 import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import AWS from './app/aws/AWS';
-import AvailableOperations from './app/aws/AvailableOperations';
-import { sendPrintCommand, sendNeopixeltestCommand } from './app/utils/commandOperations';
+import AvailableOperations from './app/operations/AvailableOperations';
 import gear from './images/gear.png';
 import ColorButtons from './pages/testPage';
 import ResponsiveAppBar from './components/appBar';
 
+// todo: put these all into their own file
 const styles = {
   container: {
     backgroundColor: 'red', width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20,
@@ -66,9 +66,12 @@ const styles = {
   },
 };
 
+/**  Homepage of the application */
 function App({ signOut, user }) {
   // todo: is this the correct place for this? where to put it??
   const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
+
+  // todo: put into individual components
   return (
     <div id="page" style={styles.page}>
       {/* <div>
