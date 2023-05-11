@@ -3,8 +3,9 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
 import './App.css';
-import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import { withAuthenticator, Heading } from '@aws-amplify/ui-react';
 // eslint-disable-next-line import/no-unresolved
 import '@aws-amplify/ui-react/styles.css';
 import * as utils from './app/utils/utils';
@@ -14,10 +15,12 @@ import AWS from './app/aws/AWS';
 import AvailableOperations from './app/aws/AvailableOperations';
 import { sendPrintCommand, sendNeopixeltestCommand } from './app/utils/commandOperations';
 import gear from './images/gear.png';
+import ColorButtons from './pages/testPage';
+import ResponsiveAppBar from './components/appBar';
 
 const styles = {
   container: {
-    backgroundColor: 'blue', width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20,
+    backgroundColor: 'red', width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20,
   },
   button: {
     color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px',
@@ -40,26 +43,40 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  left: { outline: '1px solid black', flexDirection: 'column', justifyContent: 'space-between' },
+  left: {
+    outline: '1px solid black',
+    width: '50%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingLeft: '2%',
+  },
   selectActions: {
     outline: '1px solid black',
     backgroundColor: 'lightblue',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
-  boardDisplay: { outline: '1px solid black', width: 800, height: 200 },
-  right: { outline: '1px solid black', flexDirection: 'row' },
+  boardDisplay: { outline: '1px solid black', width: '100%', height: '100%' },
+  right: {
+    outline: '1px solid black',
+    flexDirection: 'row',
+    width: '50%',
+    paddingLeft: '2%',
+  },
 };
 
 function App({ signOut, user }) {
   // todo: is this the correct place for this? where to put it??
   const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
-
   return (
     <div id="page" style={styles.page}>
+      {/* <div>
+        <ResponsiveAppBar />
+      </div> */}
       <div id="header" style={styles.header}>
         <img src={gear} alt="gear" style={styles.gear} />
-        <h2>Neo</h2>
+        <Button href="/testPage" sx={{ fontSize: 64, fontWeight: 'bold', color: 'text.primary' }}>Neo</Button>
         <div id="auth" style={styles.auth}>
           <Heading level={1}>
             Hello
@@ -72,10 +89,9 @@ function App({ signOut, user }) {
         </div>
       </div>
       <div id="work">
-        <div id="nav" style={styles.nav}>
-          <p>Home</p>
-          <p>About</p>
-        </div>
+        {/*  <div id="nav" style={styles.nav}>
+          <ColorButtons />
+        </div> */}
         <div id="work-2" style={styles.work2}>
           <div id="left" style={styles.left}>
             <div id="select-actions" style={styles.selectActions}>
@@ -87,7 +103,7 @@ function App({ signOut, user }) {
           </div>
           <div id="right" style={styles.right}>
             <AWS setIsConnected={setIsConnectedToAWS} />
-            <button type="button" onClick={() => utils.publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</button>
+            <Button variant="contained" color="primary" type="button" onClick={() => utils.publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</Button>
           </div>
         </div>
       </div>
