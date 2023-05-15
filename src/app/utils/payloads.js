@@ -13,35 +13,28 @@ export const hello = { msg: 'hello' };
 /** Payload to print a string to the console */
 export const hubblePrintCommand = {
   responseTopic: topics.hubbleCommandRes,
-  action: {
-    cmd: 'print',
-    data: 'hello from an MQTT topic'
-  }
+  module: 'print',
+  data: 'hello from an MQTT topic',
 };
 
 /**
  * @param {string} action the neopolitan action to perform
  * @returns the generated neopolitan operation payload
  */
-const neopolitanOperation = (action) => {
-  const obj = {
-    responseTopic: topics.hubbleCommandRes,
-    action: {
-      cmd: 'neopolitan',
-      data: action
-    }
-  };
-  return obj;
-};
+const neopolitanOperation = (action) => ({
+  responseTopic: topics.hubbleCommandRes,
+  module: 'neopolitan',
+  subCommand: action,
+});
 
 /**
  * @param {object} options values to send to neopolitan update operation
  * @returns the full neopolitan update command payload
  */
 const neopolitanUpdateOperation = (options) => {
-  const ogOp = neopolitanOperation('update');
-  ogOp.action.options = options; // todo: better way to do this?
-  return ogOp;
+  const operation = neopolitanOperation('update');
+  operation.options = options; // todo: better way to do this?
+  return operation;
 };
 
 export const neopolitanTest = neopolitanOperation('test');
@@ -51,8 +44,6 @@ export const neopolitanUpdate = (options) => neopolitanUpdateOperation(options);
 
 export const hubbleEchoCommand = {
   responseTopic: topics.hubbleCommandRes,
-  action: {
-    cmd: 'say',
-    data: 'hello'
-  }
+  module: 'terminal',
+  subCommand: 'echo "hello from the terminal"'
 };
