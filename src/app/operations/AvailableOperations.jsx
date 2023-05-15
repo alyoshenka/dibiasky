@@ -42,9 +42,12 @@ function AvailableOperations({ isConnected }) {
   useEffect(() => {
     // eslint-disable-next-line no-unused-vars
     subscribe(resHubbleOperations, (d, t) => {
-      const obj = JSON.parse(d.value);
-      setOperations(obj.availableOperations);
-      addEntryToLog('Received Hubble Operations');
+      if (d && d.value && d.value.availableOperations) {
+        setOperations(d.value.availableOperations);
+        addEntryToLog('Received Hubble Operations');
+      } else {
+        addEntryToLog('Received bad Hubble Operations');
+      }
     });
     // todo: issue #47; no wildcard disconnection subscription
     // subscribe to disconnection to know when to clear operations
