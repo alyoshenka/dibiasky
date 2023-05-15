@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
 import { mapCommandToFunction } from '../utils/commandOperations';
 
-function Operation({ opr }) {
+function Operation({ opr: operation }) {
   const [options, setOptions] = useState({});
   const optionsRef = useRef();
   optionsRef.current = options;
@@ -12,7 +12,7 @@ function Operation({ opr }) {
   const operationWithOptions = () => {
     // todo: this seems like bad code. fix
     const withOps = {};
-    Object.assign(withOps, opr);
+    Object.assign(withOps, operation);
     withOps.options = optionsRef.current;
     return () => mapCommandToFunction(withOps)();
   };
@@ -20,19 +20,22 @@ function Operation({ opr }) {
   return (
     <div>
       <Button onClick={() => { operationWithOptions()(); }}>
-        {opr.friendlyName}
+        {operation.friendlyName}
       </Button>
       {/* todo: this is bad */}
-      {opr.options ? <UpdateOperation options={opr.options} setOptionsParent={setOptions} /> : null}
+      {operation.options
+        ? <UpdateOperation options={operation.options} setOptionsParent={setOptions} />
+        : null}
     </div>
   );
 }
 
 Operation.propTypes = {
   opr: PropTypes.shape({
-    cmd: PropTypes.string.isRequired,
-    data: PropTypes.string.isRequired,
+    module: PropTypes.string.isRequired,
     friendlyName: PropTypes.string.isRequired,
+    subCommand: PropTypes.string,
+    data: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };

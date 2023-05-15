@@ -19,13 +19,13 @@ function AvailableOperations({ isConnected }) {
   const dummyOperations = [
     {
       friendlyName: 'test schedule',
-      cmd: 'testSchedule',
-      data: 'no data necessary',
+      module: 'testSchedule',
+      subCommand: 'no data necessary',
       options: ['executeAt'],
     },
     {
       friendlyName: 'print something (test)',
-      cmd: 'print',
+      module: 'print',
       data: 'beepboop',
     },
   ];
@@ -42,8 +42,8 @@ function AvailableOperations({ isConnected }) {
   useEffect(() => {
     // eslint-disable-next-line no-unused-vars
     subscribe(resHubbleOperations, (d, t) => {
-      const obj = JSON.parse(d.value).res; // todo: take out res?
-      setOperations(obj);
+      const obj = JSON.parse(d.value);
+      setOperations(obj.availableOperations);
       addEntryToLog('Received Hubble Operations');
     });
     // todo: issue #47; no wildcard disconnection subscription
@@ -83,7 +83,7 @@ function AvailableOperations({ isConnected }) {
               <em>None</em>
             </MenuItem>
             {operations?.map((opr, idx) => (
-              <MenuItem value={idx} key={`${opr.cmd}-${opr.data}`}>{opr.friendlyName}</MenuItem>
+              <MenuItem value={idx} key={opr.friendlyName}>{opr.friendlyName}</MenuItem>
             ))}
           </Select>
         </FormControl>

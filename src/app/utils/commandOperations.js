@@ -12,15 +12,16 @@ import * as payloads from './payloads';
 // todo: this is a stupid function. design code better
 /**
  * Generate a command payload based on an operation object
- * @param {object} opr operation
+ * @param {object} operation operation
  * @returns payload to publish
  */
-const getNeopolitanCommandPayload = (opr) => {
-  if (!(opr && opr.data)) {
-    addEntryToLog(`No operation passed: ${opr}`);
+const getNeopolitanCommandPayload = (operation) => {
+  if (!(operation && operation.subCommand)) {
+    addEntryToLog(`No operation passed: ${operation}`);
     return null;
   }
-  switch (opr.data) {
+
+  switch (operation.subCommand) {
     case 'test':
       return payloads.neopolitanTest;
     case 'open':
@@ -28,13 +29,13 @@ const getNeopolitanCommandPayload = (opr) => {
     case 'close':
       return payloads.neopolitanClose;
     case 'update':
-      if (!opr.options) {
-        addEntryToLog(`No options passed for update operation: ${opr}`);
+      if (!operation.options) {
+        addEntryToLog(`No options passed for update operation: ${operation}`);
         return null;
       }
-      return payloads.neopolitanUpdate(opr.options);
+      return payloads.neopolitanUpdate(operation.options);
     default:
-      addEntryToLog(`Unable to get neopolitan command payload: ${opr}`);
+      addEntryToLog(`Unable to get neopolitan command payload: ${operation}`);
       return null;
   }
 };
@@ -42,11 +43,11 @@ const getNeopolitanCommandPayload = (opr) => {
 // todo: don't need to specify neopolitan
 /**
  * Publishes to a topic such that the Neopolitan drawing library is utilized
- * @param {object} opr operation payload
+ * @param {object} operation operation payload
  */
-export const sendNeopolitanCommand = async (opr) => {
+export const sendNeopolitanCommand = async (operation) => {
   const topic = topics.hubbleCommandReq;
-  const payload = getNeopolitanCommandPayload(opr);
+  const payload = getNeopolitanCommandPayload(operation);
   // no subscription (yet)
   // const subTopic = payloads.hubblePrintCommand.topic;
   // const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
@@ -75,18 +76,18 @@ export const unsupportedCommand = () => {
 
 // todo: make this better
 /**
- * @param {object} opr given operation
+ * @param {object} operation given operation
  * @returns appropriate function operation
  */
-export const mapCommandToFunction = (opr) => {
-  if (opr.cmd === 'neopolitan') {
-    return () => sendNeopolitanCommand(opr);
+export const mapCommandToFunction = (operation) => {
+  if (operation.module === 'neopolitan') {
+    return () => sendNeopolitanCommand(operation);
   }
-  if (opr.cmd === 'print') {
-    return () => sendPrintCommand(opr);
+  if (operation.module === 'print') {
+    return () => sendPrintCommand(operation);
   }
-  if (opr.cmd === 'testSchedule') {
-    return () => sendScheduleCommand(opr);
+  if (operation.module === 'testSchedule') {
+    return () => sendScheduleCommand(operation);
   }
   return unsupportedCommand;
 };
