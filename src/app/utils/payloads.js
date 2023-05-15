@@ -12,7 +12,7 @@ export const hello = { msg: 'hello' };
 
 /** Payload to print a string to the console */
 export const hubblePrintCommand = {
-  topic: topics.hubbleCommandRes,
+  responseTopic: topics.hubbleCommandRes,
   action: {
     cmd: 'print',
     data: 'hello from an MQTT topic'
@@ -25,7 +25,7 @@ export const hubblePrintCommand = {
  */
 const neopolitanOperation = (action) => {
   const obj = {
-    topic: topics.hubbleCommandRes,
+    responseTopic: topics.hubbleCommandRes,
     action: {
       cmd: 'neopolitan',
       data: action
@@ -50,7 +50,7 @@ export const neopolitanClose = neopolitanOperation('close');
 export const neopolitanUpdate = (options) => neopolitanUpdateOperation(options);
 
 export const hubbleEchoCommand = {
-  topic: topics.hubbleCommandRes,
+  responseTopic: topics.hubbleCommandRes,
   action: {
     cmd: 'say',
     data: 'hello'
