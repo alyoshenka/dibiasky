@@ -54,12 +54,19 @@ export const sendNeopolitanCommand = async (opr) => {
 };
 
 /** Publish to topic with payload specifying printing to console */
-export const sendPrintCommand = async () => {
+export const sendPrintCommand = async (opr) => {
   const topic = topics.hubbleCommandReq;
   const payload = payloads.hubblePrintCommand;
+  payload.data = opr.data;
   const subTopic = payloads.hubblePrintCommand.topic;
   const subscription = subscribe(subTopic, (d, t) => handleCommandResponse(d, t, subscription));
   publish(topic, payload);
+};
+
+const sendScheduleCommand = (opr) => {
+  // eslint-disable-next-line no-param-reassign
+  opr.executeAt = opr.options.executeAt;
+  publish(topics.scheduleCommandReq, opr);
 };
 
 export const unsupportedCommand = () => {
@@ -73,10 +80,13 @@ export const unsupportedCommand = () => {
  */
 export const mapCommandToFunction = (opr) => {
   if (opr.cmd === 'neopolitan') {
-    return () => sendNeopolitanCommand(opr); // todo: func call discrepance
+    return () => sendNeopolitanCommand(opr);
   }
   if (opr.cmd === 'print') {
-    if (opr.data === 'hello') { return sendPrintCommand; } // todo: here
+    return () => sendPrintCommand(opr);
+  }
+  if (opr.cmd === 'testSchedule') {
+    return () => sendScheduleCommand(opr);
   }
   return unsupportedCommand;
 };

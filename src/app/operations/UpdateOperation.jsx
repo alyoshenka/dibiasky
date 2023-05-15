@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { PropTypes } from 'prop-types';
+import { Button, TextField } from '@mui/material';
 import UpdateOperationValue from './UpdateOperationValue';
 
 function UpdateOperation({ options, setOptionsParent }) {
+  const [commandTime, setCommandTime] = useState('click to initialize');
   const initialOptionsDict = () => {
     const obj = [];
     options.forEach((op) => {
@@ -24,15 +26,27 @@ function UpdateOperation({ options, setOptionsParent }) {
     }
   };
 
+  const updateCommandTime = () => {
+    const oneMin = new Date(new Date().getTime() + 1 * 60000);
+    setCommandTime(oneMin.toISOString());
+    updateOptionsDict('executeAt', oneMin.toISOString());
+  };
+
   return (
-    <ul>
-      {options.map((op, idx) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <li key={idx} style={{ display: 'flex', flexDirection: 'row' }}>
-          <UpdateOperationValue op={op} updateOptionsDict={updateOptionsDict} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {options.map((op, idx) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={idx} style={{ display: 'flex', flexDirection: 'row' }}>
+            <UpdateOperationValue op={op} updateOptionsDict={updateOptionsDict} />
+          </li>
+        ))}
+      </ul>
+      <div>
+        <TextField label={commandTime} />
+        <Button onClick={updateCommandTime}>1 minute from now</Button>
+      </div>
+    </>
   );
 }
 

@@ -32,7 +32,7 @@
     "lint": "npx eslint src/",
     "predeploy": "npm run build",
     "deploy": "npm run add-domain && gh-pages -d build",
-    "add-domain": "echo alyoshenka.com > build/CNAME"
+    "add-domain": "echo https://www.alyoshenka.com > build/CNAME"
   },
   "eslintConfig": {
     "extends": [
