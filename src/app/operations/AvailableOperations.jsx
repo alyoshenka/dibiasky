@@ -21,7 +21,7 @@ function AvailableOperations({ isConnected }) {
       friendlyName: 'test schedule',
       module: 'testSchedule',
       subCommand: 'no data necessary',
-      options: ['need this'],
+      options: [],
     },
     {
       friendlyName: 'print something (test)',
