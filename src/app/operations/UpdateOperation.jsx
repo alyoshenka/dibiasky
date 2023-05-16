@@ -42,7 +42,7 @@ function UpdateOperation({ options, setOptionsParent }) {
           </li>
         ))}
       </ul>
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <TextField label={commandTime} />
         <Button onClick={updateCommandTime}>1 minute from now</Button>
       </div>

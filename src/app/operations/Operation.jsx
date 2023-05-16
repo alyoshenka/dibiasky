@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
 import { mapCommandToFunction } from '../utils/commandOperations';
 
-function Operation({ opr: operation }) {
+function Operation({ operation }) {
   const [options, setOptions] = useState({});
   const optionsRef = useRef();
   optionsRef.current = options;
@@ -31,7 +31,7 @@ function Operation({ opr: operation }) {
 }
 
 Operation.propTypes = {
-  opr: PropTypes.shape({
+  operation: PropTypes.shape({
     module: PropTypes.string.isRequired,
     friendlyName: PropTypes.string.isRequired,
     subCommand: PropTypes.string,

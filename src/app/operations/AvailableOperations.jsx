@@ -12,7 +12,7 @@ import {
   requestHubbleOperations,
 } from '../utils/utils';
 import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
-import Operation from './Operation';
+import OperationRunner from './OperationRunner';
 
 function AvailableOperations({ isConnected }) {
   // todo: take out
@@ -21,7 +21,7 @@ function AvailableOperations({ isConnected }) {
       friendlyName: 'test schedule',
       module: 'testSchedule',
       subCommand: 'no data necessary',
-      options: ['executeAt'],
+      options: ['need this'],
     },
     {
       friendlyName: 'print something (test)',
@@ -90,8 +90,9 @@ function AvailableOperations({ isConnected }) {
             ))}
           </Select>
         </FormControl>
-        {selectedOperation
-          ? <Operation opr={selectedOperation} /> : null}
+        { selectedOperation
+          ? <OperationRunner selectedOperation={selectedOperation} />
+          : null }
       </div>
     </div>
   );
