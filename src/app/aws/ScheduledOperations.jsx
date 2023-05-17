@@ -1,34 +1,51 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { subscribe, publish, addEntryToLog } from '../utils/utils';
 import { scheduledOperationsReq, scheduledOperationsRes } from '../utils/topics';
 
 function ScheduledOperations({ isConnected }) {
-  const [scheduledDB, setScheduledDB] = useState([]);
+  const defaultSchedState = [
+    { ExecuteAt: 'random time', Operation: 'dummy op' },
+    { ExecuteAt: 'another time', Operation: 'another op' },
+  ];
+  const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
+  const [operationsMap, setOperationsMap] = useState(<ul><li>No operations</li></ul>);
 
   useEffect(() => {
     if (isConnected) {
-      setScheduledDB(['something']);
-
       // eslint-disable-next-line no-unused-vars
       subscribe(scheduledOperationsRes, (data, topic) => {
-        if (data && data.value && data.scheduledOperations) {
-          setScheduledDB(data.value.scheduledOperations);
-          addEntryToLog('Received Scheduled Operations');
+        if (data !== undefined
+          && data.value !== undefined) {
+          try {
+            setScheduledDB(data.value.scheduledOperations);
+            addEntryToLog('Received Scheduled Operations');
+          } catch (err) {
+            addEntryToLog(`Could not set schedule operations: ${err}`);
+          }
         } else {
           addEntryToLog('Received bad Scheduled Operations');
         }
       });
-      publish(scheduledOperationsReq, null);
+      // publish(scheduledOperationsReq, null);
     }
   }, [isConnected]);
+
+  useEffect(() => {
+    const map = scheduledDB.map((sched, idx) => {
+      const content = (
+        <p>{`${sched.ExecuteAt ? sched.ExecuteAt : 'No time given'} : ${sched.Operation ? sched.Operation : 'No operation given'}`}</p>
+      );
+      // eslint-disable-next-line react/no-array-index-key
+      return <li key={idx}>{content}</li>;
+    });
+    setOperationsMap(map);
+  }, [scheduledDB]);
   return (
     <div>
       <p>scheduled operations</p>
-      <ul>
-        {/* eslint-disable-next-line react/no-array-index-key */}
-        {scheduledDB.map((sched, idx) => <li key={idx}>{sched}</li>)}
-      </ul>
+      {operationsMap}
     </div>
   );
 }
