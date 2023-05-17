@@ -34,8 +34,11 @@ function ScheduledOperations({ isConnected }) {
 
   useEffect(() => {
     const map = scheduledDB.map((sched, idx) => {
+      const executionTime = () => (sched.ExecuteAt ? sched.ExecuteAt : 'No time given');
+      // eslint-disable-next-line no-nested-ternary
+      const displayName = () => (sched.FriendlyName ? sched.FriendlyName : (sched.Operation ? sched.Operation : 'No operation given'));
       const content = (
-        <p>{`${sched.ExecuteAt ? sched.ExecuteAt : 'No time given'} : ${sched.Operation ? sched.Operation : 'No operation given'}`}</p>
+        <p>{`${executionTime()} : ${displayName()}`}</p>
       );
       // eslint-disable-next-line react/no-array-index-key
       return <li key={idx}>{content}</li>;
