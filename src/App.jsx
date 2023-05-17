@@ -12,6 +12,7 @@ import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import AWS from './app/aws/AWS';
 import AvailableOperations from './app/operations/AvailableOperations';
+import ScheduledOperations from './app/aws/ScheduledOperations';
 import gear from './images/gear.png';
 
 // todo: put these all into their own file
@@ -83,6 +84,7 @@ function App({ signOut, user }) {
             <div id="select-actions" style={styles.selectActions}>
               <AvailableOperations isConnected={isConnectedToAWS} />
             </div>
+            <ScheduledOperations isConnected={isConnectedToAWS} />
             <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>

@@ -5,10 +5,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   addEntryToLog,
-  handleCommandResponse,
-  publish, subscribe,
+  publish,
 } from '../utils/utils';
-import { scheduleCommandReq, scheduleCommandRes } from '../utils/topics';
+import { scheduleCommandReq, scheduleCommandRes, hubbleCommandReq } from '../utils/topics';
 
 function OperationScheduler() {
   const [commandTime, setCommandTime] = useState('click to initialize');
@@ -24,13 +23,12 @@ function OperationScheduler() {
     // todo: this should NOT go here. put it where it should go!
     const payload = {
       responseTopic: scheduleCommandRes,
+      publishTopic: hubbleCommandReq,
       executeAt: commandTime,
-      module: 'testScheduler',
+      operation: {
+        module: 'testScheduler',
+      },
     };
-    const subscription = subscribe(
-      scheduleCommandRes,
-      (d, t) => handleCommandResponse(d, t, subscription),
-    );
     publish(scheduleCommandReq, payload);
   };
 

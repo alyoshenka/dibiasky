@@ -18,6 +18,7 @@ utils.displayAuthStateChanges();
 
 // need this to keep the connection open
 utils.subscribe(topics.hubbleCommandRes, utils.printData);
+utils.subscribe(topics.scheduleCommandRes, utils.printData);
 
 function AWS({ setIsConnected }) {
   return (
