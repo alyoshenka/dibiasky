@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
-import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
+import { Button } from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {
+  addEntryToLog,
+  handleCommandResponse,
+  publish, subscribe,
+} from '../utils/utils';
+import { scheduleCommandReq, scheduleCommandRes } from '../utils/topics';
 
 function OperationScheduler() {
   const [commandTime, setCommandTime] = useState('click to initialize');
@@ -13,14 +19,29 @@ function OperationScheduler() {
     // updateOptionsDict('executeAt', oneMin.toISOString());
   };
 
+  const scheduleOperation = () => {
+    addEntryToLog(`Scheduled operation for ${commandTime}`);
+    // todo: this should NOT go here. put it where it should go!
+    const payload = {
+      responseTopic: scheduleCommandRes,
+      executeAt: commandTime,
+      module: 'testScheduler',
+    };
+    const subscription = subscribe(
+      scheduleCommandRes,
+      (d, t) => handleCommandResponse(d, t, subscription),
+    );
+    publish(scheduleCommandReq, payload);
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Button style={{ alignSelf: 'flex-start' }}>Schedule</Button>
+      <Button style={{ alignSelf: 'flex-start' }} onClick={scheduleOperation}>Schedule</Button>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StaticDateTimePicker label="Pick a time" />
+        <DateTimePicker label="Pick a time" />
       </LocalizationProvider>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <TextField label={commandTime} />
+        <p><b>{commandTime}</b></p>
         <Button onClick={updateCommandTime}>1 minute from now</Button>
       </div>
     </div>

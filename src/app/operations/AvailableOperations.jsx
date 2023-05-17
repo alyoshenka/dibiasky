@@ -19,7 +19,7 @@ function AvailableOperations({ isConnected }) {
   const dummyOperations = [
     {
       friendlyName: 'test schedule',
-      module: 'testSchedule',
+      module: 'test',
       subCommand: 'no data necessary',
       options: [],
     },
