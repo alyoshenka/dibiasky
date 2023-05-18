@@ -84,7 +84,7 @@ function App({ signOut, user }) {
             <div id="select-actions" style={styles.selectActions}>
               <AvailableOperations isConnected={isConnectedToAWS} />
             </div>
-            <ScheduledOperations isConnected={isConnectedToAWS} />
+            {/* <ScheduledOperations isConnected={isConnectedToAWS} /> */}
             <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>
