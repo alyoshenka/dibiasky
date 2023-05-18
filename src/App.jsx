@@ -41,15 +41,20 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  left: { outline: '1px solid black', flexDirection: 'column', justifyContent: 'space-between' },
+  left: {
+    outline: '1px solid black',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '50%',
+  },
   selectActions: {
     outline: '1px solid black',
     backgroundColor: 'lightblue',
     display: 'flex',
     flexDirection: 'column',
   },
-  boardDisplay: { outline: '1px solid black', width: 800, height: 200 },
-  right: { outline: '1px solid black', flexDirection: 'row' },
+  boardDisplay: { outline: '1px solid black' },
+  right: { outline: '1px solid black', flexDirection: 'row', width: '30%' },
 };
 
 /**  Homepage of the application */
@@ -84,7 +89,7 @@ function App({ signOut, user }) {
             <div id="select-actions" style={styles.selectActions}>
               <AvailableOperations isConnected={isConnectedToAWS} />
             </div>
-            <ScheduledOperations isConnected={isConnectedToAWS} />
+            {/* <ScheduledOperations isConnected={isConnectedToAWS} /> */}
             <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>
