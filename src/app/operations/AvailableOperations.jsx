@@ -18,15 +18,13 @@ function AvailableOperations({ isConnected }) {
   // todo: take out
   const dummyOperations = [
     {
-      friendlyName: 'test schedule',
+      friendlyName: 'Test Schedule',
       module: 'test',
-      subCommand: 'no data necessary',
-      options: [],
     },
     {
-      friendlyName: 'print something (test)',
+      friendlyName: 'Test Options',
       module: 'print',
-      data: 'beepboop',
+      options: ['dummy option 1', 'dummy option 2'],
     },
   ];
   const [operations, setOperations] = useState(dummyOperations);

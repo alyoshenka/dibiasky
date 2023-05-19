@@ -12,7 +12,7 @@ function UpdateOperationValue({ op, updateOptionsDict }) {
       label={op}
       variant="standard"
       onChange={onChange}
-      style={{ marginLeft: 20, width: 100 }}
+      style={{ marginLeft: 20 }}
     />
   );
 }

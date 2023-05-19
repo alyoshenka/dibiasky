@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Operation from './Operation';
-// eslint-disable-next-line no-unused-vars
+import OperationNow from './OperationNow';
 import OperationScheduler from './OperationScheduler';
 
 function OperationRunner({ selectedOperation }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <Operation operation={selectedOperation} />
-      <OperationScheduler />
+      <OperationNow operation={selectedOperation} />
+      <OperationScheduler operation={selectedOperation} />
     </div>
   );
 }
