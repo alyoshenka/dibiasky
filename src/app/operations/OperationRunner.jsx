@@ -8,7 +8,7 @@ function OperationRunner({ selectedOperation }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <Operation operation={selectedOperation} />
-      {/* <OperationScheduler /> */}
+      <OperationScheduler />
     </div>
   );
 }

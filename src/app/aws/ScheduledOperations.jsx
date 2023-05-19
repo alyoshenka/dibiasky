@@ -6,8 +6,18 @@ import { scheduledOperationsReq, scheduledOperationsRes } from '../utils/topics'
 
 function ScheduledOperations({ isConnected }) {
   const defaultSchedState = [
-    { ExecuteAt: 'random time', Operation: 'dummy op' },
-    { ExecuteAt: 'another time', Operation: 'another op' },
+    {
+      executeAt: 'random time',
+      operation: {
+        friendlyName: 'op name',
+      },
+    },
+    {
+      executeAt: 'another time',
+      operation: {
+        friendlyName: 'another op name',
+      },
+    },
   ];
   const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
   const [operationsMap, setOperationsMap] = useState(<ul><li>No operations</li></ul>);
@@ -34,9 +44,8 @@ function ScheduledOperations({ isConnected }) {
 
   useEffect(() => {
     const map = scheduledDB.map((sched, idx) => {
-      const executionTime = () => (sched.ExecuteAt ? sched.ExecuteAt : 'No time given');
-      // eslint-disable-next-line no-nested-ternary
-      const displayName = () => (sched.FriendlyName ? sched.FriendlyName : (sched.Operation ? sched.Operation : 'No operation given'));
+      const executionTime = () => (sched.executeAt ? sched.executeAt : 'No time given');
+      const displayName = () => (sched.operation.friendlyName ? sched.operation.friendlyName : 'No operation given');
       const content = (
         <p>{`${executionTime()} : ${displayName()}`}</p>
       );
@@ -47,7 +56,7 @@ function ScheduledOperations({ isConnected }) {
   }, [scheduledDB]);
   return (
     <div>
-      <p>scheduled operations</p>
+      <h3>Scheduled Operations</h3>
       {operationsMap}
     </div>
   );

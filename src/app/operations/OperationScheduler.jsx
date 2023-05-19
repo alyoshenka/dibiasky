@@ -25,10 +25,10 @@ function OperationScheduler() {
       responseTopic: scheduleCommandRes,
       publishTopic: hubbleCommandReq,
       executeAt: commandTime,
-      friendlyName: 'Print Hello',
       operation: {
         module: 'print',
         data: 'Hello from the scheduler!',
+        friendlyName: 'Print Hello',
       },
     };
     publish(scheduleCommandReq, payload);
