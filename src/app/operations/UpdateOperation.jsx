@@ -37,14 +37,12 @@ function UpdateOperation({ options, setOptionsParent }) {
 }
 
 UpdateOperation.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string),
   setOptionsParent: PropTypes.func.isRequired,
 };
 
-/*
 UpdateOperation.defaultProps = {
-  setOptionsParent: null, // todo: bad?
+  options: [],
 };
-*/
 
 export default UpdateOperation;

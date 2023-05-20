@@ -86,7 +86,7 @@ export const displayCurrentCredentials = async () => {
  * @param {string} topic topic it was sent from
  */
 export const printData = (data, topic) => {
-  addEntryToLog(`Received ${data.value} from ${topic}`);
+  addEntryToLog(`Received ${JSON.stringify(data.value)} from ${topic}`);
 };
 
 // todo: func that handles then unsubscribes

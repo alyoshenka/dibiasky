@@ -12,6 +12,7 @@ import * as topics from './app/utils/topics';
 import * as payloads from './app/utils/payloads';
 import AWS from './app/aws/AWS';
 import AvailableOperations from './app/operations/AvailableOperations';
+import ScheduledOperations from './app/aws/ScheduledOperations';
 import gear from './images/gear.png';
 
 // todo: put these all into their own file
@@ -40,15 +41,20 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  left: { outline: '1px solid black', flexDirection: 'column', justifyContent: 'space-between' },
+  left: {
+    outline: '1px solid black',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '50%',
+  },
   selectActions: {
     outline: '1px solid black',
     backgroundColor: 'lightblue',
     display: 'flex',
     flexDirection: 'column',
   },
-  boardDisplay: { outline: '1px solid black', width: 800, height: 200 },
-  right: { outline: '1px solid black', flexDirection: 'row' },
+  boardDisplay: { outline: '1px solid black' },
+  right: { outline: '1px solid black', flexDirection: 'row', width: '30%' },
 };
 
 /**  Homepage of the application */
@@ -83,6 +89,7 @@ function App({ signOut, user }) {
             <div id="select-actions" style={styles.selectActions}>
               <AvailableOperations isConnected={isConnectedToAWS} />
             </div>
+            <ScheduledOperations isConnected={isConnectedToAWS} />
             <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>

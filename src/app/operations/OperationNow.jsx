@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
 import { mapCommandToFunction } from '../utils/commandOperations';
 
-function Operation({ opr }) {
+function OperationNow({ operation }) {
   const [options, setOptions] = useState({});
   const optionsRef = useRef();
   optionsRef.current = options;
@@ -12,29 +12,27 @@ function Operation({ opr }) {
   const operationWithOptions = () => {
     // todo: this seems like bad code. fix
     const withOps = {};
-    Object.assign(withOps, opr);
+    Object.assign(withOps, operation);
     withOps.options = optionsRef.current;
     return () => mapCommandToFunction(withOps)();
   };
 
   return (
-    <div>
-      <Button onClick={() => { operationWithOptions()(); }}>
-        {opr.friendlyName}
-      </Button>
-      {/* todo: this is bad */}
-      {opr.options ? <UpdateOperation options={opr.options} setOptionsParent={setOptions} /> : null}
+    <div style={{ marginRight: '8%' }}>
+      <Button onClick={() => { operationWithOptions()(); }} variant="contained">Run Now</Button>
+      <UpdateOperation options={operation.options ?? []} setOptionsParent={setOptions} />
     </div>
   );
 }
 
-Operation.propTypes = {
-  opr: PropTypes.shape({
-    cmd: PropTypes.string.isRequired,
-    data: PropTypes.string.isRequired,
+OperationNow.propTypes = {
+  operation: PropTypes.shape({
+    module: PropTypes.string.isRequired,
     friendlyName: PropTypes.string.isRequired,
+    subCommand: PropTypes.string,
+    data: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
-export default Operation;
+export default OperationNow;
