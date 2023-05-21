@@ -9,7 +9,12 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { subscribe, publish, addEntryToLog } from '../utils/utils';
+import {
+  subscribe,
+  publish,
+  addEntryToLog,
+  parseISOString,
+} from '../utils/utils';
 import { scheduledOperationsReq, scheduledOperationsRes } from '../utils/topics';
 
 function ScheduledOperations({ isConnected }) {
@@ -52,8 +57,8 @@ function ScheduledOperations({ isConnected }) {
 
   useEffect(() => {
     const map = scheduledDB.map((sched, idx) => {
-      // todo: display in a nicer output format
-      const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
+      const niceDate = (date) => parseISOString(date).toLocaleString('en-US');
+      const executionTime = sched.executeAt ? niceDate(sched.executeAt) : 'No time given';
       const displayName = sched.operation.friendlyName ? sched.operation.friendlyName : 'No operation given';
       return (
         // eslint-disable-next-line react/no-array-index-key
