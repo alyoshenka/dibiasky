@@ -8,7 +8,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Button,
+  IconButton,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { subscribe, publish, addEntryToLog } from '../utils/utils';
 import { scheduledOperationsReq, scheduledOperationsRes } from '../utils/topics';
 
@@ -29,6 +32,10 @@ function ScheduledOperations({ isConnected }) {
   ];
   const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
   const [operationsMap, setOperationsMap] = useState(<ul><li>No operations</li></ul>);
+
+  const deleteOperation = () => {
+    console.log('delete');
+  };
 
   useEffect(() => {
     if (isConnected) {
@@ -60,6 +67,9 @@ function ScheduledOperations({ isConnected }) {
         <TableRow key={idx}>
           <TableCell>{executionTime}</TableCell>
           <TableCell>{displayName}</TableCell>
+          <TableCell>
+            <IconButton onClick={deleteOperation}><DeleteIcon fontSize="small" /></IconButton>
+          </TableCell>
         </TableRow>
       );
     });
@@ -73,6 +83,7 @@ function ScheduledOperations({ isConnected }) {
           <TableRow>
             <TableCell>Execution Time</TableCell>
             <TableCell>Operation</TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
