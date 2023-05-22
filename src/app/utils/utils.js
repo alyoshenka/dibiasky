@@ -28,7 +28,7 @@ export const setupAmplify = () => {
   addEntryToLog('Setting up Amplify');
   Amplify.addPluggable(
     new AWSIoTProvider({
-      aws_pubsub_region: 'us-west-2',
+      aws_pubsub_region: process.env.REACT_APP_REGION,
       aws_pubsub_endpoint: process.env.REACT_APP_AWS_PUBSUB_ENDPOINT
     })
   );

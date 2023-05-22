@@ -30,9 +30,9 @@ function ScheduledOperations({ isConnected }) {
   const deleteOperation = async (id) => {
     // todo: THIS IS BAD CODE there are so many errors associated with the way this is done
     const client = new DynamoDBClient({
-      region: 'us-west-2',
+      region: process.env.REACT_APP_REGION,
       credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: 'us-west-2' }),
+        client: new CognitoIdentityClient({ region: process.env.REACT_APP_REGION }),
         identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
       }),
     });
