@@ -75,11 +75,6 @@ export const getCurrentCredentials = async () => (await Auth.currentCredentials(
 
 export const getEndpoint = () => process.env.REACT_APP_AWS_PUBSUB_ENDPOINT;
 
-export const displayCurrentCredentials = async () => {
-  addEntryToLog(`Endpoint: ${getEndpoint()}`);
-  addEntryToLog(`Cognito: ${await getCurrentCredentials()}`);
-};
-
 /**
  * Dummy callback function to display data on subscription received
  * @param {object} data payload from subscription

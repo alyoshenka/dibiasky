@@ -1,6 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, DeleteCommand } from '@aws-sdk/lib-dynamodb';
+import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity';
+import {
+  fromCognitoIdentityPool,
+} from '@aws-sdk/credential-provider-cognito-identity';
 import {
   Table,
   TableBody,
@@ -12,10 +18,43 @@ import {
   IconButton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { subscribe, publish, addEntryToLog } from '../utils/utils';
+import {
+  subscribe,
+  publish,
+  addEntryToLog,
+  getCurrentCredentials,
+} from '../utils/utils';
 import { scheduledOperationsReq, scheduledOperationsRes } from '../utils/topics';
 
 function ScheduledOperations({ isConnected }) {
+  const deleteOperation = async (id) => {
+    // todo: THIS IS BAD CODE there are so many errors associated with the way this is done
+    const client = new DynamoDBClient({
+      region: 'us-west-2',
+      credentials: fromCognitoIdentityPool({
+        client: new CognitoIdentityClient({ region: 'us-west-2' }),
+        identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
+      }),
+    });
+    const docClient = DynamoDBDocumentClient.from(client);
+    const deleteCommand = new DeleteCommand({
+      TableName: 'ScheduledOperations',
+      Key: {
+        scheduleID: id,
+      },
+    });
+    client
+      .send(deleteCommand)
+      .then((data) => {
+        addEntryToLog(`Deleted ScheduledOperation ${id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        publish(scheduledOperationsReq, null);
+      });
+  };
   const defaultSchedState = [
     {
       executeAt: 'random time',
@@ -30,12 +69,26 @@ function ScheduledOperations({ isConnected }) {
       },
     },
   ];
-  const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
-  const [operationsMap, setOperationsMap] = useState(<ul><li>No operations</li></ul>);
-
-  const deleteOperation = () => {
-    console.log('delete');
+  const scheduledToTable = (operations) => {
+    const map = operations.map((sched, idx) => {
+      // todo: display in a nicer output format
+      const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
+      const displayName = sched.operation.friendlyName ? sched.operation.friendlyName : 'No operation given';
+      return (
+        // eslint-disable-next-line react/no-array-index-key
+        <TableRow key={idx}>
+          <TableCell>{executionTime}</TableCell>
+          <TableCell>{displayName}</TableCell>
+          <TableCell>
+            <IconButton onClick={() => deleteOperation(sched.scheduleID)}><DeleteIcon fontSize="small" /></IconButton>
+          </TableCell>
+        </TableRow>
+      );
+    });
+    return map;
   };
+  const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
+  const [operationsMap, setOperationsMap] = useState(scheduledToTable(defaultSchedState));
 
   useEffect(() => {
     if (isConnected) {
@@ -58,22 +111,7 @@ function ScheduledOperations({ isConnected }) {
   }, [isConnected]);
 
   useEffect(() => {
-    const map = scheduledDB.map((sched, idx) => {
-      // todo: display in a nicer output format
-      const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
-      const displayName = sched.operation.friendlyName ? sched.operation.friendlyName : 'No operation given';
-      return (
-        // eslint-disable-next-line react/no-array-index-key
-        <TableRow key={idx}>
-          <TableCell>{executionTime}</TableCell>
-          <TableCell>{displayName}</TableCell>
-          <TableCell>
-            <IconButton onClick={deleteOperation}><DeleteIcon fontSize="small" /></IconButton>
-          </TableCell>
-        </TableRow>
-      );
-    });
-    setOperationsMap(map);
+    setOperationsMap(scheduledToTable(scheduledDB));
   }, [scheduledDB]);
   return (
     <div>
