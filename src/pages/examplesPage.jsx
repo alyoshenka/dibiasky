@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
 
-export default function ExamplesPage() {
+function ExamplesPage() {
   return (
     <>
       <div>
@@ -14,7 +15,7 @@ export default function ExamplesPage() {
       <div>
         <ClippedDrawer />
       </div>
-      <Box component="main" sx={{ flexGrow: 1, pl: 35, pr: 5 }}>
+      <Box component="main" sx={{ flexGrow: 1, pl: '20%', pr: '5%' }}>
         <Toolbar />
         <Typography paragraph>
           <h1>This is the examples page</h1>
@@ -48,3 +49,5 @@ export default function ExamplesPage() {
     </>
   );
 }
+
+export default withAuthenticator(ExamplesPage);

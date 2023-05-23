@@ -11,10 +11,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-// import AdbIcon from '@mui/icons-material/Adb';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AppBarButtons from './appBarButtons';
 import ConnectionStatus from '../app/aws/ConnectionStatus';
@@ -42,7 +40,7 @@ function ResponsiveAppBar({ signOut, user, setIsConnected }) {
   };
 
   return (
-    <AppBar position="relative" sx={{ p: 2, height: 'auto' }}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, marginBottom: 'auto' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <EngineeringIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

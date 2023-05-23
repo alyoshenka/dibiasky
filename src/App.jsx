@@ -74,9 +74,6 @@ function App({ signOut, user }) {
   // todo: put into individual components
   return (
     <div id="page" style={styles.page}>
-      {/* <div>
-        <ResponsiveAppBar />
-      </div> */}
       <div id="header" style={styles.header}>
         <img src={gear} alt="gear" style={styles.gear} />
         <Button href="/testPage" sx={{ fontSize: 64, fontWeight: 'bold', color: 'text.primary' }}>Neo</Button>
@@ -92,9 +89,6 @@ function App({ signOut, user }) {
         </div>
       </div>
       <div id="work">
-        {/*  <div id="nav" style={styles.nav}>
-          <ColorButtons />
-        </div> */}
         <div id="work-2" style={styles.work2}>
           <div id="left" style={styles.left}>
             <div id="select-actions" style={styles.selectActions}>

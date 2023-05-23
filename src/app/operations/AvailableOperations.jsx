@@ -17,8 +17,17 @@ import Operation from './Operation';
 function AvailableOperations({ isConnected }) {
   // todo: take out
   const dummyOperations = [
-    { friendlyName: 'do a thing (test)', cmd: 'run', data: 'no data necessary' },
-    { friendlyName: 'do a different thing (test)', cmd: 'print', data: 'beepboop' }, // todo: dummy opr with opts?
+    {
+      friendlyName: 'do a thing (test)',
+      cmd: 'update',
+      data: 'no data necessary',
+      options: ['hi', 'hellow', 'world'],
+    },
+    {
+      friendlyName: 'do a different thing (test)',
+      cmd: 'print',
+      data: 'beepboop',
+    }, // todo: dummy opr with opts?
   ];
   const [operations, setOperations] = useState(dummyOperations);
   const [selectedOperationIdx, setSelectedOperationIdx] = useState('');
