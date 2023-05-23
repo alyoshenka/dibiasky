@@ -73,7 +73,7 @@ function OperationScheduler({ operation }) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {/* DateTimePicker was not allowing to select time */}
           <DatePicker label="Pick a date" onChange={(val) => updateDate(val)} />
-          <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} />
+          <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} timeSteps={{ minutes: 1 }} />
         </LocalizationProvider>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
