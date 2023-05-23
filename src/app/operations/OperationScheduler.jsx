@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   addEntryToLog,
   publish,
+  parseISOString,
 } from '../utils/utils';
 import { scheduleCommandReq, scheduleCommandRes, hubbleCommandReq } from '../utils/topics';
 
@@ -16,12 +17,6 @@ function OperationScheduler({ operation }) {
     const oneMin = new Date(new Date().getTime() + 1 * 60000);
     setCommandTime(oneMin.toISOString());
     // updateOptionsDict('executeAt', oneMin.toISOString());
-  };
-
-  const parseISOString = (s) => {
-    const b = s.split(/\D+/);
-    // eslint-disable-next-line no-plusplus
-    return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
   };
 
   const updateDate = (date) => {
