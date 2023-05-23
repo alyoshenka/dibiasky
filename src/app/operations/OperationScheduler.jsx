@@ -19,9 +19,20 @@ function OperationScheduler({ operation }) {
     // updateOptionsDict('executeAt', oneMin.toISOString());
   };
 
+  const isValidDate = (date) => date.toString() !== 'Invalid Date';
+
   const updateDate = (date) => {
     const obj = new Date(date.$d);
-    const newDate = parseISOString(commandTime);
+    let newDate = parseISOString(commandTime);
+    if (!isValidDate(date)) {
+      newDate = new Date();
+      // clear time setting
+      newDate.setHours(0);
+      newDate.setMinutes(0);
+      newDate.setSeconds(0);
+      newDate.setMilliseconds(0);
+      // todo: set time in Picker
+    }
     newDate.setDate(obj.getDate());
     newDate.setMonth(obj.getMonth());
     newDate.setYear(obj.getFullYear());
@@ -29,8 +40,16 @@ function OperationScheduler({ operation }) {
   };
 
   const updateTime = (time) => {
-    const obj = new Date(time.$d);
-    const newTime = parseISOString(commandTime);
+    let obj = new Date(time.$d);
+    let newTime = parseISOString(commandTime);
+    if (!isValidDate(newTime)) {
+      newTime = new Date(); // initialize to current date
+      newTime.setMilliseconds(0);
+      newTime.setSeconds(0);
+    }
+    if (!isValidDate(obj)) {
+      obj = new Date(); // initialize to current date
+    }
     newTime.setHours(obj.getHours());
     newTime.setMinutes(obj.getMinutes());
     setCommandTime(newTime.toISOString());
