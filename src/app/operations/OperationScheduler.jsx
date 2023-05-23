@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 import {
   addEntryToLog,
   publish,
@@ -12,6 +13,8 @@ import { scheduleCommandReq, scheduleCommandRes, hubbleCommandReq } from '../uti
 
 function OperationScheduler({ operation }) {
   const [commandTime, setCommandTime] = useState('Click to initialize');
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
 
   const oneMinuteAhead = () => {
     const oneMin = new Date(new Date().getTime() + 1 * 60000);
@@ -37,6 +40,7 @@ function OperationScheduler({ operation }) {
     newDate.setMonth(obj.getMonth());
     newDate.setYear(obj.getFullYear());
     setCommandTime(newDate.toISOString());
+    setSelectedTime(dayjs(newDate));
   };
 
   const updateTime = (time) => {
@@ -53,6 +57,7 @@ function OperationScheduler({ operation }) {
     newTime.setHours(obj.getHours());
     newTime.setMinutes(obj.getMinutes());
     setCommandTime(newTime.toISOString());
+    setSelectedDate(dayjs(newTime));
   };
 
   const scheduleOperation = () => {
@@ -72,8 +77,8 @@ function OperationScheduler({ operation }) {
       <div style={{ marginTop: '7%' }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {/* DateTimePicker was not allowing to select time */}
-          <DatePicker label="Pick a date" onChange={(val) => updateDate(val)} />
-          <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} timeSteps={{ minutes: 1 }} />
+          <DatePicker label="Pick a date" onChange={(val) => updateDate(val)} value={selectedDate} />
+          <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} value={selectedTime} timeSteps={{ minutes: 1 }} />
         </LocalizationProvider>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
