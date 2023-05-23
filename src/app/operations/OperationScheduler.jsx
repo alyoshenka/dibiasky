@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
@@ -13,34 +13,43 @@ import { scheduleCommandReq, scheduleCommandRes, hubbleCommandReq } from '../uti
 
 function OperationScheduler({ operation }) {
   const [commandTime, setCommandTime] = useState('Click to initialize');
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const dateRef = useRef();
+  dateRef.current = selectedDateTime;
+
+  const dateInPast = () => Date.parse(dateRef.current) - Date.parse(new Date()) < 0;
+
+  const isValidDate = (date) => date.toString() !== 'Invalid Date';
+
+  const updateDateTimeValues = (datetime) => {
+    setSelectedDateTime(dayjs(datetime));
+  };
 
   const oneMinuteAhead = () => {
     const oneMin = new Date(new Date().getTime() + 1 * 60000);
+    oneMin.setMilliseconds(0);
+    oneMin.setSeconds(0);
     setCommandTime(oneMin.toISOString());
+    updateDateTimeValues(oneMin);
     // updateOptionsDict('executeAt', oneMin.toISOString());
   };
-
-  const isValidDate = (date) => date.toString() !== 'Invalid Date';
 
   const updateDate = (date) => {
     const obj = new Date(date.$d);
     let newDate = parseISOString(commandTime);
-    if (!isValidDate(date)) {
+    if (!isValidDate(newDate)) {
       newDate = new Date();
       // clear time setting
       newDate.setHours(0);
       newDate.setMinutes(0);
       newDate.setSeconds(0);
       newDate.setMilliseconds(0);
-      // todo: set time in Picker
     }
     newDate.setDate(obj.getDate());
     newDate.setMonth(obj.getMonth());
     newDate.setYear(obj.getFullYear());
     setCommandTime(newDate.toISOString());
-    setSelectedTime(dayjs(newDate));
+    updateDateTimeValues(newDate);
   };
 
   const updateTime = (time) => {
@@ -57,7 +66,7 @@ function OperationScheduler({ operation }) {
     newTime.setHours(obj.getHours());
     newTime.setMinutes(obj.getMinutes());
     setCommandTime(newTime.toISOString());
-    setSelectedDate(dayjs(newTime));
+    updateDateTimeValues(newTime);
   };
 
   const scheduleOperation = () => {
@@ -77,8 +86,8 @@ function OperationScheduler({ operation }) {
       <div style={{ marginTop: '7%' }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {/* DateTimePicker was not allowing to select time */}
-          <DatePicker label="Pick a date" onChange={(val) => updateDate(val)} value={selectedDate} />
-          <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} value={selectedTime} timeSteps={{ minutes: 1 }} />
+          <DatePicker label="Pick a date" onChange={(val) => updateDate(val)} value={selectedDateTime} />
+          <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} value={selectedDateTime} timeSteps={{ minutes: 1 }} />
         </LocalizationProvider>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -89,6 +98,7 @@ function OperationScheduler({ operation }) {
           ]
         </p>
         <Button onClick={oneMinuteAhead}>1 minute from now</Button>
+        <p>{dateInPast(selectedDateTime) ? 'The date you have selected is in the past. Are you really sure you want to do that?' : null}</p>
       </div>
     </div>
   );
