@@ -12,9 +12,8 @@ import Log from './Log';
 Amplify.configure(awsExports);
 
 utils.setupAmplify();
-utils.displayCurrentCredentials();
 utils.displayConnectionStateChanges();
-utils.displayAuthStateChanges();
+// utils.displayAuthStateChanges();
 
 // need this to keep the connection open
 utils.subscribe(topics.hubbleCommandRes, utils.printData);

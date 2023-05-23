@@ -46,3 +46,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# Shouldn't Amplify be ignoring this?
+team-provider-info.json
