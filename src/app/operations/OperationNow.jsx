@@ -18,7 +18,6 @@ function OperationNow({ operation, setOperation }) {
     return () => mapCommandToFunction(withOps)();
   };
 
-  /*
   useEffect(() => {
     // todo: this seems like bad code. fix
     const withOps = {};
@@ -26,7 +25,6 @@ function OperationNow({ operation, setOperation }) {
     withOps.options = optionsRef.current;
     setOperation(withOps);
   }, [options]);
-  */
 
   useEffect(() => {
     setOptions(operation.options);

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
@@ -79,6 +79,10 @@ function OperationScheduler({ operation }) {
     };
     publish(scheduleCommandReq, payload);
   };
+
+  useEffect(() => {
+    console.log(`sched: ${JSON.stringify(operation)}`);
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
