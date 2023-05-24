@@ -24,6 +24,7 @@ function OperationNow({ operation, setOperation }) {
     Object.assign(withOps, operation);
     withOps.options = optionsRef.current;
     setOperation(withOps);
+    console.log(`New options: ${JSON.stringify(operation)}`);
   }, [options]);
 
   useEffect(() => {

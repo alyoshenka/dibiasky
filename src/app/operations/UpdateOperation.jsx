@@ -28,14 +28,14 @@ function UpdateOperation({ options, setOptionsParent }) {
   const updateOperationValues = () => {
     const listItems = [];
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
-    for (const op in options) {
+    Object.keys(optionsDict).forEach((key) => {
       const li = (
-        <li style={{ display: 'flex', flexDirection: 'row' }} key={Math.random()}>
-          <UpdateOperationValue op={op} updateOptionsDict={updateOptionsDict} />
+        <li style={{ display: 'flex', flexDirection: 'row' }} key={key}>
+          <UpdateOperationValue op={key} updateOptionsDict={updateOptionsDict} />
         </li>
       );
       listItems.push(li);
-    }
+    });
     return listItems;
   };
 
