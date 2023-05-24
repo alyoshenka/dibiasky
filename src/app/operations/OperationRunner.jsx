@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import OperationNow from './OperationNow';
 import OperationScheduler from './OperationScheduler';
 
 function OperationRunner({ selectedOperation }) {
+  // eslint-disable-next-line no-unused-vars
+  const [operation, setOperation] = useState(selectedOperation);
+
+  useEffect(() => {
+    console.log(`operation: ${JSON.stringify(operation)}`);
+  }, [operation]);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <OperationNow operation={selectedOperation} />
-      <OperationScheduler operation={selectedOperation} />
+      <OperationNow operation={operation} setOperation={setOperation} />
+      <OperationScheduler operation={operation} />
     </div>
   );
 }
@@ -18,7 +25,7 @@ OperationRunner.propTypes = {
     friendlyName: PropTypes.string.isRequired,
     subCommand: PropTypes.string,
     data: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.string),
+    options: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
   }),
 };
 

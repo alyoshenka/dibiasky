@@ -24,7 +24,7 @@ function AvailableOperations({ isConnected }) {
     {
       friendlyName: 'Test Options',
       module: 'print',
-      options: ['dummy option 1', 'dummy option 2'],
+      options: { 'dummy option 1': null, 'dummy option 2': null },
     },
   ];
   const [operations, setOperations] = useState(dummyOperations);
