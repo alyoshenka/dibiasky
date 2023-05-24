@@ -30,7 +30,7 @@ function UpdateOperation({ options, setOptionsParent }) {
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const op in options) {
       const li = (
-        <li style={{ display: 'flex', flexDirection: 'row' }}>
+        <li style={{ display: 'flex', flexDirection: 'row' }} key={Math.random()}>
           <UpdateOperationValue op={op} updateOptionsDict={updateOptionsDict} />
         </li>
       );
@@ -41,21 +41,14 @@ function UpdateOperation({ options, setOptionsParent }) {
 
   return (
     <ul>
-      {/*
-      {options.map((op, idx) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <li key={idx} style={{ display: 'flex', flexDirection: 'row' }}>
-          <UpdateOperationValue op={op} updateOptionsDict={updateOptionsDict} />
-        </li>
-      ))}
-      */}
       {updateOperationValues()}
     </ul>
   );
 }
 
 UpdateOperation.propTypes = {
-  options: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  // eslint-disable-next-line react/forbid-prop-types
+  options: PropTypes.object,
   setOptionsParent: PropTypes.func.isRequired,
 };
 

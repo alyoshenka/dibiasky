@@ -6,7 +6,7 @@ import { mapCommandToFunction } from '../utils/commandOperations';
 
 // eslint-disable-next-line no-unused-vars
 function OperationNow({ operation, setOperation }) {
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState({});
   const optionsRef = useRef();
   optionsRef.current = options;
 
@@ -44,7 +44,8 @@ OperationNow.propTypes = {
     friendlyName: PropTypes.string.isRequired,
     subCommand: PropTypes.string,
     data: PropTypes.string,
-    options: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+    // eslint-disable-next-line react/forbid-prop-types
+    options: PropTypes.object,
   }).isRequired,
   setOperation: PropTypes.func.isRequired,
 };

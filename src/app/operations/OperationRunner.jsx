@@ -8,7 +8,6 @@ function OperationRunner({ selectedOperation }) {
   const [operation, setOperation] = useState(selectedOperation);
 
   useEffect(() => {
-    console.log(`operation: ${JSON.stringify(operation)}`);
   }, [operation]);
 
   return (
