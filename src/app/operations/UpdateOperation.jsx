@@ -1,17 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import UpdateOperationValue from './UpdateOperationValue';
 
 function UpdateOperation({ options, setOptionsParent }) {
-  const initialOptionsDict = () => {
-    const obj = {};
-    // eslint-disable-next-line no-restricted-syntax, guard-for-in
-    for (const key in options) {
-      obj[key] = null;
-    }
-    return obj;
-  };
-  const [optionsDict, setOptionsDict] = useState(initialOptionsDict(options));
+  const [optionsDict, setOptionsDict] = useState(options);
   const dictRef = useRef();
   dictRef.current = optionsDict;
 
@@ -25,10 +17,14 @@ function UpdateOperation({ options, setOptionsParent }) {
     }
   };
 
+  useEffect(() => {
+    console.log(`update: ${JSON.stringify(options)}`);
+  }, [options]);
+
   const updateOperationValues = () => {
     const listItems = [];
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
-    Object.keys(optionsDict).forEach((key) => {
+    Object.keys(options).forEach((key) => {
       const li = (
         <li style={{ display: 'flex', flexDirection: 'row' }} key={key}>
           <UpdateOperationValue op={key} updateOptionsDict={updateOptionsDict} />

@@ -6,7 +6,7 @@ import { mapCommandToFunction } from '../utils/commandOperations';
 
 // eslint-disable-next-line no-unused-vars
 function OperationNow({ operation, setOperation }) {
-  const [options, setOptions] = useState({});
+  const [options, setOptions] = useState(operation.options);
   const optionsRef = useRef();
   optionsRef.current = options;
 
@@ -18,17 +18,19 @@ function OperationNow({ operation, setOperation }) {
     return () => mapCommandToFunction(withOps)();
   };
 
+  /*
   useEffect(() => {
     // todo: this seems like bad code. fix
     const withOps = {};
     Object.assign(withOps, operation);
     withOps.options = optionsRef.current;
     setOperation(withOps);
-    console.log(`New options: ${JSON.stringify(operation)}`);
   }, [options]);
+  */
 
   useEffect(() => {
     setOptions(operation.options);
+    console.log(`Op now: ${JSON.stringify(operation)}`);
   }, []);
 
   return (

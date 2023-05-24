@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import OperationNow from './OperationNow';
 import OperationScheduler from './OperationScheduler';
@@ -6,9 +6,6 @@ import OperationScheduler from './OperationScheduler';
 function OperationRunner({ selectedOperation }) {
   // eslint-disable-next-line no-unused-vars
   const [operation, setOperation] = useState(selectedOperation);
-
-  useEffect(() => {
-  }, [operation]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -24,7 +21,8 @@ OperationRunner.propTypes = {
     friendlyName: PropTypes.string.isRequired,
     subCommand: PropTypes.string,
     data: PropTypes.string,
-    options: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    options: PropTypes.object,
   }),
 };
 
