@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { PropTypes } from 'prop-types';
 import UpdateOperationValue from './UpdateOperationValue';
 
@@ -15,11 +15,8 @@ function UpdateOperation({ options, setOptionsParent }) {
     if (setOptionsParent) {
       setOptionsParent(newDict);
     }
+    console.log(`dict: ${JSON.stringify(newDict)}`);
   };
-
-  useEffect(() => {
-    console.log(`update: ${JSON.stringify(options)}`);
-  }, [options]);
 
   const updateOperationValues = () => {
     const listItems = [];

@@ -8,7 +8,7 @@ import { mapCommandToFunction } from '../utils/commandOperations';
 function OperationNow({ operation, setOperation }) {
   const [options, setOptions] = useState(operation.options);
   const optionsRef = useRef();
-  optionsRef.current = options;
+  optionsRef.current = options; // todo: is this messing things up??
 
   const operationWithOptions = () => {
     // todo: this seems like bad code. fix

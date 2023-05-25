@@ -82,7 +82,7 @@ function OperationScheduler({ operation }) {
 
   useEffect(() => {
     console.log(`sched: ${JSON.stringify(operation)}`);
-  }, []);
+  }, [operation]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

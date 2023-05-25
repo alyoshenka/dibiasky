@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import OperationNow from './OperationNow';
 import OperationScheduler from './OperationScheduler';
@@ -6,6 +6,15 @@ import OperationScheduler from './OperationScheduler';
 function OperationRunner({ selectedOperation }) {
   // eslint-disable-next-line no-unused-vars
   const [operation, setOperation] = useState(selectedOperation);
+
+  useEffect(() => {
+    console.log(`Runner selected: ${JSON.stringify(selectedOperation)}`);
+    setOperation(selectedOperation);
+  }, [selectedOperation]);
+
+  useEffect(() => {
+    console.log(`Runner oper: ${JSON.stringify(operation)}`);
+  }, [operation]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
