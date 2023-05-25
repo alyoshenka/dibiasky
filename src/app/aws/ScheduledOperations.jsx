@@ -81,6 +81,9 @@ function ScheduledOperations({ isConnected }) {
           <TableCell>{executionTime}</TableCell>
           <TableCell>{displayName}</TableCell>
           <TableCell>
+            { sched.operation.options ?? `thing ${JSON.stringify(sched.operation.options)}`}
+          </TableCell>
+          <TableCell>
             <IconButton onClick={() => deleteOperation(sched.scheduleID)}><DeleteIcon fontSize="small" /></IconButton>
           </TableCell>
         </TableRow>
@@ -122,6 +125,7 @@ function ScheduledOperations({ isConnected }) {
           <TableRow>
             <TableCell>Execution Time</TableCell>
             <TableCell>Operation</TableCell>
+            <TableCell>Data?</TableCell>
             <TableCell />
           </TableRow>
         </TableHead>
