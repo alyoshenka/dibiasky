@@ -50,7 +50,7 @@ function ScheduledOperations({ isConnected }) {
         addEntryToLog(`Deleted ScheduledOperation ${id}`);
       })
       .catch((error) => {
-        console.log(error);
+        addEntryToLog(`Error deleting: ${error}`);
       })
       .finally(() => {
         publish(scheduledOperationsReq, null);

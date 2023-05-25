@@ -15,7 +15,6 @@ function UpdateOperation({ options, setOptionsParent }) {
     if (setOptionsParent) {
       setOptionsParent(newDict);
     }
-    console.log(`dict: ${JSON.stringify(newDict)}`);
   };
 
   const updateOperationValues = () => {

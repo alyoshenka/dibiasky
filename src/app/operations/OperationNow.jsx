@@ -28,7 +28,6 @@ function OperationNow({ operation, setOperation }) {
 
   useEffect(() => {
     setOptions(operation.options);
-    console.log(`Op now: ${JSON.stringify(operation)}`);
   }, []);
 
   return (

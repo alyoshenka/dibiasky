@@ -68,10 +68,6 @@ function AvailableOperations({ isConnected }) {
     setSelectedOperation(null);
   }, [operations]);
 
-  useEffect(() => {
-    console.log(`selected: ${JSON.stringify(selectedOperation)}`);
-  }, [selectedOperation]);
-
   return (
     <div>
       <h3>Available Operations</h3>
