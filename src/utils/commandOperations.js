@@ -1,11 +1,10 @@
 // todo: docstring
+// todo: organize this file
 
-import {
-  publish,
-  subscribe,
-  addEntryToLog,
-  handleCommandResponse,
-} from './utils';
+import store from '../state/store';
+import { publish, subscribe } from './pubsub';
+import { subRemoved } from '../state/subsSlice';
+import { addEntryToLog } from './log';
 import * as topics from './topics';
 import * as payloads from './payloads';
 
@@ -54,6 +53,30 @@ export const sendNeopolitanCommand = async (operation) => {
   publish(topic, payload);
 };
 
+/**
+ * Dummy callback function to display data on subscription received
+ * @param {object} data payload from subscription
+ * @param {string} topic topic it was sent from
+ */
+export const printData = (data, topic) => {
+  addEntryToLog(`Received ${JSON.stringify(data.value)} from ${topic}`);
+};
+
+// todo: func that handles then unsubscribes
+/**
+ * Handles an operation (previous subscription) then unsubscribes from the topic that sent it
+ * @param {object} data payload
+ * @param {string} topic sender
+ * @param {*} subscription subscription object (used to unsubscribe)
+ */
+export const handleCommandResponse = (data, topic, subscription) => {
+  printData(data, topic);
+  addEntryToLog(`Unsubscribing from ${topic}`);
+  const payload = { route: topic };
+  store.dispatch(subRemoved(payload));
+  subscription.unsubscribe();
+};
+
 /** Publish to topic with payload specifying printing to console */
 export const sendPrintCommand = async (opr) => {
   const topic = topics.hubbleCommandReq;
@@ -90,4 +113,9 @@ export const mapCommandToFunction = (operation) => {
     return () => sendScheduleCommand(operation);
   }
   return unsupportedCommand;
+};
+
+/** Publish to topic such that available `neo` operations are published */
+export const requestHubbleOperations = async () => {
+  publish(topics.reqHubbleOperations, null); // todo: should have res payload
 };

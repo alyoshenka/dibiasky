@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
-import { mapCommandToFunction } from '../utils/commandOperations';
+import { mapCommandToFunction } from '../../../utils/commandOperations';
 
 function OperationNow({ operation }) {
   const [options, setOptions] = useState({});

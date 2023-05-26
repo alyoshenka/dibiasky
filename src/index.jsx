@@ -6,7 +6,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './app/store';
+import store from './state/store';
 import ColorButtons from './pages/testPage';
 import ClippedDrawer from './components/clippedDrawer';
 import ResponsiveAppBar from './components/appBar';

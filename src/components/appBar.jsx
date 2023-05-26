@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AppBarButtons from './appBarButtons';
-import ConnectionStatus from '../app/aws/ConnectionStatus';
+import ConnectionStatus from './aws/displays/ConnectionStatus';
 
 // const pages = ['Home', 'Examples', 'About'];
 // const settings = ['Logout'];

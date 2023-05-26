@@ -6,13 +6,11 @@ import {
   FormControl,
   Select,
 } from '@mui/material';
-import {
-  subscribe,
-  addEntryToLog,
-  requestHubbleOperations,
-} from '../utils/utils';
-import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
 import OperationRunner from './OperationRunner';
+import { subscribe } from '../../../utils/pubsub';
+import { resHubbleOperations, deviceDisconnected } from '../../../utils/topics';
+import { addEntryToLog } from '../../../utils/log';
+import { requestHubbleOperations } from '../../../utils/commandOperations';
 
 function AvailableOperations({ isConnected }) {
   // todo: take out
