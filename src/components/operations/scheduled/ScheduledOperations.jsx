@@ -18,14 +18,9 @@ import {
   IconButton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  subscribe,
-  publish,
-  addEntryToLog,
-  getCurrentCredentials,
-  parseISOString,
-} from '../utils/utils';
-import { scheduledOperationsReq, scheduledOperationsRes } from '../utils/topics';
+import { scheduledOperationsReq, scheduledOperationsRes } from '../../../utils/topics';
+import { addEntryToLog } from '../../../utils/log';
+import { publish, subscribe } from '../../../utils/pubsub';
 
 function ScheduledOperations({ isConnected }) {
   const deleteOperation = async (id) => {

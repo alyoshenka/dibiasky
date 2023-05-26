@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
-import { mapCommandToFunction } from '../utils/commandOperations';
+import { mapCommandToFunction } from '../../../utils/commandOperations';
 
 // eslint-disable-next-line no-unused-vars
 function OperationNow({ operation, setOperation }) {

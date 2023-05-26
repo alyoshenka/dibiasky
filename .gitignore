@@ -2,7 +2,7 @@
 
 # My stuff
 .env
-
+src/graphql/
 # dependencies
 /node_modules
 /.pnp

@@ -15,7 +15,7 @@ import {
 } from '@mui/material/colors';
 import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
-import { addEntryToLog } from '../utils/utils';
+import { addEntryToLog } from '../../../utils/log';
 
 function ConnectionStatus({ setIsConnected }) {
   const colorDefault = blueGrey;
@@ -50,7 +50,7 @@ function ConnectionStatus({ setIsConnected }) {
   // todo: add connectionstate padding
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}> 
-      <p>ConnectionState: </p>
+      <p>Connection State: </p>
       <Chip label={connectionState} style={{ backgroundColor: connectionColor[500], alignSelf: 'center' }} />
     </div>
   );

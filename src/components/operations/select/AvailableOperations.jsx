@@ -6,13 +6,11 @@ import {
   FormControl,
   Select,
 } from '@mui/material';
-import {
-  subscribe,
-  addEntryToLog,
-  requestHubbleOperations,
-} from '../utils/utils';
-import { resHubbleOperations, deviceDisconnected } from '../utils/topics';
 import OperationRunner from './OperationRunner';
+import { subscribe } from '../../../utils/pubsub';
+import { resHubbleOperations, deviceDisconnected } from '../../../utils/topics';
+import { addEntryToLog } from '../../../utils/log';
+import { requestHubbleOperations } from '../../../utils/commandOperations';
 
 function AvailableOperations({ isConnected }) {
   // todo: take out
@@ -72,11 +70,14 @@ function AvailableOperations({ isConnected }) {
     <div>
       <h3>Available Operations</h3>
       <div>
-        <FormControl style={{ minWidth: 200 }}>
-          <InputLabel id="select-label">Select an Operation</InputLabel>
+        <FormControl style={{ minWidth: '70%' }}>
+          <InputLabel id="select-label">Select</InputLabel>
           <Select
             value={selectedOperationIdx}
             onChange={onOperationChanged}
+            SelectProps={{
+              native: true,
+            }}
             labelId="select-label"
             label="Label" // make it so it doesn't cross border line. in theory.
           >

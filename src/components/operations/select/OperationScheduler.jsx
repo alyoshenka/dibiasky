@@ -4,12 +4,10 @@ import { Button } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import {
-  addEntryToLog,
-  publish,
-  parseISOString,
-} from '../utils/utils';
-import { scheduleCommandReq, scheduleCommandRes, hubbleCommandReq } from '../utils/topics';
+import { parseISOString } from '../../../utils/utils';
+import { scheduleCommandReq, scheduleCommandRes, hubbleCommandReq } from '../../../utils/topics';
+import { publish } from '../../../utils/pubsub';
+import { addEntryToLog } from '../../../utils/log';
 
 function OperationScheduler({ operation }) {
   const [commandTime, setCommandTime] = useState('Click to initialize');
