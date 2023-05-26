@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, DeleteCommand } from '@aws-sdk/lib-dynamodb';
+import { DeleteCommand } from '@aws-sdk/lib-dynamodb';
 import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity';
 import {
   fromCognitoIdentityPool,
@@ -24,32 +24,36 @@ import { publish, subscribe } from '../../../utils/pubsub';
 
 function ScheduledOperations({ isConnected }) {
   const deleteOperation = async (id) => {
-    // todo: THIS IS BAD CODE there are so many errors associated with the way this is done
-    const client = new DynamoDBClient({
-      region: process.env.REACT_APP_REGION,
-      credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: process.env.REACT_APP_REGION }),
-        identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
-      }),
-    });
-    const docClient = DynamoDBDocumentClient.from(client);
-    const deleteCommand = new DeleteCommand({
-      TableName: 'ScheduledOperations',
-      Key: {
-        scheduleID: id,
-      },
-    });
-    client
-      .send(deleteCommand)
-      .then((data) => {
-        addEntryToLog(`Deleted ScheduledOperation ${id}`);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        publish(scheduledOperationsReq, null);
+    try {
+      // todo: THIS IS BAD CODE there are so many errors associated with the way this is done
+      const client = new DynamoDBClient({
+        region: process.env.REACT_APP_REGION,
+        credentials: fromCognitoIdentityPool({
+          client: new CognitoIdentityClient({ region: process.env.REACT_APP_REGION }),
+          identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
+        }),
       });
+      // const docClient = DynamoDBDocumentClient.from(client);
+      const deleteCommand = new DeleteCommand({
+        TableName: 'ScheduledOperations',
+        Key: {
+          scheduleID: id,
+        },
+      });
+      client
+        .send(deleteCommand)
+        .then((data) => {
+          addEntryToLog(`Deleted ScheduledOperation ${id}`);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          publish(scheduledOperationsReq, null);
+        });
+    } catch (err) {
+      console.log(`DynamoDB error: ${err}`);
+    }
   };
   const defaultSchedState = [
     {
