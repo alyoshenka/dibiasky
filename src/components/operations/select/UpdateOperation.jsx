@@ -8,15 +8,11 @@ function UpdateOperation({ options, setOptionsParent }) {
   dictRef.current = optionsDict;
 
   const updateOptionsDict = (op, val) => {
-    console.log(`before dict: ${JSON.stringify(optionsDict)}`);
-    console.log(`before options: ${JSON.stringify(options)}`);
     const newDict = {};
     Object.assign(newDict, dictRef.current);
     newDict[op] = val;
     setOptionsDict(newDict);
     setOptionsParent(newDict);
-    console.log(`after dict: ${JSON.stringify(newDict)}`);
-    console.log(`after options: ${JSON.stringify(options)}`);
   };
 
   const updateOperationValuesList = () => {

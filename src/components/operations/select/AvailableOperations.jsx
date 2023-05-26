@@ -75,9 +75,6 @@ function AvailableOperations({ isConnected }) {
           <Select
             value={selectedOperationIdx}
             onChange={onOperationChanged}
-            SelectProps={{
-              native: true,
-            }}
             labelId="select-label"
             label="Label" // make it so it doesn't cross border line. in theory.
           >

@@ -66,6 +66,11 @@ function ScheduledOperations({ isConnected }) {
     },
   ];
   const scheduledToTable = (operations) => {
+    const optionsDictToDisplayStr = (sched) => {
+      console.log(operations.options);
+      console.log(`thing ${JSON.stringify(sched.operation.options)}`);
+      return 'hello';
+    };
     const map = operations.map((sched, idx) => {
       // todo: display in a nicer output format
       const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
@@ -76,7 +81,7 @@ function ScheduledOperations({ isConnected }) {
           <TableCell>{executionTime}</TableCell>
           <TableCell>{displayName}</TableCell>
           <TableCell>
-            { sched.operation.options ?? `thing ${JSON.stringify(sched.operation.options)}`}
+            {optionsDictToDisplayStr(sched)}
           </TableCell>
           <TableCell>
             <IconButton onClick={() => deleteOperation(sched.scheduleID)}><DeleteIcon fontSize="small" /></IconButton>
