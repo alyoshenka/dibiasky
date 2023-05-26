@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
-import { addEntryToLog, subscribe } from '../utils/utils';
-import { deviceConnected, deviceDisconnected } from '../utils/topics';
+import { subscribe } from '../../../utils/pubsub';
+import { addEntryToLog } from '../../../utils/log';
+import { deviceConnected, deviceDisconnected } from '../../../utils/topics';
 import DeviceStatus from './DeviceStatus';
 
 function ConnectedDevices() {

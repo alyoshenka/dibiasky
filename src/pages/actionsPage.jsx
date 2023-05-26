@@ -6,10 +6,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
-import ActiveSubscriptions from '../app/aws/ActiveSubscriptions';
-import ConnectedDevices from '../app/aws/ConnectedDevices';
-import Log from '../app/aws/Log';
-import AvailableOperations from '../app/operations/AvailableOperations';
+import ActiveSubscriptions from '../components/aws/displays/ActiveSubscriptions';
+import ConnectedDevices from '../components/aws/displays/ConnectedDevices';
+import Log from '../components/aws/displays/Log';
+import AvailableOperations from '../components/operations/select/AvailableOperations';
 
 function ActionsPage({ isConnectedToAWS }) {
   return (

@@ -1,22 +1,18 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import './App.css';
 import { withAuthenticator, Heading } from '@aws-amplify/ui-react';
-// eslint-disable-next-line import/no-unresolved
-import '@aws-amplify/ui-react/styles.css';
-import * as utils from './app/utils/utils';
-import * as topics from './app/utils/topics';
-import * as payloads from './app/utils/payloads';
-import AWS from './app/aws/AWS';
-import AvailableOperations from './app/operations/AvailableOperations';
-import ScheduledOperations from './app/aws/ScheduledOperations';
+// import '@aws-amplify/ui-react/styles.css';
+import * as topics from './utils/topics';
+import * as payloads from './utils/payloads';
+import AWS from './components/aws/AWS';
+import AvailableOperations from './components/operations/select/AvailableOperations';
+import ScheduledOperations from './components/operations/scheduled/ScheduledOperations';
 import gear from './images/gear.png';
-import ColorButtons from './pages/testPage';
-import ResponsiveAppBar from './components/appBar';
+// import ColorButtons from './pages/testPage';
+// import ResponsiveAppBar from './components/appBar';
+import { publish } from './utils/pubsub';
 
 // todo: put these all into their own file
 const styles = {
@@ -102,7 +98,7 @@ function App({ signOut, user }) {
           </div>
           <div id="right" style={styles.right}>
             <AWS setIsConnected={setIsConnectedToAWS} />
-            <Button variant="contained" color="primary" type="button" onClick={() => utils.publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</Button>
+            <Button variant="contained" color="primary" type="button" onClick={() => publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</Button>
           </div>
         </div>
       </div>

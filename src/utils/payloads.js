@@ -1,4 +1,4 @@
-/* eslint-disable comma-dangle */
+// todo: organize this file + docstring
 
 /*
 todo:
@@ -45,5 +45,5 @@ export const neopolitanUpdate = (options) => neopolitanUpdateOperation(options);
 export const hubbleEchoCommand = {
   responseTopic: topics.hubbleCommandRes,
   module: 'terminal',
-  subCommand: 'echo "hello from the terminal"'
+  subCommand: 'echo "hello from the terminal"',
 };

@@ -15,7 +15,7 @@ import {
 } from '@mui/material/colors';
 import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
-import { addEntryToLog } from '../utils/utils';
+import { addEntryToLog } from '../../../utils/log';
 
 function ConnectionStatus({ setIsConnected }) {
   const colorDefault = blueGrey;
