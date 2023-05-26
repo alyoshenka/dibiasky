@@ -17,5 +17,12 @@
         "userPoolGroups": {}
       }
     }
+  },
+  "dibiasky": {
+    "categories": {
+      "auth": {
+        "dibiasky3104df5c": {}
+      }
+    }
   }
 }
