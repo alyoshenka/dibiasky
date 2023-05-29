@@ -34,8 +34,9 @@ const getNeopolitanCommandPayload = (operation) => {
       }
       return payloads.neopolitanUpdate(operation.options);
     default:
-      addEntryToLog(`Unable to get neopolitan command payload: ${operation}`);
-      return null;
+      // addEntryToLog(`Unable to get neopolitan command payload: ${operation}`);
+      // return null;
+      return payloads.neopolitanOperation(operation.subCommand);
   }
 };
 

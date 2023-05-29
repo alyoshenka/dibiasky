@@ -21,7 +21,7 @@ export const hubblePrintCommand = {
  * @param {string} action the neopolitan action to perform
  * @returns the generated neopolitan operation payload
  */
-const neopolitanOperation = (action) => ({
+export const neopolitanOperation = (action) => ({
   responseTopic: topics.hubbleCommandRes,
   module: 'neopolitan',
   subCommand: action,
