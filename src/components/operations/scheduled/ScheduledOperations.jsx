@@ -70,6 +70,12 @@ function ScheduledOperations({ isConnected }) {
     },
   ];
   const scheduledToTable = (operations) => {
+    // eslint-disable-next-line arrow-body-style
+    const optionsDictToDisplayStr = (sched) => {
+      // console.log(operations.options);
+      // console.log(`thing ${JSON.stringify(sched.operation.options)}`);
+      return 'replace me!';
+    };
     const map = operations.map((sched, idx) => {
       // todo: display in a nicer output format
       const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
@@ -79,6 +85,9 @@ function ScheduledOperations({ isConnected }) {
         <TableRow key={idx}>
           <TableCell>{executionTime}</TableCell>
           <TableCell>{displayName}</TableCell>
+          <TableCell>
+            {optionsDictToDisplayStr(sched)}
+          </TableCell>
           <TableCell>
             <IconButton onClick={() => deleteOperation(sched.scheduleID)}><DeleteIcon fontSize="small" /></IconButton>
           </TableCell>
@@ -121,6 +130,7 @@ function ScheduledOperations({ isConnected }) {
           <TableRow>
             <TableCell>Execution Time</TableCell>
             <TableCell>Operation</TableCell>
+            <TableCell>Data?</TableCell>
             <TableCell />
           </TableRow>
         </TableHead>

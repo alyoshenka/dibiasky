@@ -22,7 +22,7 @@ function AvailableOperations({ isConnected }) {
     {
       friendlyName: 'Test Options',
       module: 'print',
-      options: ['dummy option 1', 'dummy option 2'],
+      options: { 'dummy option 1': null, 'dummy option 2': null },
     },
   ];
   const [operations, setOperations] = useState(dummyOperations);
@@ -75,9 +75,6 @@ function AvailableOperations({ isConnected }) {
           <Select
             value={selectedOperationIdx}
             onChange={onOperationChanged}
-            SelectProps={{
-              native: true,
-            }}
             labelId="select-label"
             label="Label" // make it so it doesn't cross border line. in theory.
           >

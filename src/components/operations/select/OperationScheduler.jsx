@@ -108,7 +108,8 @@ OperationScheduler.propTypes = {
     friendlyName: PropTypes.string.isRequired,
     subCommand: PropTypes.string,
     data: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.string),
+    // eslint-disable-next-line react/forbid-prop-types
+    options: PropTypes.object,
   }).isRequired,
 };
 
