@@ -28,12 +28,13 @@ function OperationNow({ operation, setOperation }) {
 
   useEffect(() => {
     setOptions(operation.options);
-  }, []);
+    console.log(`set options: ${JSON.stringify(options)}`);
+  }, [operation]);
 
   return (
     <div style={{ marginRight: '8%' }}>
       <Button onClick={() => { operationWithOptions()(); }} variant="contained">Run Now</Button>
-      <UpdateOperation options={operation.options ?? {}} setOptionsParent={setOptions} />
+      <UpdateOperation options={options} setOptionsParent={setOptions} />
     </div>
   );
 }

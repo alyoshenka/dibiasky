@@ -1,17 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import UpdateOperationValue from './UpdateOperationValue';
 
 function UpdateOperation({ options, setOptionsParent }) {
-  const [optionsDict, setOptionsDict] = useState(options);
-  const dictRef = useRef();
-  dictRef.current = optionsDict;
-
   const updateOptionsDict = (op, val) => {
     const newDict = {};
-    Object.assign(newDict, dictRef.current);
+    Object.assign(newDict, options);
     newDict[op] = val;
-    setOptionsDict(newDict);
     setOptionsParent(newDict);
   };
 

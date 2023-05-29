@@ -66,10 +66,11 @@ function ScheduledOperations({ isConnected }) {
     },
   ];
   const scheduledToTable = (operations) => {
+    // eslint-disable-next-line arrow-body-style
     const optionsDictToDisplayStr = (sched) => {
-      console.log(operations.options);
-      console.log(`thing ${JSON.stringify(sched.operation.options)}`);
-      return 'hello';
+      // console.log(operations.options);
+      // console.log(`thing ${JSON.stringify(sched.operation.options)}`);
+      return 'replace me!';
     };
     const map = operations.map((sched, idx) => {
       // todo: display in a nicer output format
