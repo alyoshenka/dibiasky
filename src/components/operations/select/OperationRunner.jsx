@@ -9,12 +9,7 @@ function OperationRunner({ selectedOperation }) {
 
   useEffect(() => {
     setOperation(selectedOperation);
-    console.log(`selected operation: ${JSON.stringify(selectedOperation)}`);
   }, [selectedOperation]);
-
-  useEffect(() => {
-    console.log(`selected operation: ${JSON.stringify(operation)}`);
-  }, [operation]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
