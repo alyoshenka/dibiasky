@@ -19,7 +19,6 @@ function ScheduledOperations({ isConnected }) {
     const optionsDictToDisplayStr = (sched) => JSON.stringify(sched.operation.options);
     const prettyDate = (date) => dayjs(date).format('MM/DD/YY hh:mm:ss A');
     const map = operations.map((sched, idx) => {
-      // todo: display in a nicer output format
       const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
       const displayName = sched.operation.friendlyName ? sched.operation.friendlyName : 'No operation given';
       return (
