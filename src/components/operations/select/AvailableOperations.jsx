@@ -36,8 +36,7 @@ function AvailableOperations({ isConnected }) {
 
   // subscribe to operations response
   useEffect(() => {
-    // eslint-disable-next-line no-unused-vars
-    subscribe(resHubbleOperations, (d, t) => {
+    subscribe(resHubbleOperations, (d) => {
       if (d && d.value && d.value.availableOperations) {
         setOperations(d.value.availableOperations);
         addEntryToLog('Received Hubble Operations');
@@ -47,8 +46,7 @@ function AvailableOperations({ isConnected }) {
     });
     // todo: issue #47; no wildcard disconnection subscription
     // subscribe to disconnection to know when to clear operations
-    // eslint-disable-next-line no-unused-vars
-    subscribe(`${deviceDisconnected}/+`, (d, t) => {
+    subscribe(`${deviceDisconnected}/+`, () => {
       setOperations(dummyOperations);
     });
   }, []);

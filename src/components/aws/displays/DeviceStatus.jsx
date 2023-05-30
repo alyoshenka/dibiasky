@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import React from 'react';
 import PropTypes from 'prop-types';
 import Chip from '@mui/material/Chip';
 import { green } from '@mui/material/colors';

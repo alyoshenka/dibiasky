@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 function ActiveSubscriptions() {
   const subs = useSelector((state) => state.subs);
 
-  const renderedSubs = subs.map((sub, idx) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <li key={idx}>
+  const renderedSubs = subs.map((sub) => (
+    <li key={sub.route}>
       {sub.route}
     </li>
   ));

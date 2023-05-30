@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import './App.css';
 import { withAuthenticator, Heading } from '@aws-amplify/ui-react';
