@@ -22,6 +22,9 @@ export const resHubbleOperations = `${hubbleOperations}/res`;
 const scheduledOperations = `${data}/scheduled`;
 export const scheduledOperationsReq = `${scheduledOperations}/req`;
 export const scheduledOperationsRes = `${scheduledOperations}/res`;
+const deleteScheduled = `${scheduledOperations}/del`;
+export const deleteScheduledReq = `${deleteScheduled}/req`;
+export const deleteScheduledRes = `${deleteScheduled}/res`;
 
 const presense = '$aws/events/presence';
 export const deviceConnected    = `${presense}/connected`; // '+'
