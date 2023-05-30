@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import './App.css';
 import { withAuthenticator, Heading } from '@aws-amplify/ui-react';
-// import '@aws-amplify/ui-react/styles.css';
+// eslint-disable-next-line import/no-unresolved
+import '@aws-amplify/ui-react/styles.css';
 import * as topics from './utils/topics';
 import * as payloads from './utils/payloads';
 import AWS from './components/aws/AWS';
