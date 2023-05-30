@@ -16,27 +16,8 @@ import { addEntryToLog } from '../../../utils/log';
 import { publish, subscribe } from '../../../utils/pubsub';
 
 function ScheduledOperations({ isConnected }) {
-  const defaultSchedState = [
-    {
-      executeAt: 'random time',
-      operation: {
-        friendlyName: 'op name',
-      },
-    },
-    {
-      executeAt: 'another time',
-      operation: {
-        friendlyName: 'another op name',
-      },
-    },
-  ];
   const scheduledToTable = (operations) => {
-    // eslint-disable-next-line arrow-body-style
-    const optionsDictToDisplayStr = (sched) => {
-      // console.log(operations.options);
-      // console.log(`thing ${JSON.stringify(sched.operation.options)}`);
-      return JSON.stringify(sched.stepFunctionName);
-    };
+    const optionsDictToDisplayStr = (sched) => JSON.stringify(sched.operation.options);
     const map = operations.map((sched, idx) => {
       // todo: display in a nicer output format
       const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
@@ -60,8 +41,8 @@ function ScheduledOperations({ isConnected }) {
     });
     return map;
   };
-  const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
-  const [operationsMap, setOperationsMap] = useState(scheduledToTable(defaultSchedState));
+  const [scheduledDB, setScheduledDB] = useState([]);
+  const [operationsMap, setOperationsMap] = useState(scheduledToTable([]));
 
   useEffect(() => {
     if (isConnected) {
