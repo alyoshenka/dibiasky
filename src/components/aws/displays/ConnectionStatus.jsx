@@ -37,19 +37,25 @@ function ConnectionStatus({ setIsConnected }) {
   const [connectionState, setConnectionState] = useState('undefined');
   const [connectionColor, setConnectionColor] = useState(colorDefault);
 
-  useEffect(() => {
-    // todo: abstract into a function
+  const onConnectionStateChange = (newState) => {
+    setConnectionState(newState);
+    setConnectionColor(colorMap[newState]);
+    setIsConnected(newState === 'Connected');
+    addEntryToLog('ConnectionState:', newState);
+  };
+
+  const listenForStateChange = () => {
     Hub.listen('pubsub', (data) => {
       const { payload } = data;
       if (payload.event === CONNECTION_STATE_CHANGE) {
-        const newState = payload.data.connectionState;
-        setConnectionState(newState);
-        setConnectionColor(colorMap[newState]);
-        setIsConnected(newState === 'Connected');
-        addEntryToLog('ConnectionState:', newState);
+        onConnectionStateChange(payload.data.connectionState);
       }
     });
-  }, [connectionState, connectionColor]);
+  };
+
+  useEffect(() => {
+    listenForStateChange();
+  }, []);
 
   // todo: add connectionstate padding
   return (

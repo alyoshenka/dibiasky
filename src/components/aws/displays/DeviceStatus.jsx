@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Chip from '@mui/material/Chip';
 import { green } from '@mui/material/colors';
 
-// todo: this totally changes the logic
 function DeviceStatus({ deviceId }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
