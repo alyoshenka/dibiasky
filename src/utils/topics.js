@@ -14,6 +14,9 @@ export const hubbleCommandRes = `${hubbleCommand}/res`;
 const scheduleCommand = `${command}/schedule`;
 export const scheduleCommandReq = `${scheduleCommand}/req`;
 export const scheduleCommandRes = `${scheduleCommand}/res`;
+const deleteScheduled = `${scheduleCommand}/del`;
+export const deleteScheduledReq = `${deleteScheduled}/req`;
+export const deleteScheduledRes = `${deleteScheduled}/res`;
 
 const hubbleOperations = `${data}/operations/hubble`;
 export const reqHubbleOperations = `${hubbleOperations}/req`;

@@ -1,103 +1,45 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DeleteCommand } from '@aws-sdk/lib-dynamodb';
-import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity';
-import {
-  fromCognitoIdentityPool,
-} from '@aws-sdk/credential-provider-cognito-identity';
+import dayjs from 'dayjs';
 import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
-  Button,
-  IconButton,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteScheduledOperation from './DeleteScheduledOperation';
 import { scheduledOperationsReq, scheduledOperationsRes } from '../../../utils/topics';
 import { addEntryToLog } from '../../../utils/log';
 import { publish, subscribe } from '../../../utils/pubsub';
 
 function ScheduledOperations({ isConnected }) {
-  const deleteOperation = async (id) => {
-    try {
-      // todo: THIS IS BAD CODE there are so many errors associated with the way this is done
-      const client = new DynamoDBClient({
-        region: process.env.REACT_APP_REGION,
-        credentials: fromCognitoIdentityPool({
-          client: new CognitoIdentityClient({ region: process.env.REACT_APP_REGION }),
-          identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID,
-        }),
-      });
-      // const docClient = DynamoDBDocumentClient.from(client);
-      const deleteCommand = new DeleteCommand({
-        TableName: 'ScheduledOperations',
-        Key: {
-          scheduleID: id,
-        },
-      });
-      client
-        .send(deleteCommand)
-        .then((data) => {
-          addEntryToLog(`Deleted ScheduledOperation ${id}`);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          publish(scheduledOperationsReq, null);
-        });
-    } catch (err) {
-      console.log(`DynamoDB error: ${err}`);
-    }
-  };
-  const defaultSchedState = [
-    {
-      executeAt: 'random time',
-      operation: {
-        friendlyName: 'op name',
-      },
-    },
-    {
-      executeAt: 'another time',
-      operation: {
-        friendlyName: 'another op name',
-      },
-    },
-  ];
   const scheduledToTable = (operations) => {
-    // eslint-disable-next-line arrow-body-style
-    const optionsDictToDisplayStr = (sched) => {
-      // console.log(operations.options);
-      // console.log(`thing ${JSON.stringify(sched.operation.options)}`);
-      return 'replace me!';
-    };
+    const optionsDictToDisplayStr = (sched) => JSON.stringify(sched.operation.options);
+    const prettyDate = (date) => dayjs(date).format('MM/DD/YY hh:mm:ss A');
     const map = operations.map((sched, idx) => {
-      // todo: display in a nicer output format
       const executionTime = sched.executeAt ? sched.executeAt : 'No time given';
       const displayName = sched.operation.friendlyName ? sched.operation.friendlyName : 'No operation given';
       return (
         // eslint-disable-next-line react/no-array-index-key
         <TableRow key={idx}>
-          <TableCell>{executionTime}</TableCell>
+          <TableCell>{prettyDate(executionTime)}</TableCell>
           <TableCell>{displayName}</TableCell>
+          <TableCell>{optionsDictToDisplayStr(sched)}</TableCell>
           <TableCell>
-            {optionsDictToDisplayStr(sched)}
-          </TableCell>
-          <TableCell>
-            <IconButton onClick={() => deleteOperation(sched.scheduleID)}><DeleteIcon fontSize="small" /></IconButton>
+            <DeleteScheduledOperation
+              scheduleID={sched.scheduleID}
+              stepFunctionName={sched.stepFunctionName}
+            />
           </TableCell>
         </TableRow>
       );
     });
     return map;
   };
-  const [scheduledDB, setScheduledDB] = useState(defaultSchedState);
-  const [operationsMap, setOperationsMap] = useState(scheduledToTable(defaultSchedState));
+  const [scheduledDB, setScheduledDB] = useState([]);
+  const [operationsMap, setOperationsMap] = useState(scheduledToTable([]));
 
   useEffect(() => {
     if (isConnected) {
@@ -130,7 +72,7 @@ function ScheduledOperations({ isConnected }) {
           <TableRow>
             <TableCell>Execution Time</TableCell>
             <TableCell>Operation</TableCell>
-            <TableCell>Data?</TableCell>
+            <TableCell>Data</TableCell>
             <TableCell />
           </TableRow>
         </TableHead>
