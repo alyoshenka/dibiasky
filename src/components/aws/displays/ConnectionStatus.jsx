@@ -11,6 +11,8 @@ import {
 import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 import { addEntryToLog } from '../../../utils/log';
+import store from '../../../state/store';
+import { updateConnectionStatus } from '../../../state/connectionStatusSlice';
 
 function ConnectionStatus({ setIsConnected }) {
   const colorDefault = blueGrey;
@@ -42,6 +44,7 @@ function ConnectionStatus({ setIsConnected }) {
     setConnectionColor(colorMap[newState]);
     setIsConnected(newState === 'Connected');
     addEntryToLog('ConnectionState:', newState);
+    store.dispatch(updateConnectionStatus(newState));
   };
 
   const listenForStateChange = () => {
