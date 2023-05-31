@@ -1,10 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { subscribe } from '../../../utils/pubsub';
+import { useSelector } from 'react-redux';
+import { subscribe, publish } from '../../../utils/pubsub';
 import { addEntryToLog } from '../../../utils/log';
-import { deviceConnected, deviceDisconnected } from '../../../utils/topics';
+import {
+  deviceConnected,
+  deviceDisconnected,
+  heartbeatReq,
+  heartbeatRes,
+} from '../../../utils/topics';
 import DeviceStatus from './DeviceStatus';
 
 function ConnectedDevices() {
+  const connectionStatus = useSelector((state) => state.connectionStatus);
   const [connectedDevices, setConnectedDevices] = useState([]);
   let alreadySubscribed = false; // useState doesn't work, don't know why
   const devicesRef = useRef();
@@ -29,10 +36,19 @@ function ConnectedDevices() {
     // todo: timeout??
     if (!alreadySubscribed) {
       alreadySubscribed = true;
+
       subscribe(`${deviceConnected}/+`, (d) => addConnection(getClientId(d)));
       subscribe(`${deviceDisconnected}/+`, (d) => removeConnection(getClientId(d)));
+
+      subscribe(heartbeatRes, (d) => addConnection(getClientId(d)));
     }
   }, []);
+
+  useEffect(() => {
+    if (connectionStatus.isConnected) {
+      publish(heartbeatReq, null);
+    }
+  }, [connectionStatus.isConnected]);
 
   return (
     <>

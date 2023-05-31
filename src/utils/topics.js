@@ -29,3 +29,7 @@ export const scheduledOperationsRes = `${scheduledOperations}/res`;
 const presense = '$aws/events/presence';
 export const deviceConnected    = `${presense}/connected`; // '+'
 export const deviceDisconnected = `${presense}/disconnected`;
+
+const heartbeat = `${data}/heartbeat`;
+export const heartbeatReq = `${heartbeat}/req`;
+export const heartbeatRes = `${heartbeat}/res`;
