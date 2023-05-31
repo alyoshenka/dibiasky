@@ -5,7 +5,7 @@ import {
 } from 'aws-amplify';
 import { AWSIoTProvider, CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 import { addEntryToLog } from './log';
-import { onSignOut } from './utils';
+import { stateUpdatesOnSignOut } from './utils';
 
 /** Apply plugin with configuration */
 export const setupAmplify = () => {
@@ -33,23 +33,23 @@ export const displayConnectionStateChanges = () => {
 export const displayAuthStateChanges = () => {
   // addEntryToLog
   Hub.listen('auth', (data) => {
-    console.log(`Auth: ${data}`);
+    // console.log(`Auth: ${data}`);
     switch (data.payload.event) {
       case 'signIn':
-        console.log('user signed in');
+        // console.log('user signed in');
         break;
       case 'signUp':
-        console.log('user signed up');
+        // console.log('user signed up');
         break;
       case 'signOut':
-        console.log('user signed out');
-        onSignOut();
+        // console.log('user signed out');
+        stateUpdatesOnSignOut();
         break;
       case 'signIn_failure':
-        console.log('user sign in failed');
+        // console.log('user sign in failed');
         break;
       case 'configured':
-        console.log('the Auth module is configured');
+        // console.log('the Auth module is configured');
         break;
       default:
         break;

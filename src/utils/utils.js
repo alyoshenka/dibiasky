@@ -4,7 +4,7 @@ import { updateConnectionStatus } from '../state/connectionStatusSlice';
 import { resetLog } from '../state/logSlice';
 import { resetSubs } from '../state/subsSlice';
 
-export const onSignOut = () => {
+export const stateUpdatesOnSignOut = () => {
   store.dispatch(updateConnectionStatus());
   store.dispatch(resetLog());
   store.dispatch(resetSubs());
