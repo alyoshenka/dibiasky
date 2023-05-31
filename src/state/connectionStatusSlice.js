@@ -15,9 +15,12 @@ const connectionStatusSlice = createSlice({
         isConnected,
       };
     },
+    resetConnectionStatus() {
+      return initialState;
+    },
   },
 });
 
-export const { updateConnectionStatus } = connectionStatusSlice.actions;
+export const { updateConnectionStatus, resetConnectionStatus } = connectionStatusSlice.actions;
 
 export default connectionStatusSlice.reducer;

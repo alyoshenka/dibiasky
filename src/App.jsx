@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import './App.css';
 import { withAuthenticator, Heading } from '@aws-amplify/ui-react';
@@ -15,6 +14,7 @@ import gear from './images/gear.png';
 // import ColorButtons from './pages/testPage';
 // import ResponsiveAppBar from './components/appBar';
 import { publish } from './utils/pubsub';
+import { displayAuthStateChanges } from './utils/amplify';
 
 // todo: put these all into their own file
 const styles = {
@@ -64,6 +64,8 @@ const styles = {
     paddingLeft: '2%',
   },
 };
+
+displayAuthStateChanges();
 
 /**  Homepage of the application */
 function App({ signOut, user }) {
