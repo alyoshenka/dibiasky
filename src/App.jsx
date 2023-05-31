@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import './App.css';
@@ -67,9 +67,6 @@ const styles = {
 
 /**  Homepage of the application */
 function App({ signOut, user }) {
-  // todo: is this the correct place for this? where to put it??
-  const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
-
   // todo: put into individual components
   return (
     <div id="page" style={styles.page}>
@@ -91,15 +88,15 @@ function App({ signOut, user }) {
         <div id="work-2" style={styles.work2}>
           <div id="left" style={styles.left}>
             <div id="select-actions" style={styles.selectActions}>
-              <AvailableOperations isConnected={isConnectedToAWS} />
+              <AvailableOperations />
             </div>
-            <ScheduledOperations isConnected={isConnectedToAWS} />
+            <ScheduledOperations />
             <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>
           </div>
           <div id="right" style={styles.right}>
-            <AWS setIsConnected={setIsConnectedToAWS} />
+            <AWS />
             <Button variant="contained" color="primary" type="button" onClick={() => publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</Button>
           </div>
         </div>

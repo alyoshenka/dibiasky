@@ -1,19 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [
-  { connectionStatus: null, isConnected: false },
-];
+const initialState = { connectionState: 'undefined', isConnected: false };
 
 const connectionStatusSlice = createSlice({
   name: 'connectionStatus',
   initialState,
   reducers: {
     updateConnectionStatus(state, action) {
-      const { connectionStatus } = action;
-      const isConnected = connectionStatus === 'Connected';
+      const connectionState = action.payload;
+      const isConnected = connectionState === 'Connected';
       return {
         ...state,
-        connectionStatus,
+        connectionState,
         isConnected,
       };
     },

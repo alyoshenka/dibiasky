@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import {
   InputLabel,
   MenuItem,
@@ -12,7 +12,7 @@ import { resHubbleOperations, deviceDisconnected } from '../../../utils/topics';
 import { addEntryToLog } from '../../../utils/log';
 import { requestHubbleOperations } from '../../../utils/commandOperations';
 
-function AvailableOperations({ isConnected }) {
+function AvailableOperations() {
   // todo: take out
   const dummyOperations = [
     {
@@ -25,6 +25,7 @@ function AvailableOperations({ isConnected }) {
       options: { 'dummy option 1': null, 'dummy option 2': null },
     },
   ];
+  const connectionStatus = useSelector((state) => state.connectionStatus);
   const [operations, setOperations] = useState(dummyOperations);
   const [selectedOperationIdx, setSelectedOperationIdx] = useState('');
   const [selectedOperation, setSelectedOperation] = useState(null); // todo: better way to do this
@@ -53,11 +54,11 @@ function AvailableOperations({ isConnected }) {
   // publish to request operations
   useEffect(() => {
     // todo: document how this works/pubsub "flow"
-    if (isConnected) {
+    if (connectionStatus.isConnected) {
       addEntryToLog('Connected: Requesting Hubble Operations');
       requestHubbleOperations();
     }
-  }, [isConnected]);
+  }, [connectionStatus]);
   // clear selection when new operations are fetched
   useEffect(() => {
     setSelectedOperationIdx('');
@@ -91,9 +92,5 @@ function AvailableOperations({ isConnected }) {
     </div>
   );
 }
-
-AvailableOperations.propTypes = {
-  isConnected: PropTypes.bool.isRequired, // is connected to AWS
-};
 
 export default AvailableOperations;
