@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import UpdateOperation from './UpdateOperation';
@@ -6,6 +7,7 @@ import { mapCommandToFunction } from '../../../utils/commandOperations';
 
 // eslint-disable-next-line no-unused-vars
 function OperationNow({ operation, setOperation }) {
+  const connectionStatus = useSelector((state) => state.connectionStatus);
   const [options, setOptions] = useState(operation.options);
   const optionsRef = useRef();
   optionsRef.current = options; // todo: is this messing things up??
@@ -32,7 +34,13 @@ function OperationNow({ operation, setOperation }) {
 
   return (
     <div style={{ marginRight: '8%' }}>
-      <Button onClick={() => { operationWithOptions()(); }} variant="contained">Run Now</Button>
+      <Button
+        onClick={() => { operationWithOptions()(); }}
+        variant="contained"
+        disabled={!connectionStatus.isConnected}
+      >
+        Run Now
+      </Button>
       <UpdateOperation options={options} setOptionsParent={setOptions} />
     </div>
   );

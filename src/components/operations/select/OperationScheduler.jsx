@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
@@ -10,6 +11,8 @@ import { publish } from '../../../utils/pubsub';
 import { addEntryToLog } from '../../../utils/log';
 
 function OperationScheduler({ operation }) {
+  // todo: make this its own function?
+  const connectionStatus = useSelector((state) => state.connectionStatus);
   const [commandTime, setCommandTime] = useState('Click to initialize');
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const dateRef = useRef();
@@ -80,7 +83,14 @@ function OperationScheduler({ operation }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Button style={{ alignSelf: 'flex-start' }} onClick={scheduleOperation} variant="contained">Run Later</Button>
+      <Button
+        style={{ alignSelf: 'flex-start' }}
+        onClick={scheduleOperation}
+        variant="contained"
+        disabled={!connectionStatus.isConnected}
+      >
+        Run Later
+      </Button>
       <div style={{ marginTop: '7%' }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {/* DateTimePicker was not allowing to select time */}
