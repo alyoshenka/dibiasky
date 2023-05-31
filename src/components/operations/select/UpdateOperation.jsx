@@ -12,7 +12,6 @@ function UpdateOperation({ options, setOptionsParent }) {
 
   const updateOperationValuesList = () => {
     const listItems = [];
-    // eslint-disable-next-line no-restricted-syntax, guard-for-in
     Object.keys(options).forEach((key) => {
       const li = (
         <li style={{ display: 'flex', flexDirection: 'row' }} key={key}>

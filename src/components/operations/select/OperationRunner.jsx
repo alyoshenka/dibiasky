@@ -4,7 +4,6 @@ import OperationNow from './OperationNow';
 import OperationScheduler from './OperationScheduler';
 
 function OperationRunner({ selectedOperation }) {
-  // eslint-disable-next-line no-unused-vars
   const [operation, setOperation] = useState(selectedOperation);
 
   useEffect(() => {

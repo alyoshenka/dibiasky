@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
 import { subscribe } from '../../../utils/pubsub';
 import { addEntryToLog } from '../../../utils/log';
@@ -30,10 +29,8 @@ function ConnectedDevices() {
     // todo: timeout??
     if (!alreadySubscribed) {
       alreadySubscribed = true;
-      // eslint-disable-next-line no-unused-vars
-      subscribe(`${deviceConnected}/+`, (d, t) => addConnection(getClientId(d)));
-      // eslint-disable-next-line no-unused-vars
-      subscribe(`${deviceDisconnected}/+`, (d, t) => removeConnection(getClientId(d)));
+      subscribe(`${deviceConnected}/+`, (d) => addConnection(getClientId(d)));
+      subscribe(`${deviceDisconnected}/+`, (d) => removeConnection(getClientId(d)));
     }
   }, []);
 
@@ -41,10 +38,9 @@ function ConnectedDevices() {
     <>
       <h3>IoT Devices:</h3>
       {connectedDevices.map(
-        (device, idx) => (
+        (device) => (
           <DeviceStatus
-            // eslint-disable-next-line react/no-array-index-key
-            key={`${device}${idx}`} // change when devices are actually unique(?)
+            key={device} // change when devices are actually unique(?)
             deviceId={device}
           />
         ),

@@ -35,5 +35,7 @@ export const subscribe = (topic, callback) => {
  */
 export const publish = async (topic, payload) => {
   addEntryToLog(`Publishing to: ${topic}; data: ${JSON.stringify(payload)}`);
-  await PubSub.publish(topic, payload).then(() => { addEntryToLog(`Successfully published to ${topic}`); });
+  await PubSub.publish(topic, payload)
+    .then(() => { addEntryToLog(`Successfully published to ${topic}`); })
+    .catch((err) => { addEntryToLog(`Error publishing: ${err}`); });
 };
