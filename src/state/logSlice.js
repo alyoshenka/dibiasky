@@ -14,9 +14,12 @@ const logSlice = createSlice({
     logAdded(state, action) {
       state.push(action.payload);
     },
+    resetLog() {
+      return initialState;
+    },
   },
 });
 
-export const { logAdded } = logSlice.actions;
+export const { logAdded, resetLog } = logSlice.actions;
 
 export default logSlice.reducer;

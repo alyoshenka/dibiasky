@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import {
   Table,
@@ -13,7 +13,8 @@ import { scheduledOperationsReq, scheduledOperationsRes } from '../../../utils/t
 import { addEntryToLog } from '../../../utils/log';
 import { publish, subscribe } from '../../../utils/pubsub';
 
-function ScheduledOperations({ isConnected }) {
+function ScheduledOperations() {
+  const connectionStatus = useSelector((state) => state.connectionStatus);
   const scheduledToTable = (operations) => {
     const optionsDictToDisplayStr = (sched) => JSON.stringify(sched.operation.options);
     const prettyDate = (date) => dayjs(date).format('MM/DD/YY hh:mm:ss A');
@@ -41,7 +42,7 @@ function ScheduledOperations({ isConnected }) {
   const [operationsMap, setOperationsMap] = useState(scheduledToTable([]));
 
   useEffect(() => {
-    if (isConnected) {
+    if (connectionStatus.isConnected) {
       // eslint-disable-next-line no-unused-vars
       subscribe(scheduledOperationsRes, (data, topic) => {
         if (data !== undefined
@@ -58,7 +59,7 @@ function ScheduledOperations({ isConnected }) {
       });
       publish(scheduledOperationsReq, null);
     }
-  }, [isConnected]);
+  }, [connectionStatus.isConnected]);
 
   useEffect(() => {
     setOperationsMap(scheduledToTable(scheduledDB));
@@ -82,9 +83,5 @@ function ScheduledOperations({ isConnected }) {
     </div>
   );
 }
-
-ScheduledOperations.propTypes = {
-  isConnected: PropTypes.bool.isRequired,
-};
 
 export default ScheduledOperations;

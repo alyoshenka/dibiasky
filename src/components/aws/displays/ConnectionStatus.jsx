@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Chip from '@mui/material/Chip';
 import {
   green,
@@ -11,8 +11,10 @@ import {
 import { Hub } from 'aws-amplify';
 import { CONNECTION_STATE_CHANGE } from '@aws-amplify/pubsub';
 import { addEntryToLog } from '../../../utils/log';
+import store from '../../../state/store';
+import { updateConnectionStatus } from '../../../state/connectionStatusSlice';
 
-function ConnectionStatus({ setIsConnected }) {
+function ConnectionStatus() {
   const colorDefault = blueGrey;
   const colorMap = {
     // Connected and working with no issues.
@@ -34,14 +36,14 @@ function ConnectionStatus({ setIsConnected }) {
     Disconnected: red,
   };
 
-  const [connectionState, setConnectionState] = useState('undefined');
+  const connectionStatus = useSelector((state) => state.connectionStatus);
   const [connectionColor, setConnectionColor] = useState(colorDefault);
 
   const onConnectionStateChange = (newState) => {
-    setConnectionState(newState);
+    // setConnectionState(newState);
     setConnectionColor(colorMap[newState]);
-    setIsConnected(newState === 'Connected');
     addEntryToLog('ConnectionState:', newState);
+    store.dispatch(updateConnectionStatus(newState));
   };
 
   const listenForStateChange = () => {
@@ -61,13 +63,9 @@ function ConnectionStatus({ setIsConnected }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <p>Connection State: </p>
-      <Chip label={connectionState} style={{ backgroundColor: connectionColor[500], alignSelf: 'center' }} />
+      <Chip label={connectionStatus.connectionState} style={{ backgroundColor: connectionColor[500], alignSelf: 'center' }} />
     </div>
   );
 }
-
-ConnectionStatus.propTypes = {
-  setIsConnected: PropTypes.func.isRequired,
-};
 
 export default ConnectionStatus;

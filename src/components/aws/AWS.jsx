@@ -1,6 +1,5 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
-import PropTypes from 'prop-types';
 import awsExports from '../../aws-exports';
 import * as topics from '../../utils/topics';
 import ConnectionStatus from './displays/ConnectionStatus';
@@ -21,10 +20,10 @@ displayConnectionStateChanges();
 subscribe(topics.hubbleCommandRes, printData);
 subscribe(topics.scheduleCommandRes, printData);
 
-function AWS({ setIsConnected }) {
+function AWS() {
   return (
     <div>
-      <ConnectionStatus setIsConnected={setIsConnected} />
+      <ConnectionStatus />
       <h2>AWS Stuff</h2>
       <ActiveSubscriptions />
       <ConnectedDevices />
@@ -32,9 +31,5 @@ function AWS({ setIsConnected }) {
     </div>
   );
 }
-
-AWS.propTypes = {
-  setIsConnected: PropTypes.func.isRequired,
-};
 
 export default AWS;

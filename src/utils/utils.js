@@ -1,4 +1,14 @@
 // todo: organize this file + docstring
+import store from '../state/store';
+import { updateConnectionStatus } from '../state/connectionStatusSlice';
+import { resetLog } from '../state/logSlice';
+import { resetSubs } from '../state/subsSlice';
+
+export const stateUpdatesOnSignOut = () => {
+  store.dispatch(updateConnectionStatus());
+  store.dispatch(resetLog());
+  store.dispatch(resetSubs());
+};
 
 export const getEndpoint = () => process.env.REACT_APP_AWS_PUBSUB_ENDPOINT;
 

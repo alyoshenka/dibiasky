@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import { Button } from '@mui/material';
 import './App.css';
 import { withAuthenticator, Heading } from '@aws-amplify/ui-react';
@@ -15,6 +14,7 @@ import gear from './images/gear.png';
 // import ColorButtons from './pages/testPage';
 // import ResponsiveAppBar from './components/appBar';
 import { publish } from './utils/pubsub';
+import { displayAuthStateChanges } from './utils/amplify';
 
 // todo: put these all into their own file
 const styles = {
@@ -65,11 +65,10 @@ const styles = {
   },
 };
 
+displayAuthStateChanges();
+
 /**  Homepage of the application */
 function App({ signOut, user }) {
-  // todo: is this the correct place for this? where to put it??
-  const [isConnectedToAWS, setIsConnectedToAWS] = useState(false);
-
   // todo: put into individual components
   return (
     <div id="page" style={styles.page}>
@@ -91,15 +90,15 @@ function App({ signOut, user }) {
         <div id="work-2" style={styles.work2}>
           <div id="left" style={styles.left}>
             <div id="select-actions" style={styles.selectActions}>
-              <AvailableOperations isConnected={isConnectedToAWS} />
+              <AvailableOperations />
             </div>
-            <ScheduledOperations isConnected={isConnectedToAWS} />
+            <ScheduledOperations />
             <div id="board-display" style={styles.boardDisplay}>
               <p>Board Display</p>
             </div>
           </div>
           <div id="right" style={styles.right}>
-            <AWS setIsConnected={setIsConnectedToAWS} />
+            <AWS />
             <Button variant="contained" color="primary" type="button" onClick={() => publish(topics.hubbleCommandReq, payloads.hubbleEchoCommand)}>Echo Hello</Button>
           </div>
         </div>
