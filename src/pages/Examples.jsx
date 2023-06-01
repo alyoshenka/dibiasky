@@ -1,29 +1,24 @@
 import * as React from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
 
-function AboutPage() {
+function ExamplesPage() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <CssBaseline />
-      <ResponsiveAppBar />
-      <ClippedDrawer />
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          pl: '20%',
-          pr: '5%',
-        }}
-      >
+    <>
+      <div>
+        <ResponsiveAppBar />
+      </div>
+      <div>
+        <ClippedDrawer />
+      </div>
+      <Box component="main" sx={{ flexGrow: 1, pl: '20%', pr: '5%' }}>
         <Toolbar />
         <Typography paragraph>
-          <h1>This is the about page</h1>
+          <h1>This is the EXAMPLES page</h1>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -38,8 +33,8 @@ function AboutPage() {
           sapien faucibus et molestie ac.
         </Typography>
       </Box>
-    </Box>
+    </>
   );
 }
 
-export default withAuthenticator(AboutPage);
+export default withAuthenticator(ExamplesPage);

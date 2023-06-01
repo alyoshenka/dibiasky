@@ -11,7 +11,7 @@ import ConnectedDevices from '../components/aws/displays/ConnectedDevices';
 import Log from '../components/aws/displays/Log';
 import AvailableOperations from '../components/operations/select/AvailableOperations';
 
-function ActionsPage({ isConnectedToAWS }) {
+function OperationsPage({ isConnectedToAWS }) {
   return (
     <>
       <div>
@@ -33,7 +33,7 @@ function ActionsPage({ isConnectedToAWS }) {
           }}
         >
           <Typography paragraph>
-            <h1>This is the actions page</h1>
+            <h1>This is the OPERATIONS page</h1>
           </Typography>
           <div>
             <AvailableOperations isConnected={isConnectedToAWS} />
@@ -54,4 +54,4 @@ function ActionsPage({ isConnectedToAWS }) {
   );
 }
 
-export default withAuthenticator(ActionsPage);
+export default withAuthenticator(OperationsPage);
