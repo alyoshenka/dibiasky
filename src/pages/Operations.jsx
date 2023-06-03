@@ -1,55 +1,72 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
+import { useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
-import ActiveSubscriptions from '../components/aws/displays/ActiveSubscriptions';
-import ConnectedDevices from '../components/aws/displays/ConnectedDevices';
-import Log from '../components/aws/displays/Log';
-import AvailableOperations from '../components/operations/select/AvailableOperations';
+import OperationsDrawerButtons from '../components/operationsDrawerButtons';
+import OperationRunner from '../components/operations/select/OperationRunner';
+import ScheduledOperations from '../components/operations/scheduled/ScheduledOperations';
 
-function OperationsPage({ isConnectedToAWS }) {
+function OperationsPage() {
+  const [selectedOperation, setSelectedOperation] = useState('');
+
+  const handleOperationSelected = (operation) => {
+    setSelectedOperation(operation);
+  };
   return (
     <>
       <div>
         <ResponsiveAppBar />
       </div>
       <div>
-        <ClippedDrawer />
+        <OperationsDrawerButtons onOperationSelected={handleOperationSelected} />
       </div>
-      <Stack direction="row" marginTop={8}>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            pl: '20%',
-            pr: '5%',
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-          }}
-        >
-          <Typography paragraph>
+      <Box
+        component="main"
+        sx={{
+          ml: '20%',
+          mr: '5%',
+          width: '75%',
+          height: '100vh',
+          bgcolor: 'white',
+          padding: '5%',
+        }}
+      >
+        <Box>
+          <Typography textAlign="center">
             <h1>This is the OPERATIONS page</h1>
           </Typography>
-          <div>
-            <AvailableOperations isConnected={isConnectedToAWS} />
-          </div>
+          <Box
+            comment="schedule"
+            sx={{
+              pb: 5,
+              // bgcolor: 'yellow',
+            }}
+          >
+            <ScheduledOperations />
+            <Box sx={{
+              // bgcolor: 'green',
+              mt: 5,
+            }}
+            >
+              {selectedOperation && (
+                <>
+                  <Divider
+                    textAlign="center"
+                    sx={{ marginBottom: '2%', paddingBottom: '10' }}
+                  >
+                    <h1>Run or Schedule Operation</h1>
+                  </Divider>
+                  <OperationRunner selectedOperation={selectedOperation} />
+                </>
+              )}
+            </Box>
+          </Box>
         </Box>
-        <Box
-          sx={{ width: '100%', display: 'flex' }}
-        >
-          <div>
-            <h1>AWS Stuff</h1>
-            <ActiveSubscriptions />
-            <ConnectedDevices />
-            <Log />
-          </div>
-        </Box>
-      </Stack>
+      </Box>
     </>
   );
 }

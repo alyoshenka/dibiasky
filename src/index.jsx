@@ -9,14 +9,16 @@ import awsExports from './aws-exports';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './state/store';
-import ClippedDrawer from './components/clippedDrawer';
-import ResponsiveAppBar from './components/appBar';
 import OperationsPage from './pages/Operations';
 import AboutPage from './pages/About';
 import ExamplesPage from './pages/Examples';
 import HomePage from './pages/Home';
+import Logs from './pages/Logs';
+import Subscriptions from './pages/Subscriptions';
+import { setupAmplify } from './utils/amplify';
 
 Amplify.configure(awsExports);
+setupAmplify();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,12 +27,12 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/clippedDrawer" element={<ClippedDrawer />} />
+          <Route path="/Subscriptions" element={<Subscriptions />} />
           <Route path="/Operations" element={<OperationsPage />} />
           <Route path="/Home" element={<HomePage />} />
           <Route path="/About" element={<AboutPage />} />
           <Route path="/Examples" element={<ExamplesPage />} />
-          <Route path="/appBar" element={<ResponsiveAppBar />} />
+          <Route path="/Logs" element={<Logs />} />
         </Routes>
       </BrowserRouter>
     </Provider>
