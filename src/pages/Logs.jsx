@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
+import Log from '../components/aws/displays/Log';
 
 function LogsPage() {
   return (
@@ -19,6 +20,7 @@ function LogsPage() {
         <Toolbar />
         <Typography paragraph>
           <h1>This is the LOGS page</h1>
+          <Log />
         </Typography>
       </Box>
     </>

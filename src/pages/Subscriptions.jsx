@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
+import ActiveSubscriptions from '../components/aws/displays/ActiveSubscriptions';
 
 function SubscriptionsPage() {
   return (
@@ -19,6 +20,7 @@ function SubscriptionsPage() {
         <Toolbar />
         <Typography paragraph>
           <h1>This is the SUBS page</h1>
+          <ActiveSubscriptions />
         </Typography>
       </Box>
     </>
