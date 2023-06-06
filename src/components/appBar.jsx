@@ -17,9 +17,6 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import AppBarButtons from './appBarButtons';
 import ConnectionStatus from './aws/displays/ConnectionStatus';
 
-// const pages = ['Home', 'Examples', 'About'];
-// const settings = ['Logout'];
-
 function ResponsiveAppBar({ signOut, user, setIsConnected }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -40,7 +37,7 @@ function ResponsiveAppBar({ signOut, user, setIsConnected }) {
   };
 
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, marginBottom: 'auto' }}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, marginBottom: 'auto', bgcolor: '#0d47a1' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <EngineeringIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

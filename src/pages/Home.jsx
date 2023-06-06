@@ -6,12 +6,13 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
+import AvailableOperations from '../components/operations/select/AvailableOperations';
+import ScheduledOperations from '../components/operations/scheduled/ScheduledOperations';
 import ActiveSubscriptions from '../components/aws/displays/ActiveSubscriptions';
 import ConnectedDevices from '../components/aws/displays/ConnectedDevices';
 import Log from '../components/aws/displays/Log';
-import AvailableOperations from '../components/operations/select/AvailableOperations';
 
-function ActionsPage({ isConnectedToAWS }) {
+function HomePage({ isConnectedToAWS }) {
   return (
     <>
       <div>
@@ -33,10 +34,11 @@ function ActionsPage({ isConnectedToAWS }) {
           }}
         >
           <Typography paragraph>
-            <h1>This is the actions page</h1>
+            <h1>This is the home page</h1>
           </Typography>
           <div>
             <AvailableOperations isConnected={isConnectedToAWS} />
+            <ScheduledOperations isConnected={isConnectedToAWS} />
           </div>
         </Box>
         <Box
@@ -54,4 +56,4 @@ function ActionsPage({ isConnectedToAWS }) {
   );
 }
 
-export default withAuthenticator(ActionsPage);
+export default withAuthenticator(HomePage);
