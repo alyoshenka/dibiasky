@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
@@ -96,7 +95,6 @@ function OperationsDrawerButtons({ onOperationSelected }) {
         <Toolbar />
         <Box sx={{ display: 'flex', overflow: 'auto' }}>
           <div>
-            <Divider />
             <Typography align="center">
               <ConnectedDevices />
               <AwsButtons />

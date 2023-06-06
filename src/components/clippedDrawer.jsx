@@ -22,11 +22,16 @@ export default function ClippedDrawer() {
         }}
       >
         <Toolbar />
-        <Box sx={{ display: 'flex', overflow: 'auto' }}>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        >
           <div>
             <Typography align="center">
               <ConnectedDevices />
               <AwsButtons />
+              <h3>Operations</h3>
             </Typography>
           </div>
         </Box>

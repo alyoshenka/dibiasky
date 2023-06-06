@@ -1,7 +1,7 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import * as React from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
@@ -15,22 +15,19 @@ function ExamplesPage() {
       <div>
         <ClippedDrawer />
       </div>
-      <Box component="main" sx={{ flexGrow: 1, pl: '20%', pr: '5%' }}>
-        <Toolbar />
-        <Typography paragraph>
+      <Box
+        component="main"
+        sx={{
+          ml: '20%',
+          mr: '5%',
+          width: '75%',
+          height: '100vh',
+          bgcolor: 'white',
+          padding: '5%',
+        }}
+      >
+        <Typography>
           <h1>This is the EXAMPLES page</h1>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
         </Typography>
       </Box>
     </>
