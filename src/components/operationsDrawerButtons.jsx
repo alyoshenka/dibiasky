@@ -88,7 +88,7 @@ function OperationsDrawerButtons({ onOperationSelected }) {
           width: '15%',
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: '15%', boxSizing: 'border-box', bgcolor: 'lightgray',
+            width: '15%', boxSizing: 'border-box', bgcolor: 'gray',
           },
         }}
       >

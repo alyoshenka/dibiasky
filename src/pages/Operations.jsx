@@ -37,7 +37,7 @@ function OperationsPage() {
       >
         <Box>
           <Typography textAlign="center">
-            <h1>This is the OPERATIONS page</h1>
+            <h1>Operations</h1>
           </Typography>
           <Box
             comment="schedule"

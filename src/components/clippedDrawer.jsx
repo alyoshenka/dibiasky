@@ -17,7 +17,7 @@ export default function ClippedDrawer() {
           width: '15%',
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: '15%', boxSizing: 'border-box', bgcolor: 'lightgray',
+            width: '15%', boxSizing: 'border-box', bgcolor: 'gray',
           },
         }}
       >
@@ -31,7 +31,6 @@ export default function ClippedDrawer() {
             <Typography align="center">
               <ConnectedDevices />
               <AwsButtons />
-              <h3>Operations</h3>
             </Typography>
           </div>
         </Box>

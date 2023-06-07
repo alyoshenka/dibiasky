@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import OperationNow from './OperationNow';
 import OperationScheduler from './OperationScheduler';
@@ -11,10 +12,27 @@ function OperationRunner({ selectedOperation }) {
   }, [selectedOperation]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <OperationNow operation={operation} setOperation={setOperation} />
-      <OperationScheduler operation={operation} />
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+      }}
+    >
+      <Box
+        sx={{
+          width: '50%',
+        }}
+      >
+        <OperationNow operation={operation} setOperation={setOperation} />
+      </Box>
+      <Box
+        sx={{
+          mr: '10%',
+        }}
+      >
+        <OperationScheduler operation={operation} />
+      </Box>
+    </Box>
   );
 }
 

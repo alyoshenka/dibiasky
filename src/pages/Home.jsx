@@ -16,21 +16,23 @@ function HomePage() {
       <div>
         <ClippedDrawer />
       </div>
-      <Stack direction="row" marginTop={8}>
+      <Stack>
         <Box
           component="main"
           sx={{
-            flexGrow: 1,
-            pl: '20%',
-            pr: '5%',
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
+            ml: '20%',
+            mr: '5%',
+            width: '75%',
+            height: '100vh',
+            bgcolor: '',
+            padding: '5%',
           }}
         >
-          <Typography paragraph>
-            <h1>This is the home page</h1>
-          </Typography>
+          <Box>
+            <Typography textAlign="center">
+              <h1>Project Overview</h1>
+            </Typography>
+          </Box>
         </Box>
       </Stack>
     </>
