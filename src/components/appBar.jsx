@@ -89,8 +89,8 @@ function ResponsiveAppBar({ signOut, user, setIsConnected }) {
               }}
             >
               <MenuItem component={Link} href="/" onClick={handleCloseNavMenu}>Home</MenuItem>
-              <MenuItem component={Link} href="/aboutPage" onClick={handleCloseNavMenu}>About</MenuItem>
-              <MenuItem component={Link} href="/examplesPage" onClick={handleCloseNavMenu}>Examples</MenuItem>
+              <MenuItem component={Link} href="/About" onClick={handleCloseNavMenu}>About</MenuItem>
+              <MenuItem component={Link} href="/Examples" onClick={handleCloseNavMenu}>Examples</MenuItem>
             </Menu>
           </Box>
           <EngineeringIcon sx={{ display: { xs: 'flex', md: 'none' } }} />

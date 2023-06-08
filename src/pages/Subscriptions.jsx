@@ -16,7 +16,7 @@ function SubscriptionsPage() {
       <div>
         <ClippedDrawer />
       </div>
-      <Box component="main" sx={{ flexGrow: 1, pl: '20%', pr: '5%' }}>
+      <Box component="main" sx={{ flexGrow: 1, ml: '20%', mr: '5%' }}>
         <Toolbar />
         <Typography paragraph>
           <h1>This is the SUBS page</h1>

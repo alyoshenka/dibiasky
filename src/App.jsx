@@ -11,7 +11,6 @@ displayAuthStateChanges();
 
 /**  Homepage of the application */
 function App() {
-  // todo: put into individual components
   return (
     <div>
       <HomePage />

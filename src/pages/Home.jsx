@@ -6,13 +6,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
-import AvailableOperations from '../components/operations/select/AvailableOperations';
-import ScheduledOperations from '../components/operations/scheduled/ScheduledOperations';
-import ActiveSubscriptions from '../components/aws/displays/ActiveSubscriptions';
-import ConnectedDevices from '../components/aws/displays/ConnectedDevices';
-import Log from '../components/aws/displays/Log';
 
-function HomePage({ isConnectedToAWS }) {
+function HomePage() {
   return (
     <>
       <div>
@@ -21,35 +16,23 @@ function HomePage({ isConnectedToAWS }) {
       <div>
         <ClippedDrawer />
       </div>
-      <Stack direction="row" marginTop={8}>
+      <Stack>
         <Box
           component="main"
           sx={{
-            flexGrow: 1,
-            pl: '20%',
-            pr: '5%',
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
+            ml: '20%',
+            mr: '5%',
+            width: '75%',
+            height: '100vh',
+            bgcolor: '',
+            padding: '5%',
           }}
         >
-          <Typography paragraph>
-            <h1>This is the home page</h1>
-          </Typography>
-          <div>
-            <AvailableOperations isConnected={isConnectedToAWS} />
-            <ScheduledOperations isConnected={isConnectedToAWS} />
-          </div>
-        </Box>
-        <Box
-          sx={{ width: '100%', display: 'flex' }}
-        >
-          <div>
-            <h1>AWS Stuff</h1>
-            <ActiveSubscriptions />
-            <ConnectedDevices />
-            <Log />
-          </div>
+          <Box>
+            <Typography textAlign="center">
+              <h1>Project Overview</h1>
+            </Typography>
+          </Box>
         </Box>
       </Stack>
     </>

@@ -17,12 +17,16 @@ export default function ClippedDrawer() {
           width: '15%',
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: '15%', boxSizing: 'border-box', bgcolor: 'lightgray',
+            width: '15%', boxSizing: 'border-box', bgcolor: 'gray',
           },
         }}
       >
         <Toolbar />
-        <Box sx={{ display: 'flex', overflow: 'auto' }}>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        >
           <div>
             <Typography align="center">
               <ConnectedDevices />
