@@ -14,7 +14,6 @@ function AboutPage() {
   const [content, setContent] = useState(null);
   useEffect(() => {
     fetch(aboutPath).then((res) => res.text()).then((text) => setContent(text));
-    console.log(content);
   }, []);
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -35,13 +34,6 @@ function AboutPage() {
         <Typography textAlign="center">
           <h1>About Project</h1>
         </Typography>
-        <p>What is this project, exactly?</p>
-        <p>
-          This project allows you to specify messages and have them be
-          displayed on an LED board, either instantaneously or at a scheduled
-          time in the future, even while away from your local network.
-        </p>
-        <p>How does it work?</p>
         <ReactMarkdown>{content}</ReactMarkdown>
       </Box>
     </Box>
