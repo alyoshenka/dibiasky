@@ -13,7 +13,7 @@ import { addEntryToLog } from '../../../utils/log';
 function OperationScheduler({ operation }) {
   // todo: make this its own function?
   const connectionStatus = useSelector((state) => state.connectionStatus);
-  const [commandTime, setCommandTime] = useState('Click to initialize');
+  const [commandTime, setCommandTime] = useState('Invalid Date');
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const dateRef = useRef();
   dateRef.current = selectedDateTime;
@@ -100,10 +100,7 @@ function OperationScheduler({ operation }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <p>
-          <b>{commandTime}</b>
-          {'  ['}
-          {parseISOString(commandTime).toString()}
-          ]
+          <b>{isValidDate(commandTime) ? '' : 'Select a time'}</b>
         </p>
         <Button onClick={oneMinuteAhead}>1 minute from now</Button>
         <p>{dateInPast(selectedDateTime) ? 'The date you have selected is in the past. Are you really sure you want to do that?' : null}</p>
