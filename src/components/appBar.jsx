@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AppBarButtons from './appBarButtons';
 import ConnectionStatus from './aws/displays/ConnectionStatus';
+import { about, examples } from '../utils/pageLinks';
 
 function ResponsiveAppBar({ signOut, user, setIsConnected }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -89,8 +90,14 @@ function ResponsiveAppBar({ signOut, user, setIsConnected }) {
               }}
             >
               <MenuItem component={Link} href="/" onClick={handleCloseNavMenu}>Home</MenuItem>
-              <MenuItem component={Link} href="/About" onClick={handleCloseNavMenu}>About</MenuItem>
-              <MenuItem component={Link} href="/Examples" onClick={handleCloseNavMenu}>Examples</MenuItem>
+              <MenuItem component={Link} href={about} onClick={handleCloseNavMenu}>About</MenuItem>
+              <MenuItem
+                component={Link}
+                href={examples}
+                onClick={handleCloseNavMenu}
+              >
+                Examples
+              </MenuItem>
             </Menu>
           </Box>
           <EngineeringIcon sx={{ display: { xs: 'flex', md: 'none' } }} />
