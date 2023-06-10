@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import ReactMarkdown from 'react-markdown';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import Box from '@mui/material/Box';
@@ -15,6 +14,7 @@ function AboutPage() {
   useEffect(() => {
     fetch(aboutPath).then((res) => res.text()).then((text) => setContent(text));
   }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />

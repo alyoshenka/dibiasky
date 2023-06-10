@@ -4,6 +4,8 @@ This project allows you to interface with an LED display board. The primary purp
 
 ## Why does it exist?
 
+*todo*
+
 ## How does it work?
 
 When running operations through the Operations page of this application, data about the desired operation is sent to Amazon Web Service (AWS)'s Internet of Things (IoT) Core software. This data consists of a payload: a `JSON` object with various fields representing the operation, and a topic: a location to send that data. When data is sent to this topic in the cloud, it is received on the other side by a local device: a laptop or Raspberry Pi. Code running on this local devices extracts data from the payload it was sent and uses it to determine the desired operation. Then, depending on the operating system of the device, messages are displayed either on an LED display board or a graphical display.
@@ -32,7 +34,7 @@ The local device, be that a laptop or Raspberry Pi, utilizes the AWS IoT Core SD
 
 ![arch_webcloud](https://github.com/alyoshenka/dibiasky/assets/38815390/d881cfd1-49da-4bc4-85b0-631450e2e73e)
 
-That local device then utilizes our Neopolitan library to display messages, dispatching to the LED board or a graphical representation based on its operating system
+That local device then utilizes the `Neopolitan` library to display messages, dispatching to the LED board or a graphical representation based on its operating system
 
 ### No but really, *how does it work*?
 
