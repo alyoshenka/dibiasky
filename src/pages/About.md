@@ -17,14 +17,22 @@ This project is made up of four key sub-projects:
 - [AWS Code](https://gist.github.com/alyoshenka/eefe9ad7b53b275c895f0dbe696694ec): Authentication, message routing logic, scheduled operation storage
 
 ### Architecture
+
 ![arch_overall](https://github.com/alyoshenka/dibiasky/assets/38815390/2add908d-63f5-4dcf-bdc4-7d52becdc090)
+
+High-level component overview
 
 ![arch_neoneop](https://github.com/alyoshenka/dibiasky/assets/38815390/58e480f9-7149-426f-91dd-30c25cb76de6)
 
+The web application utilizes AWS Amplify’s PubSub capabilities to send messages to the cloud, which are then routed to various AWS services using Lambda Functions
+
 ![arch_cloudneo](https://github.com/alyoshenka/dibiasky/assets/38815390/c2706b86-cd3d-4270-8267-7d933960745f)
+
+The local device, be that a laptop or Raspberry Pi, utilizes the AWS IoT Core SDK to communicate with the cloud
 
 ![arch_webcloud](https://github.com/alyoshenka/dibiasky/assets/38815390/d881cfd1-49da-4bc4-85b0-631450e2e73e)
 
+That local device then utilizes our Neopolitan library to display messages, dispatching to the LED board or a graphical representation based on its operating system
 
 ### No but really, *how does it work*?
 
