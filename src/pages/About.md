@@ -17,7 +17,13 @@ This project is made up of four key sub-projects:
 - [AWS Code](https://gist.github.com/alyoshenka/eefe9ad7b53b275c895f0dbe696694ec): Authentication, message routing logic, scheduled operation storage
 
 ### Architecture
+![arch_overall](https://github.com/alyoshenka/dibiasky/assets/38815390/2add908d-63f5-4dcf-bdc4-7d52becdc090)
 
+![arch_neoneop](https://github.com/alyoshenka/dibiasky/assets/38815390/58e480f9-7149-426f-91dd-30c25cb76de6)
+
+![arch_cloudneo](https://github.com/alyoshenka/dibiasky/assets/38815390/c2706b86-cd3d-4270-8267-7d933960745f)
+
+![arch_webcloud](https://github.com/alyoshenka/dibiasky/assets/38815390/d881cfd1-49da-4bc4-85b0-631450e2e73e)
 
 
 ### No but really, *how does it work*?
