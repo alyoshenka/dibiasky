@@ -105,7 +105,12 @@ function OperationsDrawerButtons({ onOperationSelected }) {
                 <Button
                   key={opr.friendlyName}
                   onClick={() => onOperationChanged({ target: { value: idx } })}
-                  style={{ minWidth: '90%', margin: '5%' }}
+                  style={{
+                    minWidth: '90%',
+                    marginLeft: '5%',
+                    marginRight: '5%',
+                    marginBottom: '2%',
+                  }}
                   variant={selectedOperationIdx === idx ? 'contained' : 'contained'}
                   color={selectedOperationIdx === idx ? 'success' : 'primary'}
 
