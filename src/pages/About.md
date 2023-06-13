@@ -2,10 +2,6 @@
 
 This project allows you to interface with an LED display board. The primary purpose is to display messages. Some demos of the available characters and symbols are provided and custom message content and speed are also supported. Messaging operations can be run instantaneously or scheduled for a time in the future. Scheduled messages are displayed and can be deleted before they are sent to the board. This code also works for devices without hardware interface capabilities by means of a graphical display that represents an LED board.
 
-## Why does it exist?
-
-*todo*
-
 ## How does it work?
 
 When running operations through the Operations page of this application, data about the desired operation is sent to Amazon Web Service (AWS)'s Internet of Things (IoT) Core software. This data consists of a payload: a `JSON` object with various fields representing the operation, and a topic: a location to send that data. When data is sent to this topic in the cloud, it is received on the other side by a local device: a laptop or Raspberry Pi. Code running on this local devices extracts data from the payload it was sent and uses it to determine the desired operation. Then, depending on the operating system of the device, messages are displayed either on an LED display board or a graphical display.
