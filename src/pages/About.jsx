@@ -1,12 +1,20 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import ClippedDrawer from '../components/clippedDrawer';
 import ResponsiveAppBar from '../components/appBar';
+import aboutPath from './About.md';
 
 function AboutPage() {
+  const [content, setContent] = useState(null);
+  useEffect(() => {
+    fetch(aboutPath).then((res) => res.text()).then((text) => setContent(text));
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
@@ -26,6 +34,7 @@ function AboutPage() {
         <Typography textAlign="center">
           <h1>About Project</h1>
         </Typography>
+        <ReactMarkdown>{content}</ReactMarkdown>
       </Box>
     </Box>
   );
