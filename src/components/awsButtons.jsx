@@ -2,6 +2,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
+import { logs, subscriptions } from '../utils/pageLinks';
 
 export default function AwsButtons() {
   return (
@@ -14,7 +15,7 @@ export default function AwsButtons() {
             marginRight: '5%',
             marginBottom: '2%',
           }}
-          href="/Subscriptions"
+          href={subscriptions}
           variant="contained"
           color="primary"
         >
@@ -27,7 +28,7 @@ export default function AwsButtons() {
             marginRight: '5%',
             marginBottom: '2%',
           }}
-          href="/Logs"
+          href={logs}
           variant="contained"
           color="primary"
         >

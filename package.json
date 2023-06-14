@@ -1,6 +1,6 @@
 {
   "name": "dibiasky",
-  "homepage": "https://www.alyoshenka.com",
+  "homepage": "https://www.alyoshenka.com/#",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,6 +27,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",

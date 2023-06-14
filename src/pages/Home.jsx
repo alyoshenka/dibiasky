@@ -53,7 +53,7 @@ function HomePage() {
                 synchronized with a react js app to display dynamic visuals.
               </h2>
               <h3>
-                See hardware below - checkout&nbsp;
+                See hardware below - check out&nbsp;
                 <Link href="/Operations" underline="hover">
                   operations
                 </Link>
