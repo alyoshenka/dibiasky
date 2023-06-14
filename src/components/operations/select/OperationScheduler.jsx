@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
@@ -91,13 +91,13 @@ function OperationScheduler({ operation }) {
       >
         Run Later
       </Button>
-      <div style={{ marginTop: '7%' }}>
+      <Stack mt="7%" direction="row">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {/* DateTimePicker was not allowing to select time */}
           <DatePicker label="Pick a date" onChange={(val) => updateDate(val)} value={selectedDateTime} />
           <TimePicker label="Pick a time" onChange={(val) => updateTime(val)} value={selectedDateTime} timeSteps={{ minutes: 1 }} />
         </LocalizationProvider>
-      </div>
+      </Stack>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <p>
           <b>{isValidDate(commandTime) ? '' : 'Select a time'}</b>
